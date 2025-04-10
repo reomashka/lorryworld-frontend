@@ -1,0 +1,413 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Game Store Container */
+.game-store {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #121212;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #1b1b1b;
+  border-bottom: 1px solid #333;
+  height: 80px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+.brand-info h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+}
+
+.brand-info p {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.shop-button {
+  background-color: #df382d;
+  border-radius: 4px;
+}
+
+.shop-button a {
+  text-decoration: none;
+}
+
+/* User Controls */
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.language-selector,
+.currency-selector {
+  position: relative;
+}
+
+.lang-button,
+.currency-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.arrow {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+}
+
+.balance-amount {
+  font-weight: 500;
+}
+
+.add-funds {
+  width: 40px;
+  height: 40px;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.avatar-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+}
+
+.user-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 15px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Store Content */
+.store-content {
+  display: flex;
+  flex: 1;
+}
+
+/* Filters Sidebar */
+.filters {
+  width: 280px;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-right: 1px solid #333;
+  position: sticky;
+}
+
+.filter-section {
+  margin-bottom: 30px;
+}
+
+.filter-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.price-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.price-input {
+  position: relative;
+  flex: 1;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.price-input input {
+  width: 100%;
+  padding: 10px 10px 10px 25px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+.type-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  position: relative;
+}
+
+.checkbox-label input:checked + .custom-checkbox {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.checkbox-label input:checked + .custom-checkbox::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.show-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.character-display {
+  /* margin-top: 40px; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.character-image {
+  height: auto;
+  height: 456px;
+  /* width: 400px; */
+}
+
+/* Items Display */
+.items-display {
+  flex: 1;
+  padding: 20px;
+  margin: 30px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  position: relative;
+  width: 60%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.search-input input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.sort-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.sort-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sort-button.active {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: #ffffff;
+}
+
+/* Items Grid */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.item-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+}
+
+.item-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-info {
+  padding: 10px;
+}
+
+.item-name {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e74c3c;
+}
