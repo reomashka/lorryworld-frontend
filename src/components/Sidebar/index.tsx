@@ -1,4 +1,5 @@
 // import character from '../../assets/charachter.svg';
+import { FilterRarity } from '../FilterRarity';
 
 interface SidebarProps {
   selectedTypes: string[];
@@ -14,9 +15,9 @@ export const Sidebar = ({
   setSelectedTypes,
   minPrice,
   setMinPrice,
-  maxPrice,
-  setMaxPrice,
-}: SidebarProps) => {
+}: // maxPrice,
+// setMaxPrice,
+SidebarProps) => {
   const toggleType = (type: string) => {
     if (selectedTypes.includes(type)) {
       setSelectedTypes(selectedTypes.filter((t) => t !== type));
@@ -34,9 +35,15 @@ export const Sidebar = ({
             <span className='currency-symbol'>₽</span>
             <input
               type='text'
-              placeholder='0.00'
-              value={minPrice}
-              onChange={(e) => setMinPrice(Number(e.target.value))}
+              value={minPrice ?? ''}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Разрешаем только цифры и точку
+                if (/^\d*\.?\d*$/.test(value)) {
+                  setMinPrice(Number(value));
+                }
+              }}
+              placeholder='Минимальная цена'
             />
           </div>
           {/* <div className='price-input'>
@@ -93,12 +100,8 @@ export const Sidebar = ({
         </div>
       </div>
 
-      <div className='filter-section'>
-        <h3>Редкость</h3>
-        <button className='show-all-button'>
-          Показать все
-          <span className='arrow'>→</span>
-        </button>
+      <div>
+        <FilterRarity />
       </div>
 
       {/* <div className='character-display'>

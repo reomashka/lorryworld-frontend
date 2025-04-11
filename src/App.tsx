@@ -1,181 +1,72 @@
 import './App.css';
 import legendCover from './assets/coversHome/legendary.svg';
+import sort from './assets/svg/sort.svg';
+import sortStandart from './assets/svg/sortStandart.svg';
 
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
-import { useState } from 'react';
+import { ItemModal } from './components/modals/ItemModal';
+import { useMemo, useState } from 'react';
 
 import { Search } from 'lucide-react';
 
+import { items } from './mocks/items';
+
+interface FilterState {
+  selectedTypes: string[];
+  minPrice: number | 0;
+  maxPrice: number | 0;
+  searchTerm: string;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  price: number;
+  type: string;
+  image: string;
+}
+
 export const App = () => {
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
-  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  console.log(minPrice);
-
-  const items = [
-    {
-      id: 1,
-      name: 'SDDDDDDDDDDDDDD Candleflame',
-      price: 1000,
-      type: 'gun',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 2,
-      name: 'Chroma Darkbringer',
-      price: 160,
-      type: 'knife',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 3,
-      name: 'Chroma Lightbringer',
-      price: 160,
-      type: 'set',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 4,
-      name: 'Slasher',
-      price: 140,
-      type: 'knife',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 5,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 6,
-      name: 'SDASDASD',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 7,
-      name: 'Chroma Candleflame',
-      price: 1000,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 8,
-      name: 'Chroma Darkbringer',
-      price: 160,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 9,
-      name: 'Chroma Lightbringer',
-      price: 160,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 10,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 11,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 12,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 13,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 14,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 15,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 16,
-      name: 'Slasher',
-      price: 140,
-      type: 'Ножи',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 17,
-      name: 'Slasher',
-      price: 140,
-      type: 'Пистолеты',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 18,
-      name: 'Slasher',
-      price: 140,
-      type: 'Сеты',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-    {
-      id: 19,
-      name: 'Slasher',
-      price: 140,
-      type: 'Петы',
-      image: '/placeholder.svg?height=200&width=200',
-    },
-  ];
-
-  const filteredItems = items.filter((item) => {
-    const matchesType = selectedTypes.length === 0 || selectedTypes.includes(item.type);
-
-    const matchesMinPrice = minPrice === undefined || item.price >= minPrice;
-    const matchesMaxPrice = maxPrice === undefined || item.price <= maxPrice;
-
-    const matchesSearchTerm = item.name.toLowerCase().includes(searchTerm.toLowerCase()); //
-
-    return matchesType && matchesMinPrice && matchesMaxPrice && matchesSearchTerm;
+  const [filters, setFilters] = useState<FilterState>({
+    selectedTypes: ['Ножи', 'Пистолеты', 'Сеты', 'Петы'],
+    minPrice: 0,
+    maxPrice: 0,
+    searchTerm: '',
   });
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => {
+      const matchesType = filters.selectedTypes.includes(item.type);
+      const matchesMinPrice = filters.minPrice === 0 || item.price >= filters.minPrice;
+      const matchesMaxPrice = filters.maxPrice === 0 || item.price <= filters.maxPrice;
+      const matchesSearchTerm = item.name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+
+      return matchesType && matchesMinPrice && matchesMaxPrice && matchesSearchTerm;
+    });
+  }, [filters]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setFilters((prev) => ({ ...prev, searchTerm: event.target.value }));
   };
+
+  const updateFilters = (newFilters: Partial<FilterState>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className='game-store'>
       <Header />
       <div className='store-content'>
         <Sidebar
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
-          minPrice={minPrice}
-          setMinPrice={setMinPrice}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
+          selectedTypes={filters.selectedTypes}
+          setSelectedTypes={(types) => updateFilters({ selectedTypes: types })}
+          minPrice={filters.minPrice}
+          setMinPrice={(price) => updateFilters({ minPrice: price })}
+          maxPrice={filters.maxPrice}
+          setMaxPrice={(price) => updateFilters({ maxPrice: price })}
         />
 
         <main className='items-display'>
@@ -187,17 +78,21 @@ export const App = () => {
               <input
                 type='text'
                 placeholder='Поиск...'
-                value={searchTerm}
+                value={filters.searchTerm}
                 onChange={handleSearchChange}
               />
             </div>
 
             <div className='sort-controls'>
               <button className='sort-button'>
-                <span className='sort-icon'>≡</span>
+                <span className='sort-icon'>
+                  <img src={sort} alt='' width={27} />
+                </span>
               </button>
-              <button className='sort-button active'>
-                <span className='sort-icon'>≡</span>
+              <button className='sort-button-standart active'>
+                <span className='sort-icon'>
+                  <img src={sortStandart} alt='' />
+                </span>
                 По стандарту
               </button>
             </div>
@@ -205,7 +100,14 @@ export const App = () => {
 
           <div className='items-grid'>
             {filteredItems.map((item) => (
-              <div key={item.id} className='item-card'>
+              <div
+                key={item.id}
+                className='item-card'
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setSelectedItem(item);
+                }}
+              >
                 <div className='item-image'>
                   {/* <img src={chroma} alt={item.name} /> */}
 
@@ -217,6 +119,13 @@ export const App = () => {
                 </div>
               </div>
             ))}
+            {selectedItem && (
+              <ItemModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                item={selectedItem}
+              />
+            )}
           </div>
         </main>
       </div>

@@ -1,0 +1,106 @@
+.rarity-filter {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+}
+
+.rarity-filter__container {
+  color: white;
+  border-radius: 6px;
+}
+
+.rarity-filter__title {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.rarity-filter__toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  color: white;
+  background-color: #1b1b1b;
+  border-radius: 6px;
+  border: 2px solid #df382d;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: bold;
+}
+
+.rarity-filter__toggle-button:hover {
+  background-color: #27272a;
+}
+
+.rarity-filter__chevron {
+  height: 16px;
+  width: 16px;
+  transition: transform 0.2s;
+}
+
+.rarity-filter__chevron--open {
+  transform: rotate(90deg);
+}
+
+.rarity-filter__dropdown {
+  margin-top: 8px;
+  background-color: #27272a;
+  border-radius: 6px;
+  padding: 8px;
+  border: 1px solid #3f3f46;
+}
+
+.rarity-filter__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.rarity-filter__option:hover {
+  background-color: #3f3f46;
+}
+
+.rarity-filter__option--selected {
+  background-color: #4c4c4c;
+  margin-bottom: 3px;
+}
+
+.rarity-filter__color-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.rarity-filter__option-name {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+/* Color classes */
+.color-chroma {
+  background-color: #2dd4bf;
+}
+
+.color-ancients {
+  background-color: #9333ea;
+}
+
+.color-godly {
+  background-color: #a855f7;
+}
+
+.color-vintages {
+  background-color: #fb923c;
+}
+
+.color-corrupt {
+  background-color: #f97316;
+}
