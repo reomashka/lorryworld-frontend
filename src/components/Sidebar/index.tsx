@@ -1,5 +1,5 @@
 // import character from '../../assets/charachter.svg';
-import { FilterRarity } from '../FilterRarity';
+import { FilterRarity } from "../FilterRarity";
 
 interface SidebarProps {
   selectedTypes: string[];
@@ -15,9 +15,9 @@ export const Sidebar = ({
   setSelectedTypes,
   minPrice,
   setMinPrice,
-}: // maxPrice,
-// setMaxPrice,
-SidebarProps) => {
+  maxPrice,
+  setMaxPrice,
+}: SidebarProps) => {
   const toggleType = (type: string) => {
     if (selectedTypes.includes(type)) {
       setSelectedTypes(selectedTypes.filter((t) => t !== type));
@@ -27,15 +27,15 @@ SidebarProps) => {
   };
 
   return (
-    <aside className='filters'>
-      <div className='filter-section'>
+    <aside className="filters">
+      <div className="filter-section">
         <h3>Цена</h3>
-        <div className='price-inputs'>
-          <div className='price-input'>
-            <span className='currency-symbol'>₽</span>
+        <div className="price-inputs">
+          <div className="price-input">
+            <span className="currency-symbol">₽</span>
             <input
-              type='text'
-              value={minPrice ?? ''}
+              type="text"
+              value={minPrice ?? ""}
               onChange={(e) => {
                 const value = e.target.value;
                 // Разрешаем только цифры и точку
@@ -43,58 +43,58 @@ SidebarProps) => {
                   setMinPrice(Number(value));
                 }
               }}
-              placeholder='Минимальная цена'
+              placeholder="Минимальная цена"
             />
           </div>
-          {/* <div className='price-input'>
-            <span className='currency-symbol'>₽</span>
+          <div className="price-input">
+            <span className="currency-symbol">₽</span>
             <input
-              type='text'
-              placeholder='0.00'
+              type="text"
+              placeholder="0.00"
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
             />
-          </div> */}
+          </div>
         </div>
       </div>
 
-      <div className='filter-section'>
+      <div className="filter-section">
         <h3>Тип</h3>
-        <div className='type-checkboxes'>
-          <label className='checkbox-label'>
+        <div className="type-checkboxes">
+          <label className="checkbox-label">
             <input
-              type='checkbox'
-              checked={selectedTypes.includes('Ножи')}
-              onChange={() => toggleType('Ножи')}
+              type="checkbox"
+              checked={selectedTypes.includes("Ножи")}
+              onChange={() => toggleType("Ножи")}
             />
-            <span className='custom-checkbox'></span>
+            <span className="custom-checkbox"></span>
             Ножи
           </label>
-          <label className='checkbox-label'>
+          <label className="checkbox-label">
             <input
-              type='checkbox'
-              checked={selectedTypes.includes('Пистолеты')}
-              onChange={() => toggleType('Пистолеты')}
+              type="checkbox"
+              checked={selectedTypes.includes("Пистолеты")}
+              onChange={() => toggleType("Пистолеты")}
             />
-            <span className='custom-checkbox'></span>
+            <span className="custom-checkbox"></span>
             Пистолеты
           </label>
-          <label className='checkbox-label'>
+          <label className="checkbox-label">
             <input
-              type='checkbox'
-              checked={selectedTypes.includes('Сеты')}
-              onChange={() => toggleType('Сеты')}
+              type="checkbox"
+              checked={selectedTypes.includes("Сеты")}
+              onChange={() => toggleType("Сеты")}
             />
-            <span className='custom-checkbox'></span>
+            <span className="custom-checkbox"></span>
             Сеты
           </label>
-          <label className='checkbox-label'>
+          <label className="checkbox-label">
             <input
-              type='checkbox'
-              checked={selectedTypes.includes('Петы')}
-              onChange={() => toggleType('Петы')}
+              type="checkbox"
+              checked={selectedTypes.includes("Петы")}
+              onChange={() => toggleType("Петы")}
             />
-            <span className='custom-checkbox'></span>
+            <span className="custom-checkbox"></span>
             Петы
           </label>
         </div>
