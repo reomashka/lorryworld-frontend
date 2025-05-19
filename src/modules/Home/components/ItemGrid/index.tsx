@@ -1,4 +1,4 @@
-import legendCover from "@assets/coversHome/legendary.svg";
+import legendCover from "@assets/coversHome/legendary.png";
 import Item from "@modules/Home/interfaces/Item.interface";
 
 import styles from "./ItemGrid.module.scss";

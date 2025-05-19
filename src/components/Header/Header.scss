@@ -1,34 +1,54 @@
-/* Header */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 10px 15px 10px 0;
   background-color: #1b1b1b;
-  height: 100px;
+  max-height: 100px;
+  height: 100%;
+
+  .left-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
 
   .logo-container {
     display: flex;
     align-items: center;
-    margin-right: 70px;
+    margin-right: 10px;
+    gap: 15px;
+
+    @media (max-width: 450px) {
+      margin-right: 10px;
+    }
   }
 
   .brand-info {
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 900;
       color: #ffffff;
       margin: 0;
     }
 
     p {
-      font-size: 14px;
+      font-size: 12px;
       margin: 0;
       font-weight: 600;
     }
+
+    @media (max-width: 625px) {
+      display: none;
+    }
   }
 
-  /* Navigation */
   .main-nav {
     display: flex;
     gap: 10px;
@@ -62,9 +82,12 @@
         text-decoration: none;
       }
     }
+
+    @media (max-width: 992px) {
+      display: none;
+    }
   }
 
-  /* User Controls */
   .user-controls {
     display: flex;
     align-items: center;
@@ -129,6 +152,11 @@
       cursor: pointer;
       border: none;
       border-radius: 5px;
+      background-color: transparent;
+
+      @media (max-width: 992px) {
+        display: none;
+      }
     }
 
     .user-menu {
@@ -160,4 +188,8 @@
       }
     }
   }
+}
+
+.user-profile {
+  border: none;
 }
