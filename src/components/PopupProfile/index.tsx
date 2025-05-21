@@ -10,7 +10,7 @@ type PopupMenuProps = {
 
 export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
   return (
-    <div className="sidebarMenu">
+    <div className="menu">
       <div className="menuItem" onClick={onClose}>
         <span>
           <CreditCard color="#DF382D" />

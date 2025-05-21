@@ -16,15 +16,17 @@ export const Header = () => {
     <header className="header">
       <div className="headerContainer">
         <div className="left-block">
-          <div className="logo-container">
-            <div className="logo">
-              <img src={logo} alt="logo" />
+          <Link to="/">
+            <div className="logo-container">
+              <div className="logo">
+                <img src={logo} alt="logo" />
+              </div>
+              <div className="brand-info">
+                <h1>Lorry World</h1>
+                <p>Магазин Murder Mystery 2</p>
+              </div>
             </div>
-            <div className="brand-info">
-              <h1>Lorry World</h1>
-              <p>Магазин Murder Mystery 2</p>
-            </div>
-          </div>
+          </Link>
 
           <nav className="main-nav">
             <Link className="nav-button shop-button" to="/">

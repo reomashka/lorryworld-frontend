@@ -32,15 +32,12 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-html {
-  background-image: url("/src/assets/homePage/sharpes.png");
-  background-size: cover;
+  color: #ffffff;
 }
 
 main {
   flex: 1;
+  background-color: #151515;
 }
 
 .container {

@@ -1,17 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import cart from "@assets/svg/cart.svg";
 import inventory from "@assets/svg/inventory.svg";
 import info from "@assets/svg/info.svg";
 import avatar from "@assets/avatar.png";
+import { PopupProfile } from "@components/PopupProfile";
 
 import styles from "./BottomNavbar.module.scss";
-import { PopupProfile } from "@components/PopupProfile";
-import { useState } from "react";
 
 export const BottomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -22,40 +21,40 @@ export const BottomNavbar = () => {
     togglePopup();
   };
 
+  const links = [
+    { to: "/", icon: cart, label: "Магазин", className: styles.navItem_shop },
+    {
+      to: "/inventory",
+      icon: inventory,
+      label: "Инвентарь",
+      className: styles.navItem_inventory,
+    },
+    {
+      to: "/help",
+      icon: info,
+      label: "Помощь",
+      className: styles.navItem_help,
+    },
+  ];
+
   return (
     <nav className={styles.bottomNavbar}>
-      <Link to="/" className={styles}>
-        <div className={styles.navItem_shop}>
-          <img src={cart} alt="Магазин" />
-        </div>
-        <span>Магазин</span>
-      </Link>
-      <Link
-        to="/inventory"
-        className={isActive("/help") ? "navItem active" : "navItem"}
-      >
-        <div className={styles.navItem_inventory}>
-          <img src={inventory} alt="Помощь" />
-        </div>
-        <span>Инвентарь</span>
-      </Link>
+      {links.map(({ to, icon, label, className }) => (
+        <Link to={to} className={styles.navItem} key={to}>
+          <div className={className}>
+            <img src={icon} alt={label} />
+          </div>
+          <span>{label}</span>
+        </Link>
+      ))}
 
-      <Link
-        to="/help"
-        className={isActive("/help") ? "navItem active" : "navItem"}
-      >
-        <div className="navItem_info">
-          <img src={info} alt="Помощь" />
-        </div>
-        <span>Помощь</span>
-      </Link>
-
-      <button className="navItem" onClick={togglePopup}>
-        <div className="navItem_avatar">
+      <button className={styles.navItem} type="button" onClick={togglePopup}>
+        <div className={styles.navItem_avatar}>
           <img src={avatar} alt="Профиль" />
         </div>
         <span>Профиль</span>
       </button>
+
       {isOpen && <PopupProfile onClose={togglePopup} onLogout={handleLogout} />}
     </nav>
   );

@@ -1,7 +1,7 @@
-.sidebarMenu {
+.menu {
   position: fixed;
-  top: 0;
-  right: 0;
+  bottom: 90px;
+  right: 20px;
   margin-top: 10px;
   background-color: #2f2f2f;
   border-radius: 12px;
@@ -9,6 +9,7 @@
   width: 160px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 10;
+  text-decoration: none;
 
   .menuItem {
     display: flex;
@@ -18,16 +19,10 @@
     cursor: pointer;
     font-weight: 500;
     color: #fff;
+    text-decoration: none;
 
     &:last-child {
       margin-bottom: 0;
-    }
-
-    span {
-      &:first-child {
-        color: #df382d;
-        display: flex; // если нужно для иконки
-      }
     }
   }
 }
