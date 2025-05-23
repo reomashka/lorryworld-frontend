@@ -1,0 +1,89 @@
+/* Filters Sidebar */
+.filters {
+  width: 280px;
+  padding: 20px;
+  background-color: #1b1b1b;
+  position: sticky;
+
+  @media (max-width: 770px) {
+    display: none;
+  }
+}
+
+.filterSection {
+  margin-bottom: 30px;
+
+  h3 {
+    font-weight: 900;
+    margin-bottom: 13px;
+    font-size: 22px;
+  }
+}
+
+.priceInputs {
+  display: flex;
+  gap: 10px;
+}
+
+.priceInput {
+  position: relative;
+  flex: 1;
+
+  input {
+    width: 100%;
+    padding: 10px 10px 10px 25px;
+    background-color: #1e1e1e;
+    border: 2px solid #df382d;
+    border-radius: 7px;
+    color: #ffffff;
+  }
+}
+
+.currencySymbol {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-weight: bold;
+}
+
+.typeCheckboxes {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 12px;
+}
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: bold;
+
+  input {
+    display: none;
+
+    &:checked + span {
+      background-color: #e74c3c;
+      border-color: #e74c3c;
+
+      &::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: black;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.customCheckbox {
+  width: 27px;
+  height: 27px;
+  border: 2px solid #df382d;
+  border-radius: 7px;
+  position: relative;
+}

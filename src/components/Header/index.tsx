@@ -7,11 +7,21 @@ import cart from "@assets/svg/cart.svg";
 import info from "@assets/svg/info.svg";
 import inventory from "@assets/svg/inventory.svg";
 
+import { PopupProfile } from "src/UI/PopupProfile";
+
 import "./Header.scss";
 
 export const Header = () => {
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    console.log("Выход");
+    togglePopup();
+  };
   return (
     <header className="header">
       <div className="headerContainer">
@@ -54,30 +64,12 @@ export const Header = () => {
           </div>
 
           <div className="user-profile">
-            <button
-              className="avatar-button"
-              onClick={() => setShowUserMenu(!showUserMenu)}
-            >
+            <button className="avatar-button" onClick={togglePopup}>
               <img src={avatar} alt="avatar" />
             </button>
 
-            {showUserMenu && (
-              <div className="user-menu">
-                <button className="menu-item">
-                  <span className="menu-icon">
-                    <img src={wallet} alt="" />
-                  </span>
-                  Пополнить
-                </button>
-                <Link to="/profile" className="menu-item">
-                  <span className="menu-icon">👤</span>
-                  Профиль
-                </Link>
-                <button className="menu-item">
-                  <span className="menu-icon">🚪</span>
-                  Выйти
-                </button>
-              </div>
+            {isOpen && (
+              <PopupProfile onClose={togglePopup} onLogout={handleLogout} />
             )}
           </div>
         </div>

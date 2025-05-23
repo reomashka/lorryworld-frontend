@@ -2,8 +2,8 @@ import type React from "react";
 import { useState } from "react";
 import "./ItemModal.scss";
 
-import credit from "../../../assets/svg/credit.svg";
-import cart from "../../../assets/svg/cart_two.svg";
+import credit from "@assets/svg/credit.svg";
+import cart from "@assets/svg/cart_two.svg";
 
 interface ItemModalProps {
   isOpen: boolean;

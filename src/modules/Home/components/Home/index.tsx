@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import "./HomePage.scss";
+import styles from "./Home.module.scss";
 
 import { Sidebar } from "@components/Sidebar";
-import { ItemModal } from "@components/modals/ItemModal";
+import { ItemModal } from "@components/ItemModal";
 
 import Item from "@modules/Home/interfaces/Item.interface";
 import FilterState from "@modules/Home/interfaces/FilterState.interface";
@@ -29,7 +29,7 @@ export const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="store-content">
+    <div className={styles.storeContent}>
       <Sidebar
         selectedTypes={filters.selectedTypes}
         setSelectedTypes={(types) => updateFilters({ selectedTypes: types })}
@@ -39,7 +39,7 @@ export const Home = () => {
         setMaxPrice={(price) => updateFilters({ maxPrice: price })}
       />
 
-      <main className="items-display">
+      <main className={styles.itemsDisplay}>
         <SearchBar
           searchTerm={filters.searchTerm}
           setSearchTerm={(term) => updateFilters({ searchTerm: term })}

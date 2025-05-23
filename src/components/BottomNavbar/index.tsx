@@ -5,7 +5,7 @@ import cart from "@assets/svg/cart.svg";
 import inventory from "@assets/svg/inventory.svg";
 import info from "@assets/svg/info.svg";
 import avatar from "@assets/avatar.png";
-import { PopupProfile } from "@components/PopupProfile";
+import { PopupProfile } from "src/UI/PopupProfile";
 
 import styles from "./BottomNavbar.module.scss";
 

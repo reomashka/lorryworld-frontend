@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+}
+body {
+  color: white;
+}
+
+/* Store Content */
+.storeContent {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  background-color: #151515;
+}
+
+/* Items Display */
+.itemsDisplay {
+  flex: 1;
+  padding: 20px;
+  margin: 30px;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    margin: 10px;
+  }
+}
+
+// Временно неиспользуемый стили
+.settings {
+  padding: 10px 13px;
+  background-color: #2f2f2f;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+
+.character-display {
+  /* margin-top: 40px; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.character-image {
+  height: auto;
+  height: 456px;
+  /* width: 400px; */
+}
+
+.show-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #1e1e1e;
+  border: 2px solid #df382d;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}

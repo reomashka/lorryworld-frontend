@@ -1,6 +1,8 @@
 // import character from '../../assets/charachter.svg';
 import { FilterRarity } from "../FilterRarity";
 
+import styles from "./Sidebar.module.scss";
+
 interface SidebarProps {
   selectedTypes: string[];
   setSelectedTypes: (types: string[]) => void;
@@ -27,12 +29,12 @@ export const Sidebar = ({
   };
 
   return (
-    <aside className="filters">
-      <div className="filter-section">
+    <aside className={styles.filters}>
+      <div className={styles.filterSection}>
         <h3>Цена</h3>
-        <div className="price-inputs">
-          <div className="price-input">
-            <span className="currency-symbol">₽</span>
+        <div className={styles.priceInputs}>
+          <div className={styles.priceInput}>
+            <span className={styles.currencySymbol}>₽</span>
             <input
               type="text"
               value={minPrice ?? ""}
@@ -46,8 +48,8 @@ export const Sidebar = ({
               placeholder="Минимальная цена"
             />
           </div>
-          <div className="price-input">
-            <span className="currency-symbol">₽</span>
+          <div className={styles.priceInput}>
+            <span className={styles.currencySymbol}>₽</span>
             <input
               type="text"
               placeholder="0.00"
@@ -58,43 +60,43 @@ export const Sidebar = ({
         </div>
       </div>
 
-      <div className="filter-section">
+      <div className={styles.filterSection}>
         <h3>Тип</h3>
-        <div className="type-checkboxes">
-          <label className="checkbox-label">
+        <div className={styles.typeCheckboxes}>
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={selectedTypes.includes("Ножи")}
               onChange={() => toggleType("Ножи")}
             />
-            <span className="custom-checkbox"></span>
+            <span className={styles.customCheckbox}></span>
             Ножи
           </label>
-          <label className="checkbox-label">
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={selectedTypes.includes("Пистолеты")}
               onChange={() => toggleType("Пистолеты")}
             />
-            <span className="custom-checkbox"></span>
+            <span className={styles.customCheckbox}></span>
             Пистолеты
           </label>
-          <label className="checkbox-label">
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={selectedTypes.includes("Сеты")}
               onChange={() => toggleType("Сеты")}
             />
-            <span className="custom-checkbox"></span>
+            <span className={styles.customCheckbox}></span>
             Сеты
           </label>
-          <label className="checkbox-label">
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={selectedTypes.includes("Петы")}
               onChange={() => toggleType("Петы")}
             />
-            <span className="custom-checkbox"></span>
+            <span className={styles.customCheckbox}></span>
             Петы
           </label>
         </div>
