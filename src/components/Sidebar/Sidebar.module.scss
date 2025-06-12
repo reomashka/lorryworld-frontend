@@ -1,11 +1,82 @@
-/* Filters Sidebar */
-.filters {
-  width: 280px;
-  padding: 20px;
-  background-color: #1b1b1b;
-  position: sticky;
+// .filters {
+//   width: 280px;
+//   padding: 20px;
+//   background-color: #1b1b1b;
+//   position: sticky;
 
+//   @media (max-width: 770px) {
+//     display: none;
+//   }
+
+//   &.open {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     z-index: 9999;
+//     width: 100vw;
+//     height: 100vh;
+//     background-color: #1b1b1b;
+//     display: block;
+
+//     @media (max-width: 770px) {
+//       display: block;
+//     }
+//   }
+// }
+.filters {
+  background-color: #1b1b1b;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+  transition: transform 0.3s ease-in-out;
+
+  // Поведение по умолчанию (для десктопа)
+  position: sticky;
+  top: 0;
+  width: 280px;
+  transform: translateX(0);
+
+  // Открытие/закрытие для мобильного
   @media (max-width: 770px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    transform: translateX(-100%);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+  }
+  @media (min-width: 768px) {
     display: none;
   }
 }

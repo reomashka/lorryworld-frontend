@@ -1,6 +1,6 @@
-import { useMemo } from "react";
 import { items } from "@mocks/items";
 import FilterState from "@modules/Home/interfaces/FilterState.interface";
+import { useMemo } from "react";
 
 export const useFilteredItems = (filters: FilterState) => {
   return useMemo(() => {

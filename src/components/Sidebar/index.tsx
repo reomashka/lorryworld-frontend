@@ -3,6 +3,8 @@ import { FilterRarity } from "../FilterRarity";
 
 import styles from "./Sidebar.module.scss";
 
+import { useSidebar } from "src/hooks/contexts/SidebarContext";
+
 interface SidebarProps {
   selectedTypes: string[];
   setSelectedTypes: (types: string[]) => void;
@@ -28,8 +30,14 @@ export const Sidebar = ({
     }
   };
 
+  const { isOpenSidebar, toggleSidebar } = useSidebar();
+
   return (
-    <aside className={styles.filters}>
+    <aside className={`${styles.filters} ${isOpenSidebar ? styles.open : ""}`}>
+      <button className={styles.closeButton} onClick={toggleSidebar}>
+        ×
+      </button>
+
       <div className={styles.filterSection}>
         <h3>Цена</h3>
         <div className={styles.priceInputs}>

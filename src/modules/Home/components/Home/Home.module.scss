@@ -30,19 +30,6 @@ body {
 }
 
 // Временно неиспользуемый стили
-.settings {
-  padding: 10px 13px;
-  background-color: #2f2f2f;
-  border: none;
-  border-radius: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  @media (min-width: 992px) {
-    display: none;
-  }
-}
 
 .character-display {
   /* margin-top: 40px; */

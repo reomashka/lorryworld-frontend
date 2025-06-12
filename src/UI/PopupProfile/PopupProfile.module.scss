@@ -1,0 +1,56 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+}
+
+.menu {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  margin-top: 10px;
+  background-color: #2f2f2f;
+  border-radius: 12px;
+  padding: 20px;
+  width: 175px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+
+  @media (max-width: 992px) {
+    top: auto;
+    bottom: 90px;
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  border-radius: 7px;
+  padding: 5px 7px;
+
+  &:hover {
+    background-color: rgba(223, 56, 45, 0.15);
+    color: #df382d;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

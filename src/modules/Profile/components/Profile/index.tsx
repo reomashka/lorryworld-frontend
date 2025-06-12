@@ -1,68 +1,70 @@
 import avatar from "@assets/svg/avatar.svg";
-import "./Profile.scss";
+import styles from "./Profile.module.scss";
 import { Mail, User, CreditCard } from "lucide-react";
 import cover from "@assets/coversHome/legendary.png";
 
 export const Profile = () => {
   return (
-    <div className="profile-page">
-      <main className="main">
-        <div className="sidebar">
-          <div className="sidebar__tabs">
-            <button className="sidebar__tab sidebar__tab--active">
+    <div className={styles.profilePage}>
+      <main className={styles.main}>
+        <div className={styles.sidebar}>
+          <div className={styles.sidebarTabs}>
+            <button
+              className={`${styles.sidebarTab} ${styles.sidebarTabActive}`}
+            >
               <User />
               Профиль
             </button>
-            <button className="sidebar__tab">
+            <button className={styles.sidebarTab}>
               <CreditCard />
               Пополнения
             </button>
           </div>
 
-          <div className="profile-info">
+          <div className={styles.profileInfo}>
             <h2>Личная Информация</h2>
-            <div className="profile-info__user">
-              <div className="profile-info__avatar">
+            <div className={styles.profileUser}>
+              <div className={styles.profileAvatar}>
                 <img src={avatar} alt="User avatar" />
               </div>
-              <div className="profile-info__name">Тимур Кабанов</div>
+              <div className={styles.profileName}>Тимур Кабанов</div>
             </div>
-            <div className="profile-info__stats">
-              <div className="profile-info__stat">
-                <span className="profile-info__stat-label">
+            <div className={styles.profileStats}>
+              <div>
+                <span className={styles.profileStatLabel}>
                   Купленных предметов:
                 </span>
-                <span className="profile-info__stat-value">23</span>
+                <span className={styles.profileStatValue}>23</span>
               </div>
             </div>
           </div>
 
-          <div className="email-section">
+          <div className={styles.emailSection}>
             <h2>E-Mail:</h2>
-            <button className="email-section__link-button">
+            <button className={styles.emailLinkButton}>
               <Mail />
               Привяжите ваш email
             </button>
-            <p className="email-section__note">
+            <p className={styles.emailNote}>
               Если вы забудете пароль от аккаунта, то сможете восстановить его с
               помощью email
             </p>
           </div>
         </div>
 
-        <div className="content">
-          <h2 className="content__title">История покупок</h2>
-          <div className="purchase-grid">
+        <div className={styles.content}>
+          <h2 className={styles.contentTitle}>История покупок</h2>
+          <div className={styles.purchaseGrid}>
             {Array(12)
               .fill(0)
               .map((_, index) => (
-                <div className="purchase-item" key={index}>
+                <div className={styles.purchaseItem} key={index}>
                   <img src={cover} alt="" />
-                  <div className="purchase-item__info">
-                    <div className="purchase-item__name">
+                  <div className={styles.purchaseItemInfo}>
+                    <div className={styles.purchaseItemName}>
                       Chroma Lightbringer
                     </div>
-                    <div className="purchase-item__price">160 ₽</div>
+                    <div className={styles.purchaseItemPrice}>160 ₽</div>
                   </div>
                 </div>
               ))}

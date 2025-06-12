@@ -13,22 +13,34 @@
   overflow: hidden;
   transition: transform 0.2s;
   cursor: pointer;
-}
 
-.itemCard:hover {
-  transform: translateY(-5px);
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .itemImage {
+  position: relative;
   width: 100%;
-  //   height: 200px;
   overflow: hidden;
+  aspect-ratio: 1 / 1; // сохраняет квадратную форму
 }
 
 .itemImage img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.itemImage img:first-child {
+  z-index: 2;
+}
+
+.itemImage img:last-child {
+  z-index: 1;
 }
 
 .itemInfo {

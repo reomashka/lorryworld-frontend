@@ -1,7 +1,7 @@
 import { CreditCard, DoorClosed, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 
-import "./PopupProfile.scss";
+import styles from "./PopupProfile.module.scss";
 
 type PopupMenuProps = {
   onClose: () => void;
@@ -9,32 +9,40 @@ type PopupMenuProps = {
 };
 
 export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
+  const location = useLocation();
   return (
-    <div className="menu">
-      <div className="menuItem" onClick={onClose}>
-        <span>
+    <div className={styles.menu}>
+      <div className={styles.menuItem} onClick={onClose}>
+        <Link
+          to="/topup"
+          state={{
+            backgroundLocation: location.state?.backgroundLocation || location,
+          }}
+          className={styles.link}
+        >
           <CreditCard color="#DF382D" />
-        </span>
-        <span>Пополнить</span>
+
+          <span>Пополнить</span>
+        </Link>
       </div>
 
-      <Link to="/profile" className="menuItem" onClick={onClose}>
-        <span>
-          <User color="#DF382D" />
-        </span>
+      <Link
+        to="/profile"
+        className={`${styles.menuItem} ${styles.link}`}
+        onClick={onClose}
+      >
+        <User color="#DF382D" />
         <span>Профиль</span>
       </Link>
 
       <div
-        className="menuItem"
+        className={styles.menuItem}
         onClick={() => {
           onClose();
           onLogout();
         }}
       >
-        <span>
-          <DoorClosed color="#DF382D" />
-        </span>
+        <DoorClosed color="#DF382D" />
         <span>Выйти</span>
       </div>
     </div>

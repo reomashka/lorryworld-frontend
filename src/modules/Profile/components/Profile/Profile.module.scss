@@ -1,0 +1,233 @@
+// Variables
+$background-color: #1b1b1b;
+$card-background: #1b1b1b;
+$primary-color: #e63e2e;
+$text-color: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$border-color: #333333;
+
+// Mixins
+@mixin button-reset {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Layout
+.profilePage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  padding: 24px;
+  gap: 24px;
+  background-color: #151515;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    padding: 16px;
+  }
+}
+
+.sidebar {
+  width: 35%;
+  flex-shrink: 0;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+}
+
+.sidebarTabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.sidebarTab {
+  @include button-reset;
+  @include flex-center;
+  gap: 8px;
+  color: $text-color;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &Active {
+    background-color: $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Profile Info
+.profileInfo {
+  background-color: $card-background;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+}
+
+.profileUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #4c4c4c;
+  margin-bottom: 16px;
+}
+
+.profileAvatar {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  background-color: #333;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profileName {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profileStats {
+  font-size: 14px;
+}
+
+.profileStatLabel {
+  color: $text-secondary;
+  margin-right: 5px;
+}
+
+.profileStatValue {
+  font-weight: 600;
+}
+
+// Email Section
+.emailSection {
+  background-color: $card-background;
+  border-radius: 15px;
+  padding: 16px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+}
+
+.emailLinkButton {
+  @include button-reset;
+  @include flex-center;
+  gap: 8px;
+  color: $primary-color;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: left;
+  justify-content: flex-start;
+  padding: 8px 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.emailNote {
+  font-size: 12px;
+  color: $text-secondary;
+  line-height: 1.5;
+}
+
+// Content
+.content {
+  flex: 1;
+  background-color: #1b1b1b;
+  padding: 20px 30px 30px 30px;
+  border-radius: 15px;
+}
+
+.contentTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+// Purchase Grid
+.purchaseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 25px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Purchase Item
+.purchaseItem {
+  background-color: $card-background;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+  }
+}
+
+.purchaseItemInfo {
+  padding: 8px;
+}
+
+.purchaseItemName {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.purchaseItemPrice {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}

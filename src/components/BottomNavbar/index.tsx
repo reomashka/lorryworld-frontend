@@ -30,7 +30,7 @@ export const BottomNavbar = () => {
       className: styles.navItem_inventory,
     },
     {
-      to: "/help",
+      to: "/",
       icon: info,
       label: "Помощь",
       className: styles.navItem_help,

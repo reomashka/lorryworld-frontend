@@ -6,7 +6,7 @@
 
 .searchInput {
   position: relative;
-  margin-right: 20px;
+  margin-right: 10px;
   width: 30%;
 }
 
@@ -18,6 +18,18 @@
   color: white;
 }
 
+.settings {
+  padding: 4px 7px;
+  background-color: #2f2f2f;
+  border: none;
+  border-radius: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  @media (min-width: 771px) {
+    display: none;
+  }
+}
 .searchInput input {
   width: 100%;
   padding: 10px 10px 15px 40px;
@@ -27,35 +39,171 @@
   color: #ffffff;
   font-size: 15px;
   font-weight: bold;
+
+  &::placeholder {
+    color: white;
+    font-weight: 600;
+    transition: opacity 0.3s ease; // плавное скрытие
+  }
+}
+
+@media (max-width: 410px) {
+  .searchInput input::placeholder {
+    opacity: 0;
+  }
 }
 
 .sortControls {
+  position: relative;
   display: flex;
+  align-items: center;
 }
 
 .sortButton {
+  background: #4a4a4a;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  padding: 9px 12px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 7px 10px;
-  background-color: #4d4d4d;
-  border: 1px solid #4d4d4d;
-  border-radius: 4px 0 0 4px;
-  color: #999;
-  font-size: 14px;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+  height: 44px;
+
+  &:hover {
+    background: #525252;
+    border-color: #6a6a6a;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.dropdown {
+  position: relative;
 }
 
 .sortButton_standart {
-  color: white;
+  background: #2f2f2f;
+  border: none;
+  border-radius: 0px 8px 8px 0px;
+  padding: 13px 16px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-weight: bold;
-  padding: 7px 10px;
-  background-color: #2f2f2f;
-  border: 1px solid #2f2f2f;
-  border-radius: 0 4px 4px 0;
-  font-size: 14px;
+  gap: 8px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  min-width: 140px;
+  height: 44px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #525252;
+    border-color: #6a6a6a;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #ef4444;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      filter: brightness(0) saturate(100%) invert(27%) sepia(51%)
+        saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+    }
+  }
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 12px;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+
+  &_open {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #3a3a3a;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: left;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #4a4a4a;
+  }
+
+  &_active {
+    background: #4a4a4a;
+    color: #ef4444;
+
+    span img {
+      filter: brightness(0) saturate(100%) invert(27%) sepia(51%)
+        saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+
+    img {
+      filter: brightness(0) saturate(100%) invert(100%);
+    }
+  }
+}
+
+// Active state for non-active items should have white icons
+.dropdownItem:not(.dropdownItem_active) span img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+// Red icons for active item and hover states
+.dropdownItem_active span img,
+.dropdownItem:hover span img {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%)
+    hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+// Hover text color
+.dropdownItem:hover {
+  color: #ef4444;
 }

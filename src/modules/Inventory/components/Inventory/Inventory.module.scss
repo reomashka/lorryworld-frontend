@@ -1,0 +1,144 @@
+// Variables
+$background-color: #1b1b1b;
+$card-background: #1b1b1b;
+$primary-color: #e63e2e;
+$text-color: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$border-color: #333333;
+
+// Mixins
+@mixin button-reset {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Layout
+.profilePage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  padding: 24px;
+  gap: 24px;
+  background-color: #151515;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    padding: 16px;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  flex-shrink: 0;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+}
+
+.sidebarTabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.sidebarTab {
+  @include button-reset;
+  @include flex-center;
+  gap: 8px;
+  color: $text-color;
+  font-size: 18px;
+  margin: 10px 0;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &Active {
+    background-color: $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Content
+.content {
+  flex: 1;
+  background-color: #1b1b1b;
+  padding: 20px 30px 30px 30px;
+  border-radius: 15px;
+}
+
+.contentTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+// Purchase Grid
+.purchaseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 35px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Purchase Item
+.purchaseItem {
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+  }
+}
+
+.purchaseItemInfo {
+  padding: 8px;
+}
+
+.purchaseItemName {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.purchaseItemPrice {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4c4c4c;
+}

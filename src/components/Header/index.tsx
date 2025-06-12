@@ -1,5 +1,6 @@
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import wallet from "@assets/svg/wallet.svg";
 import logo from "@assets/svg/logo.svg";
 import avatar from "@assets/svg/avatar.svg";
@@ -9,10 +10,11 @@ import inventory from "@assets/svg/inventory.svg";
 
 import { PopupProfile } from "src/UI/PopupProfile";
 
-import "./Header.scss";
+import styles from "./Header.module.scss";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -23,48 +25,61 @@ export const Header = () => {
     togglePopup();
   };
   return (
-    <header className="header">
-      <div className="headerContainer">
-        <div className="left-block">
+    <header className={styles.header}>
+      <div className={styles.headerContainer}>
+        <div className={styles.leftBlock}>
           <Link to="/">
-            <div className="logo-container">
-              <div className="logo">
+            <div className={styles.logoContainer}>
+              <div className={styles.logo}>
                 <img src={logo} alt="logo" />
               </div>
-              <div className="brand-info">
+              <div className={styles.brandInfo}>
                 <h1>Lorry World</h1>
                 <p>Магазин Murder Mystery 2</p>
               </div>
             </div>
           </Link>
 
-          <nav className="main-nav">
-            <Link className="nav-button shop-button" to="/">
+          <nav className={styles.mainNav}>
+            <Link className={`${styles.navButton} ${styles.shopButton}`} to="/">
               <img src={cart} alt="" />
               МАГАЗИН
             </Link>
-            <Link className="nav-button" to="/">
+            <Link className={styles.navButton} to="/inventory">
               <img src={inventory} alt="" />
               ИНВЕНТАРЬ
             </Link>
-            <Link className="nav-button" to="/">
+            <Link
+              className={styles.navButton}
+              to="/login"
+              state={{ backgroundLocation: location }}
+            >
               <img src={info} alt="" />
               ПОМОЩЬ
             </Link>
           </nav>
         </div>
 
-        <div className="user-controls">
-          <div className="balance">
-            <span className="balance-icon">
+        <div className={styles.userControls}>
+          <div className={styles.balance}>
+            <span className={styles.balanceIcon}>
               <img src={wallet} alt="" width={30} />
             </span>
-            <span className="balance-amount">1200 ₽</span>
-            <button className="add-funds">+</button>
+            <span className={styles.balanceAmount}>1200 ₽</span>
+            <Link
+              className={styles.addFunds}
+              to="/topup"
+              state={{
+                backgroundLocation:
+                  location.state?.backgroundLocation || location,
+              }}
+            >
+              +
+            </Link>
           </div>
 
-          <div className="user-profile">
-            <button className="avatar-button" onClick={togglePopup}>
+          <div className={styles.userProfile}>
+            <button className={styles.avatarButton} onClick={togglePopup}>
               <img src={avatar} alt="avatar" />
             </button>
 

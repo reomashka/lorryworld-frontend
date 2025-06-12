@@ -25,6 +25,7 @@
   list-style-type: none;
   box-sizing: border-box;
   font-family: "Noto Sans", sans-serif;
+  letter-spacing: 0.3px;
 }
 
 html,

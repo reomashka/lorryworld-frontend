@@ -3,5 +3,9 @@ export default interface Item {
   name: string;
   price: number;
   type: string;
-  image: string;
+  image?: string;
+  description: string;
+  availability?: number;
+  game: string;
+  rarity: string;
 }
