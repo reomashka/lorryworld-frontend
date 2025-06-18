@@ -9,9 +9,6 @@ type RarityOption = {
 };
 
 export function FilterRarity() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
   const rarityOptions: RarityOption[] = [
     { id: "chroma", name: "Chroma", colorClass: "color-chroma" },
     { id: "ancients", name: "Ancients", colorClass: "color-ancients" },
@@ -19,6 +16,11 @@ export function FilterRarity() {
     { id: "vintages", name: "Vintages", colorClass: "color-vintages" },
     { id: "corrupt", name: "Corrupt", colorClass: "color-corrupt" },
   ];
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(
+    rarityOptions.map((option) => option.id)
+  );
 
   const toggleOption = (id: string) => {
     setSelectedOptions((prev) =>

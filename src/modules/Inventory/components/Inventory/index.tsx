@@ -1,6 +1,6 @@
 import styles from "./Inventory.module.scss";
 import { Boxes } from "lucide-react";
-import cover from "@assets/coversHome/legendary.png";
+import cover from "@assets/coversItem/ancients.png";
 
 export const Inventory = () => {
   return (

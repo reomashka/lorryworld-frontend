@@ -4,6 +4,7 @@ import { X, CreditCard, Smartphone, Coins, Mail, Check } from "lucide-react";
 import styles from "./TopupModal.module.scss";
 import { useNavigate } from "react-router";
 import { useModalClose } from "src/hooks/useModalClose";
+import { useProfile } from "src/hooks/useProfile";
 
 export const TopupModal = () => {
   const navigate = useNavigate();
@@ -14,11 +15,35 @@ export const TopupModal = () => {
   const [selectedMethod, setSelectedMethod] = useState<"sbp" | "card" | null>(
     null
   );
+  const { user } = useProfile();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Submitting:", { amount, promoCode, selectedMethod });
+
+    if (!amount || !user?.id) return;
+
+    try {
+      console.log("User ID:", user?.id);
+
+      const response = await fetch("http://localhost:3000/payment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          amount: Number(amount),
+        }),
+      });
+
+      const data = await response.json();
+      console.log("Payment created:", data);
+
+      const url = data.resultPayment?.data?.url;
+      window.open(url, "_blank");
+    } catch (err) {
+      console.error("Ошибка при создании платежа:", err);
+    }
   };
 
   const applyPromoCode = () => {

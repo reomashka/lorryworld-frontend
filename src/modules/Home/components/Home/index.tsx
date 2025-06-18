@@ -7,16 +7,13 @@ import { SearchBar } from "../SearchBar";
 import { ItemGrid } from "../ItemGrid";
 
 import { useFilteredItems } from "@modules/Home/components/useFilteredItems";
-import FilterState from "@modules/Home/interfaces/FilterState.interface";
+import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
 
 import styles from "./Home.module.scss";
-import { useProfile } from "src/hooks/useProfile";
 
 export const Home = () => {
-  const { data: user, isLoading, isError } = useProfile();
-
   const [filters, setFilters] = useState<FilterState>({
-    selectedTypes: ["Ножи", "Пистолеты", "Сеты", "Петы"],
+    selectedTypes: ["KNIFE", "PISTOL", "SET", "PET"],
     minPrice: 0,
     maxPrice: 0,
     searchTerm: "",
@@ -30,11 +27,8 @@ export const Home = () => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
   };
 
-  if (isLoading) return <div>Загрузка...</div>;
-  if (isError) return <div>Вы не авторизованы</div>;
   return (
     <div className={styles.storeContent}>
-      <h1>Добро пожаловать, {user.displayName}</h1>
       <Sidebar
         selectedTypes={filters.selectedTypes}
         setSelectedTypes={(types) => updateFilters({ selectedTypes: types })}

@@ -1,5 +1,9 @@
 import { CreditCard, DoorClosed, User } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+
+import { AppDispatch } from "../../store";
+import { logoutUser } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
 
 import styles from "./PopupProfile.module.scss";
 
@@ -10,6 +14,18 @@ type PopupMenuProps = {
 
 export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigate("/");
+    } catch (error) {
+      console.error("Ошибка при выходе:", error);
+    }
+  };
+
   return (
     <div className={styles.menu}>
       <div className={styles.menuItem} onClick={onClose}>
@@ -43,7 +59,9 @@ export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
         }}
       >
         <DoorClosed color="#DF382D" />
-        <span>Выйти</span>
+        <span onClick={handleLogout} style={{ cursor: "pointer" }}>
+          Выйти
+        </span>
       </div>
     </div>
   );

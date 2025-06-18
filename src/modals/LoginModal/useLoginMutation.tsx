@@ -3,18 +3,21 @@ import { loginFetchData } from "src/api/loginFetchData";
 import { TypeLoginSchema } from "@components/schemes";
 import { useNavigate } from "react-router";
 
+import { toast } from "react-toastify";
+
 export function useLoginMutation() {
   const navigate = useNavigate();
 
   return useMutation<TypeLoginSchema, Error, TypeLoginSchema>({
     mutationFn: loginFetchData,
     onSuccess: () => {
-      console.log("Логирование прошло успешно");
-      navigate("/");
+      navigate("/", { replace: true });
+      window.location.reload();
+      toast.success("Успешный вход в аккаунт");
     },
     onError: (err: Error) => {
       const message = err.message || "Неизвестная ошибка";
-      alert("Ошибка при входе: " + message);
+      toast.error("Ошибка при входе: " + message);
     },
   });
 }

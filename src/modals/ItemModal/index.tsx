@@ -6,11 +6,13 @@ import credit from "@assets/svg/credit.svg";
 import cart from "@assets/svg/cart_two.svg";
 
 import { useModalClose } from "src/hooks/useModalClose";
-import Item from "@modules/Home/interfaces/Item.interface";
+import { Item } from "@modules/Home/interfaces/Item.interface";
 
 import sword from "@assets/itemsHome/sword.png";
-import legendaryCover from "@assets/coversHome/legendary.png";
+import legendaryCover from "@assets/coversItem/chroma.png";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
+import { useProfile } from "src/hooks/useProfile";
 
 export const ItemModal = () => {
   const location = useLocation();
@@ -18,6 +20,8 @@ export const ItemModal = () => {
   const { handleOverlayClick } = useModalClose();
 
   const [quantity, setQuantity] = useState(1);
+
+  const { isAuthenticated } = useProfile();
 
   const item: Item = location.state?.item;
   if (!item) return null;
@@ -28,7 +32,7 @@ export const ItemModal = () => {
 
   const handleBuyItem = () => {
     const total = (item.price || 0) * quantity;
-    alert(`Покупка ${quantity} предмета(ов) на сумму ${total} ₽`);
+    toast.info(`Покупка ${quantity} предмета(ов) на сумму ${total} ₽`);
   };
 
   return (
@@ -91,22 +95,50 @@ export const ItemModal = () => {
             <div className={styles.price}>{(item.price || 0) * quantity} ₽</div>
 
             <div className={styles.actions}>
-              <button className={styles.buyButton} onClick={handleBuyItem}>
-                <img src={cart} alt="" className={styles.icon} />
-                КУПИТЬ ПРЕДМЕТ
-              </button>
+              {isAuthenticated ? (
+                <button className={styles.buyButton} onClick={handleBuyItem}>
+                  <img src={cart} alt="" className={styles.icon} />
+                  КУПИТЬ ПРЕДМЕТ
+                </button>
+              ) : (
+                <Link
+                  className={styles.buyButton}
+                  to="/login"
+                  state={{
+                    backgroundLocation:
+                      location.state?.backgroundLocation || location,
+                  }}
+                >
+                  <img src={cart} alt="" className={styles.icon} />
+                  КУПИТЬ ПРЕДМЕТ
+                </Link>
+              )}
 
-              <Link
-                className={styles.balanceButton}
-                to="/topup"
-                state={{
-                  backgroundLocation:
-                    location.state?.backgroundLocation || location,
-                }}
-              >
-                <img src={credit} alt="" className={styles.icon} />
-                ПОПОЛНИТЬ БАЛАНС
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  className={styles.balanceButton}
+                  to="/topup"
+                  state={{
+                    backgroundLocation:
+                      location.state?.backgroundLocation || location,
+                  }}
+                >
+                  <img src={credit} alt="" className={styles.icon} />
+                  ПОПОЛНИТЬ БАЛАНС
+                </Link>
+              ) : (
+                <Link
+                  className={styles.balanceButton}
+                  to="/login"
+                  state={{
+                    backgroundLocation:
+                      location.state?.backgroundLocation || location,
+                  }}
+                >
+                  <img src={credit} alt="" className={styles.icon} />
+                  ПОПОЛНИТЬ БАЛАНС
+                </Link>
+              )}
             </div>
           </div>
         </div>

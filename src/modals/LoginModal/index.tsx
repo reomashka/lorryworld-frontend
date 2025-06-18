@@ -10,7 +10,6 @@ import { LoginSchema, TypeLoginSchema } from "@components/schemes";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useLoginMutation } from "./useLoginMutation";
 
-
 export const LoginModal = () => {
   const { handleOverlayClick } = useModalClose(); // Закрытие модалки
   const [showPassword, setShowPassword] = useState(false);
@@ -94,7 +93,8 @@ export const LoginModal = () => {
               className={styles.loginButton}
               disabled={mutation.isPending}
             >
-              ВОЙТИ <span className={styles.arrow}>→</span>
+              ВОЙТИ
+              {/* <span className={styles.arrow}>→</span> */}
             </button>
           </form>
 

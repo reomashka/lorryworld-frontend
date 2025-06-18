@@ -1,14 +1,28 @@
-import legendCover from "@assets/coversHome/legendary.png";
-import Item from "@modules/Home/interfaces/Item.interface";
+import GodlyCover from "@assets/coversItem/godly.png";
+import AncientsCover from "@assets/coversItem/ancients.png";
+import ChromaCover from "@assets/coversItem/ancients.png";
+import CorruptCover from "@assets/coversItem/ancients.png";
+import VintagesCover from "@assets/coversItem/ancients.png";
+
+import { Item } from "@modules/Home/interfaces/Item.interface";
 
 import styles from "./ItemGrid.module.scss";
-
-import sword from "@assets/itemsHome/sword.png";
+// import sword from "@assets/itemsHome/sword.png";
 
 type Props = {
   items: Item[];
   onItemClick: (item: Item) => void;
 };
+
+const rarityItemMap = {
+  Godly: GodlyCover,
+  Chroma: ChromaCover,
+  Ancients: AncientsCover,
+  Corrupt: CorruptCover,
+  Vintages: VintagesCover,
+} as const;
+
+type RarityKey = keyof typeof rarityItemMap;
 
 export const ItemGrid = ({ items, onItemClick }: Props) => {
   const filterItems = [...items].sort(
@@ -24,8 +38,15 @@ export const ItemGrid = ({ items, onItemClick }: Props) => {
           onClick={() => onItemClick(item)}
         >
           <div className={styles.itemImage}>
-            <img src={sword} alt="" />
-            <img src={legendCover} alt={item.name} />
+            <img
+              src={`http://localhost:3000/uploads/${item.icon}.webp`}
+              alt=""
+            />
+
+            <img
+              src={rarityItemMap[item.rarity as RarityKey]}
+              alt={item.name}
+            />
           </div>
           <div className={styles.itemInfo}>
             <div className={styles.itemName}>{item.name}</div>

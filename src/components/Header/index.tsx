@@ -11,8 +11,12 @@ import inventory from "@assets/svg/inventory.svg";
 import { PopupProfile } from "src/UI/PopupProfile";
 
 import styles from "./Header.module.scss";
+import { User } from "lucide-react";
+import { useProfile } from "src/hooks/useProfile";
 
 export const Header = () => {
+  const { isAuthenticated, user } = useProfile();
+
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -24,6 +28,7 @@ export const Header = () => {
     console.log("Выход");
     togglePopup();
   };
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
@@ -45,49 +50,56 @@ export const Header = () => {
               <img src={cart} alt="" />
               МАГАЗИН
             </Link>
-            <Link className={styles.navButton} to="/inventory">
-              <img src={inventory} alt="" />
-              ИНВЕНТАРЬ
-            </Link>
-            <Link
-              className={styles.navButton}
-              to="/login"
-              state={{ backgroundLocation: location }}
-            >
+            {isAuthenticated && (
+              <Link className={styles.navButton} to="/inventory">
+                <img src={inventory} alt="" />
+                ИНВЕНТАРЬ
+              </Link>
+            )}
+            <Link className={styles.navButton} to="/help">
               <img src={info} alt="" />
               ПОМОЩЬ
             </Link>
           </nav>
         </div>
 
-        <div className={styles.userControls}>
-          <div className={styles.balance}>
-            <span className={styles.balanceIcon}>
-              <img src={wallet} alt="" width={30} />
-            </span>
-            <span className={styles.balanceAmount}>1200 ₽</span>
-            <Link
-              className={styles.addFunds}
-              to="/topup"
-              state={{
-                backgroundLocation:
-                  location.state?.backgroundLocation || location,
-              }}
-            >
-              +
-            </Link>
-          </div>
+        {!isAuthenticated ? (
+          <Link
+            to="/login"
+            state={{ backgroundLocation: location }}
+            className={styles.loginButton}
+          >
+            <User /> <span> ВОЙТИ</span>
+          </Link>
+        ) : (
+          <div className={styles.userControls}>
+            <div className={styles.balance}>
+              <span className={styles.balanceIcon}>
+                <img src={wallet} alt="" width={30} />
+              </span>
+              <span className={styles.balanceAmount}>{user?.balance} ₽</span>
+              <Link
+                className={styles.addFunds}
+                to="/topup"
+                state={{
+                  backgroundLocation:
+                    location.state?.backgroundLocation || location,
+                }}
+              >
+                +
+              </Link>
+            </div>
+            <div className={styles.userProfile}>
+              <button className={styles.avatarButton} onClick={togglePopup}>
+                <img src={avatar} alt="avatar" />
+              </button>
 
-          <div className={styles.userProfile}>
-            <button className={styles.avatarButton} onClick={togglePopup}>
-              <img src={avatar} alt="avatar" />
-            </button>
-
-            {isOpen && (
-              <PopupProfile onClose={togglePopup} onLogout={handleLogout} />
-            )}
+              {isOpen && (
+                <PopupProfile onClose={togglePopup} onLogout={handleLogout} />
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

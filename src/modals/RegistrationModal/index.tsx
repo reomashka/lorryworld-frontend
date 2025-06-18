@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, User, X, Lock, Mail } from "lucide-react";
 import styles from "./RegistrationModal.module.scss";
 import { useModalClose } from "src/hooks/useModalClose";
 import { Link, useNavigate } from "react-router";
 import { RegisterSchema, TypeRegisterSchema } from "@components/schemes";
+
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "src/api/fetchRegister";
 
 export const RegistrationModal = () => {
   const { handleOverlayClick } = useModalClose();
@@ -23,35 +27,20 @@ export const RegistrationModal = () => {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit = async (data: TypeRegisterSchema) => {
-    try {
-      const response = await fetch("http://localhost:3000/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          passwordRepeat: data.passwordReapeat,
-        }),
-      });
+  const mutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {
+      navigate("/", { replace: true });
+      window.location.reload();
+      toast.success("Успешная регистрация аккаунта");
+    },
+    onError: (error) => {
+      toast.error("Ошибка при регистрации: " + error.message);
+    },
+  });
 
-      const resData = await response.json();
-
-      if (!response.ok) {
-        alert(
-          "Ошибка при регистрации: " + (resData.message || "Неизвестная ошибка")
-        );
-        return;
-      }
-
-      alert("Регистрация прошла успешно!");
-      navigate("/");
-    } catch (err) {
-      console.error("Ошибка запроса:", err);
-      alert("Произошла ошибка сети.");
-    }
+  const onSubmit: SubmitHandler<TypeRegisterSchema> = (data) => {
+    mutation.mutate(data);
   };
 
   return (

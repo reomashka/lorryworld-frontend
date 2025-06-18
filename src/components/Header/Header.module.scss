@@ -203,3 +203,26 @@
 .userProfile {
   border: none;
 }
+
+.loginButton {
+  display: flex;
+  align-items: center;
+  padding: 12px 40px;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+
+  background: linear-gradient(100.85deg, #d20d09 18.11%, #cf0200 105.95%);
+  border: 2px solid #df382d;
+  border-radius: 8px;
+
+  & span {
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+  }
+
+  & svg {
+    color: white;
+  }
+}

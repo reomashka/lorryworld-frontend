@@ -1,4 +1,4 @@
-// import character from '../../assets/charachter.svg';
+// import character from "../../assets/charachter.svg";
 import { FilterRarity } from "../FilterRarity";
 
 import styles from "./Sidebar.module.scss";
@@ -74,8 +74,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("Ножи")}
-              onChange={() => toggleType("Ножи")}
+              checked={selectedTypes.includes("PISTOL")}
+              onChange={() => toggleType("PISTOL")}
             />
             <span className={styles.customCheckbox}></span>
             Ножи
@@ -83,8 +83,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("Пистолеты")}
-              onChange={() => toggleType("Пистолеты")}
+              checked={selectedTypes.includes("KNIFE")}
+              onChange={() => toggleType("KNIFE")}
             />
             <span className={styles.customCheckbox}></span>
             Пистолеты
@@ -92,8 +92,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("Сеты")}
-              onChange={() => toggleType("Сеты")}
+              checked={selectedTypes.includes("SET")}
+              onChange={() => toggleType("SET")}
             />
             <span className={styles.customCheckbox}></span>
             Сеты
@@ -101,8 +101,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("Петы")}
-              onChange={() => toggleType("Петы")}
+              checked={selectedTypes.includes("PET")}
+              onChange={() => toggleType("PET")}
             />
             <span className={styles.customCheckbox}></span>
             Петы
@@ -114,8 +114,8 @@ export const Sidebar = ({
         <FilterRarity />
       </div>
 
-      {/* <div className='character-display'>
-        <img src={character} alt='Game character' className='character-image' />
+      {/* <div className="character-display">
+        <img src={character} alt="Game character" className="character-image" />
       </div> */}
     </aside>
   );

@@ -1,11 +1,11 @@
-export default interface Item {
+export interface Item {
   id: number;
   name: string;
   price: number;
   type: string;
-  image?: string;
-  description: string;
-  availability?: number;
+  icon?: string;
+  description?: string;
+  availability: boolean;
   game: string;
   rarity: string;
 }
