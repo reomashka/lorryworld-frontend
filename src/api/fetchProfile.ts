@@ -1,5 +1,5 @@
 export const fetchProfile = async () => {
-  const res = await fetch("http://localhost:3000/users/profile", {
+  const res = await fetch("/api/users/profile", {
     credentials: "include",
   });
 

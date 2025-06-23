@@ -1,35 +1,48 @@
-import { useEffect, useState } from "react";
 import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
 import { fetchItems } from "src/api/fetchItems";
-import { Item } from "../../interfaces/Item.interface";
+import { Item } from "@interfaces/Item.interface";
+
+import { useQuery } from "@tanstack/react-query";
 
 export const useFilteredItems = (filters: FilterState) => {
-  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
+  const { data: items = [] } = useQuery({
+    queryKey: ["items"],
+    queryFn: fetchItems,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  useEffect(() => {
-    const loadAndFilterItems = async () => {
-      const items = await fetchItems();
+  const filteredItems = items.filter((item: Item) => {
+    const matchesType = filters.selectedTypes.includes(item.type);
+    const matchesMinPrice =
+      filters.minPrice === 0 || item.price >= filters.minPrice;
+    const matchesMaxPrice =
+      filters.maxPrice === 0 || item.price <= filters.maxPrice;
+    const matchesSearchTerm = item.name
+      .toLowerCase()
+      .includes(filters.searchTerm.toLowerCase());
+    const matchesRarity =
+      filters.selectedRarities.length === 0 ||
+      filters.selectedRarities.includes(item.rarity.toLowerCase());
 
-      const result = items.filter((item: Item) => {
-        const matchesType = filters.selectedTypes.includes(item.type);
-        const matchesMinPrice =
-          filters.minPrice === 0 || item.price >= filters.minPrice;
-        const matchesMaxPrice =
-          filters.maxPrice === 0 || item.price <= filters.maxPrice;
-        const matchesSearchTerm = item.name
-          .toLowerCase()
-          .includes(filters.searchTerm.toLowerCase());
+    return (
+      matchesType &&
+      matchesMinPrice &&
+      matchesMaxPrice &&
+      matchesSearchTerm &&
+      matchesRarity
+    );
+  });
 
-        return (
-          matchesType && matchesMinPrice && matchesMaxPrice && matchesSearchTerm
-        );
-      });
+  // 👇 применяем сортировку
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    if (filters.selectedSort === "cheaper") {
+      return a.price - b.price;
+    } else if (filters.selectedSort === "expensive") {
+      return b.price - a.price;
+    } else {
+      return 0; // стандартная сортировка
+    }
+  });
 
-      setFilteredItems(result);
-    };
-
-    loadAndFilterItems();
-  }, [filters]);
-
-  return filteredItems;
+  return sortedItems;
 };

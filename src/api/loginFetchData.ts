@@ -1,14 +1,15 @@
 import { TypeLoginSchema } from "@components/schemes";
 
 export const loginFetchData = async (
-  data: TypeLoginSchema,
+  data: TypeLoginSchema
 ): Promise<TypeLoginSchema> => {
-  const response = await fetch("http://localhost:3000/auth/login", {
+  const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: JSON.stringify({
-      email: data.email,
+      email: data.identifier.includes("@") ? data.identifier : undefined,
+      name: !data.identifier.includes("@") ? data.identifier : undefined,
       password: data.password,
     }),
   });

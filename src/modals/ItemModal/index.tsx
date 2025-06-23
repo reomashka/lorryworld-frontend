@@ -1,39 +1,51 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import styles from "./ItemModal.module.scss";
 
 import credit from "@assets/svg/credit.svg";
 import cart from "@assets/svg/cart_two.svg";
 
 import { useModalClose } from "src/hooks/useModalClose";
-import { Item } from "@modules/Home/interfaces/Item.interface";
+import { Item } from "@interfaces/Item.interface";
 
-import sword from "@assets/itemsHome/sword.png";
-import legendaryCover from "@assets/coversItem/chroma.png";
 import { Link } from "react-router";
-import { toast } from "react-toastify";
 import { useProfile } from "src/hooks/useProfile";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { fetchProfile } from "src/store/userSlice";
+import { useQuantity } from "./hooks/useQuantity";
+import { buyItem } from "./utils/buyItem";
+
+import GodlyCover from "@assets/coversItem/godly.png";
+import AncientsCover from "@assets/coversItem/ancients.png";
+import ChromaCover from "@assets/coversItem/chroma.png";
+import CorruptCover from "@assets/coversItem/corrupt.png";
+import VintagesCover from "@assets/coversItem/vintages.png";
 
 export const ItemModal = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
-
-  const [quantity, setQuantity] = useState(1);
-
-  const { isAuthenticated } = useProfile();
+  const { quantity, increase, decrease } = useQuantity(1);
+  const { user, isAuthenticated } = useProfile();
 
   const item: Item = location.state?.item;
   if (!item) return null;
 
-  const handleQuantityChange = (delta: number) => {
-    setQuantity((prev) => Math.max(1, prev + delta));
+  const handleBuy = async () => {
+    if (!user) return;
+    const success = await buyItem(item, quantity, user);
+    if (success) dispatch(fetchProfile());
   };
 
-  const handleBuyItem = () => {
-    const total = (item.price || 0) * quantity;
-    toast.info(`Покупка ${quantity} предмета(ов) на сумму ${total} ₽`);
-  };
+  const rarityItemMap = {
+    Vintages: VintagesCover,
+    Godly: GodlyCover,
+    Chroma: ChromaCover,
+    Ancients: AncientsCover,
+    Corrupt: CorruptCover,
+  } as const;
+
+  type RarityKey = keyof typeof rarityItemMap;
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
@@ -46,10 +58,12 @@ export const ItemModal = () => {
           <div className={styles.imageContainer}>
             <div
               className={styles.imageBackground}
-              style={{ backgroundImage: `url(${legendaryCover})` }}
+              style={{
+                backgroundImage: `url(${rarityItemMap[item.rarity as RarityKey]})`,
+              }}
             >
               <img
-                src={sword}
+                src={`/uploads/${item.icon}.webp`}
                 alt={item.name || "Item"}
                 className={styles.itemImage}
               />
@@ -77,14 +91,14 @@ export const ItemModal = () => {
                 <div className={styles.quantityControls}>
                   <button
                     className={styles.quantityButton}
-                    onClick={() => handleQuantityChange(-1)}
+                    onClick={() => decrease()}
                   >
                     -
                   </button>
                   <span className={styles.quantityValue}>{quantity}</span>
                   <button
                     className={styles.quantityButton}
-                    onClick={() => handleQuantityChange(1)}
+                    onClick={() => increase()}
                   >
                     +
                   </button>
@@ -96,7 +110,7 @@ export const ItemModal = () => {
 
             <div className={styles.actions}>
               {isAuthenticated ? (
-                <button className={styles.buyButton} onClick={handleBuyItem}>
+                <button className={styles.buyButton} onClick={handleBuy}>
                   <img src={cart} alt="" className={styles.icon} />
                   КУПИТЬ ПРЕДМЕТ
                 </button>

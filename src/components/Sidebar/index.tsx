@@ -12,6 +12,8 @@ interface SidebarProps {
   setMinPrice: (value: number) => void;
   maxPrice: number | undefined;
   setMaxPrice: (value: number) => void;
+  selectedRarities: string[];
+  setSelectedRarities: (types: string[]) => void;
 }
 
 export const Sidebar = ({
@@ -21,6 +23,8 @@ export const Sidebar = ({
   setMinPrice,
   maxPrice,
   setMaxPrice,
+  selectedRarities,
+  setSelectedRarities,
 }: SidebarProps) => {
   const toggleType = (type: string) => {
     if (selectedTypes.includes(type)) {
@@ -111,7 +115,10 @@ export const Sidebar = ({
       </div>
 
       <div>
-        <FilterRarity />
+        <FilterRarity
+          selectedRarities={selectedRarities}
+          setSelectedRarities={setSelectedRarities}
+        />
       </div>
 
       {/* <div className="character-display">

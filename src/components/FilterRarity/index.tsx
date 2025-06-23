@@ -8,7 +8,12 @@ type RarityOption = {
   colorClass: string;
 };
 
-export function FilterRarity() {
+type Props = {
+  selectedRarities: string[];
+  setSelectedRarities: (rarities: string[]) => void;
+};
+
+export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
   const rarityOptions: RarityOption[] = [
     { id: "chroma", name: "Chroma", colorClass: "color-chroma" },
     { id: "ancients", name: "Ancients", colorClass: "color-ancients" },
@@ -18,20 +23,18 @@ export function FilterRarity() {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(
-    rarityOptions.map((option) => option.id)
-  );
-
   const toggleOption = (id: string) => {
-    setSelectedOptions((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    if (selectedRarities.includes(id)) {
+      setSelectedRarities(selectedRarities.filter((r) => r !== id));
+    } else {
+      setSelectedRarities([...selectedRarities, id]);
+    }
   };
 
   const getButtonText = () => {
-    if (selectedOptions.length === 0) return "Показать все";
-    if (selectedOptions.length === rarityOptions.length) return "Выбраны все";
-    return `Выбрано: ${selectedOptions.length}`;
+    if (selectedRarities.length === 0) return "Показать все";
+    if (selectedRarities.length === rarityOptions.length) return "Выбраны все";
+    return `Выбрано: ${selectedRarities.length}`;
   };
 
   return (
@@ -54,7 +57,7 @@ export function FilterRarity() {
         {isOpen && (
           <div className={styles.rarityFilter_dropdown}>
             {rarityOptions.map((option) => {
-              const isSelected = selectedOptions.includes(option.id);
+              const isSelected = selectedRarities.includes(option.id);
               return (
                 <div
                   key={option.id}

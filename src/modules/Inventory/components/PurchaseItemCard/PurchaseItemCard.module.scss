@@ -1,0 +1,43 @@
+.purchaseItemInfo {
+  padding: 8px;
+}
+
+.purchaseItemName {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.purchaseItemPrice {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4c4c4c;
+}
+
+.itemImage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 1 / 1; // сохраняет квадратную форму
+}
+
+.itemImage img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemImage img:first-child {
+  z-index: 2;
+}
+
+.itemImage img:last-child {
+  z-index: 1;
+}

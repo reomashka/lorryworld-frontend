@@ -1,17 +1,64 @@
-import { Mail, User, CreditCard } from "lucide-react";
-import cover from "@assets/coversItem/ancients.png";
+import { User, CreditCard } from "lucide-react";
 import avatar from "@assets/svg/avatar.svg";
 import styles from "./templates.module.scss";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useProfile } from "src/hooks/useProfile";
+
+import GodlyCover from "@assets/coversItem/godly.png";
+import AncientsCover from "@assets/coversItem/ancients.png";
+import ChromaCover from "@assets/coversItem/chroma.png";
+import CorruptCover from "@assets/coversItem/corrupt.png";
+import VintagesCover from "@assets/coversItem/vintages.png";
+import { toast } from "react-toastify";
+import UserItem from "@interfaces/UserItem.interface";
 
 type Props = {
   activeTab: "profile" | "payments";
   setActiveTab: Dispatch<SetStateAction<"profile" | "payments">>;
 };
 
+const rarityItemMap = {
+  Vintages: VintagesCover,
+  Godly: GodlyCover,
+  Chroma: ChromaCover,
+  Ancients: AncientsCover,
+  Corrupt: CorruptCover,
+} as const;
+
+type RarityKey = keyof typeof rarityItemMap;
+
 export const ProfileTemplate = ({ activeTab, setActiveTab }: Props) => {
   const { user } = useProfile();
+  const [items, setItems] = useState<UserItem[]>([]);
+
+  const fetchPurchasedItems = async () => {
+    try {
+      const response = await fetch(`/api/item/get-all-purchased/${user?.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message || "Ошибка при получении предметов.");
+        return;
+      }
+
+      setItems(result);
+    } catch (err) {
+      console.error(err);
+      toast.error("Ошибка при отправке запроса.");
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchPurchasedItems();
+    }
+  }, [user?.id]);
 
   return (
     <>
@@ -45,7 +92,9 @@ export const ProfileTemplate = ({ activeTab, setActiveTab }: Props) => {
                 <img src={avatar} alt="User avatar" />
               </div>
               <div className={styles.profileName}>
-                {user?.displayName} {user?.role === "ADMIN" && "[ADMIN]"}
+                {user?.displayName} {user?.role === "ADMIN" && "[ADMIN]"} <br />{" "}
+                <br />
+                ID: {user?.id}
               </div>
             </div>
             <div className={styles.profileStats}>
@@ -58,7 +107,7 @@ export const ProfileTemplate = ({ activeTab, setActiveTab }: Props) => {
             </div>
           </div>
 
-          <div className={styles.emailSection}>
+          {/* <div className={styles.emailSection}>
             <h2>E-Mail:</h2>
             <button className={styles.emailLinkButton}>
               <Mail />
@@ -68,6 +117,12 @@ export const ProfileTemplate = ({ activeTab, setActiveTab }: Props) => {
               Если вы забудете пароль от аккаунта, то сможете восстановить его с
               помощью email
             </p>
+          </div> */}
+          <div className={styles.emailSection}>
+            <h2>Способ связи:</h2>
+            <b> Где: </b>
+            {user?.mediaContact} <br />
+            <b>Контакт:</b> {user?.contact}
           </div>
         </>
       </div>
@@ -76,32 +131,26 @@ export const ProfileTemplate = ({ activeTab, setActiveTab }: Props) => {
         <>
           <h2 className={styles.contentTitle}>История покупок</h2>
           <div className={styles.purchaseGrid}>
-            {Array(12)
-              .fill(0)
-              .map((_, index) => (
-                <div className={styles.purchaseItem} key={index}>
-                  <img src={cover} alt="" />
-                  <div className={styles.purchaseItemInfo}>
-                    <div className={styles.purchaseItemName}>
-                      Chroma Lightbringer
-                    </div>
-                    <div className={styles.purchaseItemPrice}>160 ₽</div>
+            {items.map((item, index) => (
+              <div className={styles.purchaseItem} key={index}>
+                <div className={styles.itemImage}>
+                  <img src={`/uploads/${item.item.icon}.webp`} alt="" />
+
+                  <img
+                    src={rarityItemMap[item.item.rarity as RarityKey]}
+                    alt={item.item.name}
+                  />
+                </div>
+                <div className={styles.purchaseItemInfo}>
+                  <div className={styles.purchaseItemName}>
+                    {item.item.name}
+                  </div>
+                  <div className={styles.purchaseItemPrice}>
+                    {item.item.price} ₽
                   </div>
                 </div>
-              ))}
-          </div>
-        </>
-
-        <>
-          <h2 className={styles.contentTitle}>История пополнений</h2>
-          <div className={styles.purchaseGrid}>
-            <div className={styles.purchaseItem}>
-              <img src={cover} alt="" />
-              <div className={styles.purchaseItemInfo}>
-                <div className={styles.purchaseItemName}>Пополнение</div>
-                <div className={styles.purchaseItemPrice}>500 ₽</div>
               </div>
-            </div>
+            ))}
           </div>
         </>
       </div>

@@ -25,7 +25,7 @@ export const TopupModal = () => {
     try {
       console.log("User ID:", user?.id);
 
-      const response = await fetch("http://localhost:3000/payment/create", {
+      const response = await fetch("/api/payment/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

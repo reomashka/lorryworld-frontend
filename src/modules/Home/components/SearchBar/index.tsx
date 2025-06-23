@@ -25,11 +25,15 @@ const sortOptions: SortOption[] = [
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  selectedSort: "standard" | "cheaper" | "expensive";
+  setSelectedSort: (sort: "standard" | "cheaper" | "expensive") => void;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   setSearchTerm,
+  selectedSort,
+  setSelectedSort,
 }) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -37,8 +41,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   const { toggleSidebar } = useSidebar();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const selectedOption = sortOptions.find((o) => o.id === selectedSort)!;
 
   // Закрытие меню при клике вне компонента
   useEffect(() => {
@@ -62,7 +67,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleOptionSelect = (option: SortOption) => {
-    setSelectedOption(option);
+    setSelectedSort(option.id as "standard" | "cheaper" | "expensive");
     setIsOpen(false);
   };
 

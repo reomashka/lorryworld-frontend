@@ -72,11 +72,11 @@ $border-color: #333333;
   font-weight: 600;
   padding: 8px 16px;
   border-radius: 7px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #df382d;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #921910;
   }
 
   &Active {
@@ -113,6 +113,12 @@ $border-color: #333333;
   }
 }
 
+.notIssuedItems {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
 // Purchase Item
 .purchaseItem {
   border-radius: 8px;
@@ -123,22 +129,12 @@ $border-color: #333333;
   }
 }
 
-.purchaseItemInfo {
-  padding: 8px;
+.noData {
+  font-size: 18px;
 }
 
-.purchaseItemName {
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.purchaseItemPrice {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-  color: #4c4c4c;
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }

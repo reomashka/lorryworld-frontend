@@ -180,6 +180,23 @@ a {
     margin-left: 10px;
     font-size: 19px;
   }
+
+  &:hover:not(:disabled) {
+    background-color: #777;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: #e53e3e;
+
+    &:hover {
+      background-color: #d63031;
+    }
+  }
 }
 
 .createAccount_button {

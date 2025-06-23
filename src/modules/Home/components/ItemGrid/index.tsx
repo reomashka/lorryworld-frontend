@@ -1,10 +1,10 @@
 import GodlyCover from "@assets/coversItem/godly.png";
 import AncientsCover from "@assets/coversItem/ancients.png";
-import ChromaCover from "@assets/coversItem/ancients.png";
-import CorruptCover from "@assets/coversItem/ancients.png";
-import VintagesCover from "@assets/coversItem/ancients.png";
+import ChromaCover from "@assets/coversItem/chroma.png";
+import CorruptCover from "@assets/coversItem/corrupt.png";
+import VintagesCover from "@assets/coversItem/vintages.png";
 
-import { Item } from "@modules/Home/interfaces/Item.interface";
+import { Item } from "@interfaces/Item.interface";
 
 import styles from "./ItemGrid.module.scss";
 // import sword from "@assets/itemsHome/sword.png";
@@ -15,18 +15,26 @@ type Props = {
 };
 
 const rarityItemMap = {
+  Vintages: VintagesCover,
   Godly: GodlyCover,
   Chroma: ChromaCover,
   Ancients: AncientsCover,
   Corrupt: CorruptCover,
-  Vintages: VintagesCover,
 } as const;
+
+const rarityOrder: Record<string, number> = {
+  Ancients: 1,
+  Corrupt: 2,
+  Godly: 3,
+  Chroma: 4,
+  Vintages: 5,
+};
 
 type RarityKey = keyof typeof rarityItemMap;
 
 export const ItemGrid = ({ items, onItemClick }: Props) => {
   const filterItems = [...items].sort(
-    (a, b) => Number(a.price) - Number(b.price)
+    (a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]
   );
 
   return (
@@ -38,10 +46,7 @@ export const ItemGrid = ({ items, onItemClick }: Props) => {
           onClick={() => onItemClick(item)}
         >
           <div className={styles.itemImage}>
-            <img
-              src={`http://localhost:3000/uploads/${item.icon}.webp`}
-              alt=""
-            />
+            <img src={`/uploads/${item.icon}.webp`} alt="" />
 
             <img
               src={rarityItemMap[item.rarity as RarityKey]}

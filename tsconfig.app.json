@@ -25,10 +25,10 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
-      "@mocks/*": ["src/mocks/*"],
       "@modals/*": ["src/modals/*"]
     }
   },

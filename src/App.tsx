@@ -10,6 +10,8 @@ import { InventoryPage } from "@pages/InventoryPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HelpPage } from "@pages/HelpPage";
+import { WithdrawModal } from "@modals/WithdrawModal";
+import { ClaimItemsModal } from "@modals/ClaimItemsModal";
 
 export default function App() {
   const location = useLocation();
@@ -21,21 +23,19 @@ export default function App() {
       {/* Основной маршрут */}
       <Routes
         location={state?.backgroundLocation || location}
-        key="main-routes"
+        key={state?.backgroundLocation ? "main-routes-with-bg" : "main-routes"}
       >
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<HomePage />} />
         <Route path="/help" element={<HelpPage />} />
-
-        {/* Приватные маршруты */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/inventory" element={<InventoryPage />} />
       </Routes>
 
-      {/* Модалка поверх основной страницы */}
       {state?.backgroundLocation && (
         <Routes key="modal-routes">
           <Route path="/login" element={<LoginModal />} />
+          <Route path="/withdraw" element={<WithdrawModal />} />
+          <Route path="/claim-items" element={<ClaimItemsModal />} />
           <Route path="/register" element={<RegistrationModal />} />
           <Route path="/item" element={<ItemModal />} />
           <Route path="/topup" element={<TopupModal />} />

@@ -14,9 +14,11 @@ import styles from "./Home.module.scss";
 export const Home = () => {
   const [filters, setFilters] = useState<FilterState>({
     selectedTypes: ["KNIFE", "PISTOL", "SET", "PET"],
+    selectedRarities: ["chroma", "ancients", "godly", "vintages", "corrupt"],
     minPrice: 0,
     maxPrice: 0,
     searchTerm: "",
+    selectedSort: "standard",
   });
 
   const filteredItems = useFilteredItems(filters);
@@ -36,12 +38,20 @@ export const Home = () => {
         setMinPrice={(price) => updateFilters({ minPrice: price })}
         maxPrice={filters.maxPrice}
         setMaxPrice={(price) => updateFilters({ maxPrice: price })}
+        selectedRarities={filters.selectedRarities}
+        setSelectedRarities={(rarities) =>
+          updateFilters({ selectedRarities: rarities })
+        }
       />
 
       <main className={styles.itemsDisplay}>
         <SearchBar
           searchTerm={filters.searchTerm}
           setSearchTerm={(term) => updateFilters({ searchTerm: term })}
+          selectedSort={filters.selectedSort}
+          setSelectedSort={(selectedSort) =>
+            setFilters((prev) => ({ ...prev, selectedSort }))
+          }
         />
 
         <ItemGrid

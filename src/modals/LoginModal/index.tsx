@@ -46,18 +46,20 @@ export const LoginModal = () => {
               </div>
               <input
                 type="text"
-                {...register("email")}
-                placeholder="Email"
-                className={errors.email ? styles.error : ""}
+                {...register("identifier")}
+                placeholder="Email или имя"
+                className={errors.identifier ? styles.error : ""}
               />
-              {errors.email && (
+              {errors.identifier && (
                 <div className={styles.errorIcon}>
                   <X size={20} />
                 </div>
               )}
             </div>
-            {errors.email && (
-              <div className={styles.errorMessage}>{errors.email.message}</div>
+            {errors.identifier && (
+              <div className={styles.errorMessage}>
+                {errors.identifier.message}
+              </div>
             )}
 
             <div className={styles.inputGroup}>
@@ -94,12 +96,17 @@ export const LoginModal = () => {
               disabled={mutation.isPending}
             >
               ВОЙТИ
-              {/* <span className={styles.arrow}>→</span> */}
             </button>
           </form>
 
           {/* Линк для перехода на бекграунд роут */}
-          <Link to="/register" state={{ backgroundLocation: location }}>
+          <Link
+            to="/register"
+            state={{
+              backgroundLocation:
+                location.state?.backgroundLocation || location,
+            }}
+          >
             <div className={styles.createAccount_button}>СОЗДАТЬ АККАУНТ</div>
           </Link>
         </div>

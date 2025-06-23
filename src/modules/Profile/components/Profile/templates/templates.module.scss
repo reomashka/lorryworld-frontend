@@ -261,6 +261,7 @@ $border-color: #333333;
 .headerCell {
   display: flex;
   align-items: center;
+
   padding: 12px 16px;
   font-size: 16px;
   font-weight: bold;
@@ -323,7 +324,7 @@ $border-color: #333333;
   flex-shrink: 0;
   border-radius: 2px;
 
-  &.processing {
+  &.PENDING {
     background-color: #ffd43a; // yellow
   }
 
@@ -364,4 +365,79 @@ $border-color: #333333;
   .tableCell {
     font-size: 12px;
   }
+}
+@media (max-width: 1220px) {
+  .paymentsTable {
+    width: 100%;
+  }
+
+  .tableHeader {
+    display: none;
+  }
+
+  .tableBody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tableRow {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .tableCell {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 13px;
+    color: #fff;
+    border: none !important;
+  }
+
+  .statusContainer {
+    gap: 6px;
+  }
+
+  .tableCell::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 8px;
+    color: $text-secondary;
+    flex-shrink: 0;
+    width: 100px;
+  }
+}
+.noData {
+  margin: 0 auto;
+  padding: 20vh;
+  font-size: 18px;
+  color: #4c4c4c;
+}
+
+.itemImage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 1 / 1; // сохраняет квадратную форму
+}
+
+.itemImage img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemImage img:first-child {
+  z-index: 2;
+}
+
+.itemImage img:last-child {
+  z-index: 1;
 }

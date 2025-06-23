@@ -1,0 +1,320 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 45px 90px;
+  width: 100%;
+  max-width: 750px;
+  position: relative;
+  color: white;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 32px 0;
+  letter-spacing: 1px;
+}
+
+.modalSubTitle {
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.amountSection {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #df382d;
+}
+
+.amountInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding-left: 10px;
+}
+
+.amountIcon {
+  color: #e53e3e;
+  flex-shrink: 0;
+}
+
+.amountInput {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  flex: 1;
+  padding: 8px 0;
+
+  &::placeholder {
+    color: white;
+    font-weight: 500;
+  }
+}
+
+.commission {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.promoSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #444;
+}
+
+.promoInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  background-color: #151515;
+  padding: 6px 0 6px 10px;
+  border-radius: 12px;
+
+  & input::placeholder {
+    font-weight: 500;
+    color: white;
+  }
+}
+
+.promoInput {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  flex: 1;
+  padding: 8px 0;
+
+  &::placeholder {
+    color: #888;
+  }
+}
+
+.promoApplyIcon {
+  background-color: #df382d;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 10px;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(229, 62, 62, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.paymentMethods {
+  margin-top: 16px;
+}
+
+.paymentTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.paymentOptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.paymentOption {
+  background-color: transparent;
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #666;
+    background-color: #404040;
+  }
+
+  &.active {
+    border-color: #e53e3e;
+    background-color: rgba(229, 62, 62, 0.1);
+    color: #e53e3e;
+  }
+}
+
+.submitBtn {
+  background-color: #666;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #777;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: #e53e3e;
+
+    &:hover {
+      background-color: #d63031;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 650px) {
+  .modalContent {
+    padding: 24px;
+  }
+
+  .modalTitle {
+    font-size: 20px;
+  }
+
+  .paymentOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .commission {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 455px) {
+  .amountInput::placeholder {
+    font-size: 10px;
+  }
+}
+
+.submitBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  transition: background-color 0.2s ease;
+
+  background: linear-gradient(100.85deg, #df382d 18.11%, #cf0200 105.95%);
+  border: 3px solid #df382d;
+  border-radius: 8.85024px;
+
+  &:hover:not(:disabled) {
+    background-color: #777;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: #e53e3e;
+
+    &:hover {
+      background-color: #d63031;
+    }
+  }
+}

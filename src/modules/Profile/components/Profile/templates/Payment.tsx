@@ -1,6 +1,6 @@
-import { User, CreditCard, Hourglass } from "lucide-react";
+import { User, CreditCard } from "lucide-react";
 import styles from "./templates.module.scss";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useProfile } from "src/hooks/useProfile";
 
 import clock from "@assets/svg/clock.svg";
@@ -14,71 +14,19 @@ type Props = {
   setActiveTab: Dispatch<SetStateAction<"profile" | "payments">>;
 };
 
-type PaymentStatus = "processing" | "completed" | "cancelled";
+type PaymentStatus = "PENDING" | "completed" | "cancelled";
 
 type Payment = {
   id: string;
   status: PaymentStatus;
-  method: string;
+  comment: string;
   amount: string;
-  date: string;
-  time: string;
+  createdAt: string;
 };
-
-const mockPayments: Payment[] = [
-  {
-    id: "1",
-    status: "processing",
-    method: "VISA",
-    amount: "975 ₽",
-    date: "27.09.2022",
-    time: "17:53",
-  },
-  {
-    id: "2",
-    status: "completed",
-    method: "VISA",
-    amount: "145 ₽",
-    date: "22.09.2022",
-    time: "05:24",
-  },
-  {
-    id: "3",
-    status: "cancelled",
-    method: "VISA",
-    amount: "22 ₽",
-    date: "17.09.2022",
-    time: "13:54",
-  },
-  {
-    id: "4",
-    status: "completed",
-    method: "VISA",
-    amount: "13 ₽",
-    date: "05.08.2022",
-    time: "15:02",
-  },
-  {
-    id: "5",
-    status: "completed",
-    method: "VISA",
-    amount: "1764 ₽",
-    date: "03.08.2022",
-    time: "17:17",
-  },
-  {
-    id: "6",
-    status: "completed",
-    method: "VISA",
-    amount: "255 ₽",
-    date: "02.06.2022",
-    time: "17:16",
-  },
-];
 
 const getStatusText = (status: PaymentStatus): string => {
   switch (status) {
-    case "processing":
+    case "PENDING":
       return "В обработке";
     case "completed":
       return "Переведено";
@@ -90,7 +38,30 @@ const getStatusText = (status: PaymentStatus): string => {
 };
 
 export const PaymentTemplate = ({ activeTab, setActiveTab }: Props) => {
-  //   const { user } = useProfile();
+  const { user } = useProfile();
+  const [payments, setPayments] = useState<Payment[]>([]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      if (!user?.id) return;
+
+      try {
+        const response = await fetch(`/api/payment/get-payments/${user.id}`);
+        console.log(user.id);
+        if (!response.ok) {
+          console.error("Ошибка загрузки платежей:", response.statusText);
+          return;
+        }
+        const data: Payment[] = await response.json();
+        console.log(data);
+        setPayments(data);
+      } catch (err) {
+        console.error("Ошибка сети:", err);
+      }
+    };
+
+    fetchPayments();
+  }, [user?.id]);
 
   return (
     <>
@@ -140,9 +111,9 @@ export const PaymentTemplate = ({ activeTab, setActiveTab }: Props) => {
               </div>
             </div>
             <div className={styles.tableBody}>
-              {mockPayments.map((payment) => (
+              {payments.map((payment) => (
                 <div key={payment.id} className={styles.tableRow}>
-                  <div className={styles.tableCell}>
+                  <div className={styles.tableCell} data-label="Статус">
                     <div className={styles.statusContainer}>
                       <div
                         className={`${styles.statusDot} ${styles[payment.status]}`}
@@ -152,12 +123,31 @@ export const PaymentTemplate = ({ activeTab, setActiveTab }: Props) => {
                       </span>
                     </div>
                   </div>
-                  <div className={styles.tableCell}>{payment.method}</div>
-                  <div className={styles.tableCell}>{payment.amount}</div>
-                  <div className={styles.tableCell}>{payment.date}</div>
-                  <div className={styles.tableCell}>{payment.time}</div>
+
+                  <div className={styles.tableCell} data-label="Метод">
+                    {payment.comment}
+                  </div>
+                  <div className={styles.tableCell} data-label="Сумма">
+                    {payment.amount}
+                  </div>
+                  <div className={styles.tableCell} data-label="Дата">
+                    {new Date(payment.createdAt).toLocaleDateString("ru-RU")}
+                  </div>
+                  <div className={styles.tableCell} data-label="Время">
+                    {new Date(payment.createdAt).toLocaleTimeString("ru-RU", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
                 </div>
               ))}
+              <div className={styles.tableBody}>
+                {(!payments || payments.length === 0) && (
+                  <div className={styles.noData}>
+                    Вы еще не пополняли баланс
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

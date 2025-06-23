@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:80"
+    networks:
+      - shared_net
+    restart: unless-stopped
+
+networks:
+  shared_net:
+    external: true

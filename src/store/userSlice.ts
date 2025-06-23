@@ -14,6 +14,8 @@ export type User = {
   email: string;
   password: string;
   displayName: string;
+  mediaContact?: string;
+  contact?: string;
   role: UserRole;
   isVerified: boolean;
   method: AuthMethod;
@@ -38,7 +40,7 @@ const initialState: UserState = {
 export const fetchProfile = createAsyncThunk<User>(
   "user/fetchProfile",
   async () => {
-    const res = await fetch("http://localhost:3000/users/profile", {
+    const res = await fetch("/api/users/profile", {
       credentials: "include",
     });
 
@@ -54,7 +56,7 @@ export const fetchProfile = createAsyncThunk<User>(
 export const logoutUser = createAsyncThunk<void>(
   "user/logoutUser",
   async () => {
-    const res = await fetch("http://localhost:3000/auth/logout", {
+    const res = await fetch("/api/auth/logout", {
       method: "POST", // или GET — смотри, как настроен backend
       credentials: "include",
     });
