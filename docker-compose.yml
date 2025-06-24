@@ -4,6 +4,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/test.lorryworld.space:/etc/letsencrypt/live/test.lorryworld.space:ro
+      - /etc/letsencrypt/archive/test.lorryworld.space:/etc/letsencrypt/archive/test.lorryworld.space:ro
+      - /etc/letsencrypt/renewal:/etc/letsencrypt/renewal:ro
     networks:
       - shared_net
     restart: unless-stopped
