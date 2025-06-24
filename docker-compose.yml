@@ -2,7 +2,9 @@ services:
   frontend:
     build: .
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
+
     networks:
       - shared_net
     restart: unless-stopped
@@ -10,3 +12,7 @@ services:
 networks:
   shared_net:
     external: true
+
+volumes:
+  - /etc/letsencrypt/live/test.lorryworld.space:/etc/letsencrypt/live/test.lorryworld.space:ro
+  - /etc/letsencrypt/archive/test.lorryworld.space:/etc/letsencrypt/archive/test.lorryworld.space:ro
