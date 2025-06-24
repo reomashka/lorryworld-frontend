@@ -68,7 +68,7 @@ export const LoginModal = () => {
               </div>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Укажите пароль"
+                placeholder="Введите пароль"
                 {...register("password")}
                 className={errors.password ? styles.error : ""}
               />

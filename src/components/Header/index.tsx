@@ -50,8 +50,20 @@ export const Header = () => {
               <img src={cart} alt="" />
               МАГАЗИН
             </Link>
-            {isAuthenticated && (
+            {isAuthenticated ? (
               <Link className={styles.navButton} to="/inventory">
+                <img src={inventory} alt="" />
+                ИНВЕНТАРЬ
+              </Link>
+            ) : (
+              <Link
+                className={styles.navButton}
+                to="/login"
+                state={{
+                  backgroundLocation:
+                    location.state?.backgroundLocation || location,
+                }}
+              >
                 <img src={inventory} alt="" />
                 ИНВЕНТАРЬ
               </Link>

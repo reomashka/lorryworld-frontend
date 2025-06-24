@@ -78,8 +78,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("PISTOL")}
-              onChange={() => toggleType("PISTOL")}
+              checked={selectedTypes.includes("KNIFE")}
+              onChange={() => toggleType("KNIFE")}
             />
             <span className={styles.customCheckbox}></span>
             Ножи
@@ -87,8 +87,8 @@ export const Sidebar = ({
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
-              checked={selectedTypes.includes("KNIFE")}
-              onChange={() => toggleType("KNIFE")}
+              checked={selectedTypes.includes("PISTOL")}
+              onChange={() => toggleType("PISTOL")}
             />
             <span className={styles.customCheckbox}></span>
             Пистолеты

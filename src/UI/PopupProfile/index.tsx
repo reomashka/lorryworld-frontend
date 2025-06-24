@@ -28,6 +28,15 @@ export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
 
   return (
     <div className={styles.menu}>
+      <Link
+        to="/profile"
+        className={`${styles.menuItem} ${styles.link}`}
+        onClick={onClose}
+      >
+        <User color="#DF382D" />
+        <span>Профиль</span>
+      </Link>
+
       <div className={styles.menuItem} onClick={onClose}>
         <Link
           to="/topup"
@@ -41,15 +50,6 @@ export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
           <span>Пополнить</span>
         </Link>
       </div>
-
-      <Link
-        to="/profile"
-        className={`${styles.menuItem} ${styles.link}`}
-        onClick={onClose}
-      >
-        <User color="#DF382D" />
-        <span>Профиль</span>
-      </Link>
 
       <div
         className={styles.menuItem}

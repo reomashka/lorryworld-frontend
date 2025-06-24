@@ -134,7 +134,7 @@ export const RegistrationModal = () => {
               </div>
               <input
                 type="text"
-                placeholder="Email (необязательно)"
+                placeholder="Email"
                 {...register("email")}
                 className={errors.email ? styles.error : ""}
               />
