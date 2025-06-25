@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState } from "react";
-import { X, CreditCard, Smartphone, Coins, Mail, Check } from "lucide-react";
+import { X, CreditCard, Smartphone, Coins } from "lucide-react";
 import styles from "./TopupModal.module.scss";
 import { useNavigate } from "react-router";
 import { useModalClose } from "src/hooks/useModalClose";
@@ -11,7 +11,7 @@ export const TopupModal = () => {
   const { handleOverlayClick } = useModalClose();
 
   const [amount, setAmount] = useState("");
-  const [promoCode, setPromoCode] = useState("");
+  // const [promoCode, setPromoCode] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<"sbp" | "card" | null>(
     null
   );
@@ -40,16 +40,16 @@ export const TopupModal = () => {
       console.log("Payment created:", data);
 
       const url = data.resultPayment?.data?.url;
-      window.open(url, "_blank");
+      window.location.href = url;
     } catch (err) {
       console.error("Ошибка при создании платежа:", err);
     }
   };
 
-  const applyPromoCode = () => {
-    // Handle promo code application
-    console.log("Applying promo code:", promoCode);
-  };
+  // const applyPromoCode = () => {
+  //   // Handle promo code application
+  //   console.log("Applying promo code:", promoCode);
+  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -84,7 +84,7 @@ export const TopupModal = () => {
             </div>
           </div>
 
-          <div className={styles.formGroup}>
+          {/* <div className={styles.formGroup}>
             <div className={styles.promoSection}>
               <div className={styles.promoInputWrapper}>
                 <Mail className={styles.amountIcon} />
@@ -106,7 +106,7 @@ export const TopupModal = () => {
               </div>
             </div>
             {promoCode}
-          </div>
+          </div> */}
 
           <div className={styles.paymentMethods}>
             <h3 className={styles.paymentTitle}>ВЫБЕРИТЕ МЕТОД ПОПОЛНЕНИЯ</h3>

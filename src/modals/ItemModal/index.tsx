@@ -47,6 +47,15 @@ export const ItemModal = () => {
 
   type RarityKey = keyof typeof rarityItemMap;
 
+  const typeNames: Record<string, string> = {
+    PISTOL: "Пистолет",
+    KNIFE: "Нож",
+    PET: "Пет",
+    SET: "Сет",
+
+    // добавь другие типы, если нужно
+  };
+
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.modal}>
@@ -77,7 +86,9 @@ export const ItemModal = () => {
               {item.type && (
                 <div className={styles.property}>
                   <span className={styles.label}>Тип</span>
-                  <span className={styles.value}>{item.type}</span>
+                  <span className={styles.value}>
+                    {typeNames[item.type] || item.type}
+                  </span>
                 </div>
               )}
 
