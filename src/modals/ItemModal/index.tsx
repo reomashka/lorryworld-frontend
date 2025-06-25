@@ -52,8 +52,6 @@ export const ItemModal = () => {
     KNIFE: "Нож",
     PET: "Пет",
     SET: "Сет",
-
-    // добавь другие типы, если нужно
   };
 
   return (

@@ -4,6 +4,8 @@ import ChromaCover from "@assets/coversItem/chroma.png";
 import CorruptCover from "@assets/coversItem/corrupt.png";
 import VintagesCover from "@assets/coversItem/vintages.png";
 
+import React from "react";
+
 import { Item } from "@interfaces/Item.interface";
 
 import styles from "./ItemGrid.module.scss";
@@ -31,6 +33,30 @@ const rarityOrder: Record<string, number> = {
 };
 
 type RarityKey = keyof typeof rarityItemMap;
+const ItemCard = React.memo(
+  ({ item, onClick }: { item: Item; onClick: (item: Item) => void }) => {
+    return (
+      <div
+        className={styles.itemCard}
+        onClick={() => onClick(item)}
+        key={item.id}
+      >
+        <div className={styles.itemImage}>
+          <img
+            src={`/uploads/${item.icon}.webp`}
+            alt={item.name}
+            loading="lazy"
+          />
+          <img src={rarityItemMap[item.rarity as RarityKey]} alt={item.name} />
+        </div>
+        <div className={styles.itemInfo}>
+          <div className={styles.itemName}>{item.name}</div>
+          <div className={styles.itemPrice}>{item.price} ₽</div>
+        </div>
+      </div>
+    );
+  }
+);
 
 export const ItemGrid = ({ items, onItemClick }: Props) => {
   const filterItems = [...items].sort(
@@ -40,24 +66,7 @@ export const ItemGrid = ({ items, onItemClick }: Props) => {
   return (
     <div className={styles.itemsGrid}>
       {filterItems.map((item) => (
-        <div
-          key={item.id}
-          className={styles.itemCard}
-          onClick={() => onItemClick(item)}
-        >
-          <div className={styles.itemImage}>
-            <img src={`/uploads/${item.icon}.webp`} alt="" />
-
-            <img
-              src={rarityItemMap[item.rarity as RarityKey]}
-              alt={item.name}
-            />
-          </div>
-          <div className={styles.itemInfo}>
-            <div className={styles.itemName}>{item.name}</div>
-            <div className={styles.itemPrice}>{item.price} ₽</div>
-          </div>
-        </div>
+        <ItemCard key={item.id} item={item} onClick={onItemClick} />
       ))}
     </div>
   );
