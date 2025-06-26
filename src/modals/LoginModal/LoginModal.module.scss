@@ -60,6 +60,10 @@ a {
   padding: 60px 100px 90px 100px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   animation: modalFadeIn 0.3s ease-out;
+
+  @media (max-width: 550px) {
+    padding: 40px;
+  }
 }
 
 @keyframes modalFadeIn {

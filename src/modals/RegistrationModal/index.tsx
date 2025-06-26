@@ -157,10 +157,7 @@ export const RegistrationModal = () => {
                   onChange={() => setAgree(!agree)}
                 />
                 <span>
-                  Я согласен с{" "}
-                  <Link to="#" target="_blank" rel="noopener noreferrer">
-                    политикой конфиденциальности
-                  </Link>
+                  Я согласен с <Link to="#">политикой конфиденциальности</Link>
                 </span>
               </label>
             </div>

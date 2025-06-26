@@ -28,8 +28,8 @@
       cursor: pointer;
 
       img {
-        width: 24px;
-        height: 24px;
+        width: 25px;
+        height: 25px;
       }
 
       &.active {
@@ -62,6 +62,12 @@
         padding: 7px 10px 7px 10px;
         border-radius: 10px;
         background: rgba(169, 62, 149, 0.2);
+      }
+
+      &_login {
+        background: linear-gradient(100.85deg, #d20d09 18.11%, #cf0200 105.95%);
+        padding: 7px 10px 7px 10px;
+        border-radius: 8px;
       }
     }
   }

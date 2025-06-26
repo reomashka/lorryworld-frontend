@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import cart from "@assets/svg/cart.svg";
 import inventory from "@assets/svg/inventory.svg";
 import info from "@assets/svg/info.svg";
 import avatar from "@assets/avatar.png";
+import person from "@assets/svg/person.svg";
 import { PopupProfile } from "src/UI/PopupProfile";
 
 import styles from "./BottomNavbar.module.scss";
+import { useProfile } from "src/hooks/useProfile";
 
 export const BottomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const { isAuthenticated } = useProfile();
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -21,39 +25,61 @@ export const BottomNavbar = () => {
     togglePopup();
   };
 
-  const links = [
-    { to: "/", icon: cart, label: "Магазин", className: styles.navItem_shop },
-    {
-      to: "/inventory",
-      icon: inventory,
-      label: "Инвентарь",
-      className: styles.navItem_inventory,
-    },
-    {
-      to: "/",
-      icon: info,
-      label: "Помощь",
-      className: styles.navItem_help,
-    },
-  ];
-
   return (
     <nav className={styles.bottomNavbar}>
-      {links.map(({ to, icon, label, className }) => (
-        <Link to={to} className={styles.navItem} key={to}>
-          <div className={className}>
-            <img src={icon} alt={label} />
-          </div>
-          <span>{label}</span>
-        </Link>
-      ))}
-
-      <button className={styles.navItem} type="button" onClick={togglePopup}>
-        <div className={styles.navItem_avatar}>
-          <img src={avatar} alt="Профиль" />
+      <Link to="/" className={styles.navItem}>
+        <div className={styles.navItem_shop}>
+          <img src={cart} alt="Магазин" />
         </div>
-        <span>Профиль</span>
-      </button>
+        <span>Магазин</span>
+      </Link>
+
+      {isAuthenticated ? (
+        <Link to="/inventory" className={styles.navItem}>
+          <div className={styles.navItem_inventory}>
+            <img src={inventory} alt="Инвентарь" />
+          </div>
+          <span>Инвентарь</span>
+        </Link>
+      ) : (
+        <Link
+          to="/login"
+          state={{ backgroundLocation: location }}
+          className={styles.navItem}
+        >
+          <div className={styles.navItem_inventory}>
+            <img src={inventory} alt="Инвентарь" />
+          </div>
+          <span>Инвентарь</span>
+        </Link>
+      )}
+
+      <Link to="/help" className={styles.navItem}>
+        <div className={styles.navItem_help}>
+          <img src={info} alt="Помощь" />
+        </div>
+        <span>Помощь</span>
+      </Link>
+
+      {isAuthenticated ? (
+        <button className={styles.navItem} type="button" onClick={togglePopup}>
+          <div className={styles.navItem_avatar}>
+            <img src={avatar} alt="Профиль" />
+          </div>
+          <span>Профиль</span>
+        </button>
+      ) : (
+        <Link
+          to="/login"
+          state={{ backgroundLocation: location }}
+          className={styles.navItem}
+        >
+          <div className={styles.navItem_login}>
+            <img src={person} alt="Профиль" />
+          </div>
+          <span>Войти</span>
+        </Link>
+      )}
 
       {isOpen && <PopupProfile onClose={togglePopup} onLogout={handleLogout} />}
     </nav>

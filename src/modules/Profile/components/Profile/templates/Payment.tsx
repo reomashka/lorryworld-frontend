@@ -14,7 +14,7 @@ type Props = {
   setActiveTab: Dispatch<SetStateAction<"profile" | "payments">>;
 };
 
-type PaymentStatus = "PENDING" | "completed" | "cancelled";
+type PaymentStatus = "PENDING" | "SUCCESS" | "cancelled";
 
 type Payment = {
   id: string;
@@ -28,8 +28,8 @@ const getStatusText = (status: PaymentStatus): string => {
   switch (status) {
     case "PENDING":
       return "В обработке";
-    case "completed":
-      return "Переведено";
+    case "SUCCESS":
+      return "Пополнение";
     case "cancelled":
       return "Отменено";
     default:
@@ -111,36 +111,43 @@ export const PaymentTemplate = ({ activeTab, setActiveTab }: Props) => {
               </div>
             </div>
             <div className={styles.tableBody}>
-              {payments.map((payment) => (
-                <div key={payment.id} className={styles.tableRow}>
-                  <div className={styles.tableCell} data-label="Статус">
-                    <div className={styles.statusContainer}>
-                      <div
-                        className={`${styles.statusDot} ${styles[payment.status]}`}
-                      ></div>
-                      <span className={styles.statusText}>
-                        {getStatusText(payment.status)}
-                      </span>
+              {payments
+                .slice()
+                .sort(
+                  (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+                )
+                .map((payment) => (
+                  <div key={payment.id} className={styles.tableRow}>
+                    <div className={styles.tableCell} data-label="Статус">
+                      <div className={styles.statusContainer}>
+                        <div
+                          className={`${styles.statusDot} ${styles[payment.status]}`}
+                        ></div>
+                        <span className={styles.statusText}>
+                          {getStatusText(payment.status)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className={styles.tableCell} data-label="Метод">
+                      {payment.comment}
+                    </div>
+                    <div className={styles.tableCell} data-label="Сумма">
+                      {payment.amount}
+                    </div>
+                    <div className={styles.tableCell} data-label="Дата">
+                      {new Date(payment.createdAt).toLocaleDateString("ru-RU")}
+                    </div>
+                    <div className={styles.tableCell} data-label="Время">
+                      {new Date(payment.createdAt).toLocaleTimeString("ru-RU", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </div>
                   </div>
-
-                  <div className={styles.tableCell} data-label="Метод">
-                    {payment.comment}
-                  </div>
-                  <div className={styles.tableCell} data-label="Сумма">
-                    {payment.amount}
-                  </div>
-                  <div className={styles.tableCell} data-label="Дата">
-                    {new Date(payment.createdAt).toLocaleDateString("ru-RU")}
-                  </div>
-                  <div className={styles.tableCell} data-label="Время">
-                    {new Date(payment.createdAt).toLocaleTimeString("ru-RU", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </div>
-                </div>
-              ))}
+                ))}
               <div className={styles.tableBody}>
                 {(!payments || payments.length === 0) && (
                   <div className={styles.noData}>

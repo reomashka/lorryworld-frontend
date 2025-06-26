@@ -65,9 +65,11 @@ export const ItemGrid = ({ items, onItemClick }: Props) => {
 
   return (
     <div className={styles.itemsGrid}>
-      {filterItems.map((item) => (
-        <ItemCard key={item.id} item={item} onClick={onItemClick} />
-      ))}
+      {filterItems
+        .filter((item) => item.availability)
+        .map((item) => (
+          <ItemCard key={item.id} item={item} onClick={onItemClick} />
+        ))}
     </div>
   );
 };
