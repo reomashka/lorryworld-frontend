@@ -14,7 +14,7 @@ type Props = {
   setActiveTab: Dispatch<SetStateAction<"profile" | "payments">>;
 };
 
-type PaymentStatus = "PENDING" | "SUCCESS" | "cancelled";
+type PaymentStatus = "PENDING" | "SUCCESS" | "EXPIRED";
 
 type Payment = {
   id: string;
@@ -30,7 +30,7 @@ const getStatusText = (status: PaymentStatus): string => {
       return "В обработке";
     case "SUCCESS":
       return "Пополнение";
-    case "cancelled":
+    case "EXPIRED":
       return "Отменено";
     default:
       return "";

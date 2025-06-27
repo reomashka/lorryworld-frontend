@@ -1,40 +1,35 @@
-import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "src/hooks/useProfile";
 import { toast } from "react-toastify";
 import { fetchPurchasedItems } from "src/api/fetchPurchasedItems";
 import { withDrawAllItemsAPI } from "src/api/withDrawAllItemsAPI";
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
-import UserItem from "@interfaces/UserItem.interface";
 import { getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItemsAPI";
+import UserItem from "@interfaces/UserItem.interface";
 
 export const useInventoryItems = () => {
   const { user } = useProfile();
-  const [items, setItems] = useState<UserItem[]>([]);
+  const queryClient = useQueryClient();
 
-  const fetchPurchasedItemsAPI = async () => {
-    try {
+  // Получение купленных предметов
+  const { data: items = [], isLoading } = useQuery<UserItem[]>({
+    queryKey: ["purchasedItems", user?.id],
+    queryFn: () => {
+      if (!user?.id) throw new Error("User ID is missing");
+      return fetchPurchasedItems(user?.id);
+    },
+    enabled: !!user?.id,
+  });
+
+  const { mutateAsync: withDrawAllItems, isPending } = useMutation({
+    mutationFn: async (params: { mediaContact: string; contact: string }) => {
       if (!user?.id) throw new Error("User ID is missing");
 
-      const result = await fetchPurchasedItems(user.id);
-      setItems(result);
-    } catch (err) {
-      console.error(err);
-      toast.error("Ошибка при получении предметов.");
-    }
-  };
-
-  const withDrawAllItems = async (mediaContact: string, contact: string) => {
-    try {
-      if (!user?.id) throw new Error("User ID is missing");
-
-      // Вывод всех предметов
-      await withDrawAllItemsAPI(user.id);
+      await withDrawAllItemsAPI(user?.id);
       toast.success("Все предметы успешно выведены!");
 
-      // Получение только что выведенных предметов
-      const recentWithdrawnItems = await getRecentWithdrawnItemsAPI(user.id);
+      const recentWithdrawnItems = await getRecentWithdrawnItemsAPI(user?.id);
 
-      // Формирование сообщения
       const itemList = recentWithdrawnItems
         .map(
           (item: UserItem) =>
@@ -49,29 +44,29 @@ export const useInventoryItems = () => {
       const text =
         `<b>📤 Вывод предметов</b>\n\n` +
         `<b>👤 Пользователь:</b> ${user.displayName}\n` +
-        `<b>🆔 ID:</b> ${user.id}\n` +
-        `<b>📱 Тип связи:</b> ${mediaContact}\n` +
-        `<b>📨 Контакт:</b> ${contact}\n\n` +
+        `<b>🆔 ID:</b> ${user?.id}\n` +
+        `<b>📱 Тип связи:</b> ${params.mediaContact}\n` +
+        `<b>📨 Контакт:</b> ${params.contact}\n\n` +
         itemList;
 
-      sendMsgTelegram(text, true, user.id);
-
-      // Обновить список предметов
-      await fetchPurchasedItemsAPI();
-    } catch (err) {
-      console.error(err);
+      sendMsgTelegram(text, true, user?.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["purchasedItems", user?.id] });
+    },
+    onError: () => {
       toast.error("Ошибка при выводе предметов.");
-    }
-  };
-
-  useEffect(() => {
-    if (user?.id) {
-      fetchPurchasedItemsAPI();
-    }
-  }, [user?.id]);
+    },
+  });
 
   const isDisabled =
     items.filter((item) => item.status === "PURCHASED").length === 0;
 
-  return { items, isDisabled, withDrawAllItems };
+  return {
+    items,
+    isDisabled,
+    withDrawAllItems,
+    isLoading,
+    isPending, // статус выполнения мутации
+  };
 };

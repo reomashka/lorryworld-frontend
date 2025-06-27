@@ -4,9 +4,12 @@ import { Boxes } from "lucide-react";
 import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router";
+import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
+import { _ } from "node_modules/react-router/dist/development/fog-of-war-1hWhK5ey.d.mts";
 
 export const Inventory = () => {
-  const { items, isDisabled } = useInventoryItems();
+  const { items, isDisabled, isLoading } = useInventoryItems();
+
   const location = useLocation();
 
   // Фильтрация товаров с status PURCHASED
@@ -44,27 +47,38 @@ export const Inventory = () => {
           </div>
 
           {/* ВЕРХ: только PURCHASED без надписи */}
-          <div className={styles.purchaseGrid}>
-            {purchasedItems.length > 0 ? (
-              purchasedItems.map((item, index) => (
-                <PurchaseItemCard item={item} key={index} />
-              ))
-            ) : (
-              <p className={styles.noData}>Ваш инвентарь пуст</p>
-            )}
-          </div>
+          {isLoading ? (
+            Array.from({ length: 4 }).map((_, index) => (
+              <ItemGridSkeleton key={index} />
+            ))
+          ) : (
+            <div className={styles.purchaseGrid}>
+              {purchasedItems.length > 0 ? (
+                purchasedItems.map((item, index) => (
+                  <PurchaseItemCard item={item} key={index} />
+                ))
+              ) : (
+                <p className={styles.noData}>Ваш инвентарь пуст</p>
+              )}
+            </div>
+          )}
 
           {/* НИЗ: товары, которые ждут выдачи + надпись */}
-          {hasNotIssued && (
-            <>
-              <p className={styles.notIssuedItems}>Ждут выдачи</p>
-              <div className={styles.purchaseGrid}>
-                {waitingItems.map((item, index) => (
-                  <PurchaseItemCard item={item} key={"waiting-" + index} />
-                ))}
-              </div>
-            </>
-          )}
+          <p className={styles.notIssuedItems}>Ждут выдачи</p>
+
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <ItemGridSkeleton key={index} />
+              ))
+            : hasNotIssued && (
+                <>
+                  <div className={styles.purchaseGrid}>
+                    {waitingItems.map((item, index) => (
+                      <PurchaseItemCard item={item} key={"waiting-" + index} />
+                    ))}
+                  </div>
+                </>
+              )}
         </div>
       </main>
     </div>

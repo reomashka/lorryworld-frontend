@@ -332,8 +332,8 @@ $border-color: #333333;
     background-color: #5bdf2d; // green
   }
 
-  &.cancelled {
-    background-color: #777777; // gray
+  &.EXPIRED {
+    background-color: #ff3535; // red
   }
 }
 

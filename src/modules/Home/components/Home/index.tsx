@@ -68,7 +68,7 @@ export const Home = () => {
             }}
           />
         ) : (
-          Array.from({ length: 8 }).map((_, idx) => (
+          Array.from({ length: 12 }).map((_, idx) => (
             <ItemGridSkeleton key={idx} />
           ))
         )}
