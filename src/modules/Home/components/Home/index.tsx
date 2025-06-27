@@ -22,7 +22,7 @@ export const Home = () => {
     selectedSort: "standard",
   });
 
-  const { items, isLoading, isError, error } = useFilteredItems(filters);
+  const { items, isLoading } = useFilteredItems(filters);
 
   const navigate = useNavigate();
   const location = useLocation();
