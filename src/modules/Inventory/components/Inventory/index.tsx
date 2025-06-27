@@ -5,7 +5,6 @@ import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
-import { _ } from "node_modules/react-router/dist/development/fog-of-war-1hWhK5ey.d.mts";
 
 export const Inventory = () => {
   const { items, isDisabled, isLoading } = useInventoryItems();
