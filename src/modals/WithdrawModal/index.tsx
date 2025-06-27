@@ -46,7 +46,7 @@ export const WithdrawModal = () => {
       }
 
       // 3. Вызовем функцию только после успешного ответа
-      await withDrawAllItems(mediaContact, contact);
+      await withDrawAllItems({ mediaContact, contact });
 
       // 4. Навигация
       navigate("/claim-items", {
