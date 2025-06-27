@@ -10,6 +10,7 @@ import { useFilteredItems } from "@modules/Home/components/useFilteredItems";
 import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
 
 import styles from "./Home.module.scss";
+import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
 export const Home = () => {
   const [filters, setFilters] = useState<FilterState>({
@@ -21,7 +22,8 @@ export const Home = () => {
     selectedSort: "standard",
   });
 
-  const filteredItems = useFilteredItems(filters);
+  const { items, isLoading, isError, error } = useFilteredItems(filters);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,18 +55,23 @@ export const Home = () => {
             setFilters((prev) => ({ ...prev, selectedSort }))
           }
         />
-
-        <ItemGrid
-          items={filteredItems}
-          onItemClick={(item) => {
-            navigate(`/item`, {
-              state: {
-                backgroundLocation: location,
-                item,
-              },
-            });
-          }}
-        />
+        {!isLoading ? (
+          <ItemGrid
+            items={items}
+            onItemClick={(item) => {
+              navigate(`/item`, {
+                state: {
+                  backgroundLocation: location,
+                  item,
+                },
+              });
+            }}
+          />
+        ) : (
+          Array.from({ length: 8 }).map((_, idx) => (
+            <ItemGridSkeleton key={idx} />
+          ))
+        )}
       </main>
     </div>
   );

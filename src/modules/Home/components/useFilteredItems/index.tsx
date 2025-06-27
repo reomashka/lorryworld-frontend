@@ -1,17 +1,21 @@
 import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
 import { fetchItems } from "src/api/fetchItems";
 import { Item } from "@interfaces/Item.interface";
-
 import { useQuery } from "@tanstack/react-query";
 
 export const useFilteredItems = (filters: FilterState) => {
-  const { data: items = [] } = useQuery({
+  const {
+    data: items = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Item[]>({
     queryKey: ["items"],
     queryFn: fetchItems,
     staleTime: 1000 * 60 * 5,
   });
 
-  const filteredItems = items.filter((item: Item) => {
+  const filteredItems = items.filter((item) => {
     const matchesType = filters.selectedTypes.includes(item.type);
     const matchesMinPrice =
       filters.minPrice === 0 || item.price >= filters.minPrice;
@@ -33,16 +37,20 @@ export const useFilteredItems = (filters: FilterState) => {
     );
   });
 
-  // 👇 применяем сортировку
   const sortedItems = [...filteredItems].sort((a, b) => {
     if (filters.selectedSort === "cheaper") {
       return a.price - b.price;
     } else if (filters.selectedSort === "expensive") {
       return b.price - a.price;
     } else {
-      return 0; // стандартная сортировка
+      return 0;
     }
   });
 
-  return sortedItems;
+  return {
+    items: sortedItems,
+    isLoading,
+    isError,
+    error,
+  };
 };
