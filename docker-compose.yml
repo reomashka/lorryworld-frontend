@@ -10,29 +10,13 @@ services:
     image: nginx:1.21.4
     container_name: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - frontend
     restart: always
-    networks:
-      - shared_net
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
-    entrypoint: >
-      sh -c "certbot certonly --webroot -w /var/www/certbot 
-             --email lorryworldspace@gmail.com --agree-tos --no-eff-email 
-             -d lorryworld.space -d www.lorryworld.space 
-             && echo 'SSL сертификат получен. Перезапустите Nginx.'"
     networks:
       - shared_net
 
