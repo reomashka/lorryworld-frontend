@@ -1,9 +1,9 @@
 import styles from "./Inventory.module.scss";
-import { Boxes } from "lucide-react";
+import { Boxes, ShieldUser } from "lucide-react";
 
 import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
 export const Inventory = () => {
@@ -43,6 +43,19 @@ export const Inventory = () => {
               <Boxes />
               Вывести все предметы
             </Link>
+            {hasNotIssued && (
+              <Link
+                to="/claim-items"
+                state={{
+                  backgroundLocation:
+                    location.state?.backgroundLocation || location,
+                }}
+                className={`${styles.sidebarTab}`}
+              >
+                <ShieldUser />
+                Связь с админом
+              </Link>
+            )}
           </div>
 
           {/* ВЕРХ: только PURCHASED без надписи */}

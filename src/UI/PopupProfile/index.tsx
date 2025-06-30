@@ -1,5 +1,5 @@
 import { CreditCard, DoorClosed, User } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { AppDispatch } from "../../store";
 import { logoutUser } from "../../store/userSlice";

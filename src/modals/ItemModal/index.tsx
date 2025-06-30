@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import styles from "./ItemModal.module.scss";
 
 import credit from "@assets/svg/credit.svg";
@@ -6,13 +6,11 @@ import cart from "@assets/svg/cart_two.svg";
 
 import { useModalClose } from "src/hooks/useModalClose";
 import { Item } from "@interfaces/Item.interface";
-
-import { Link } from "react-router";
 import { useProfile } from "src/hooks/useProfile";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
 import { fetchProfile } from "src/store/userSlice";
 import { useQuantity } from "./hooks/useQuantity";
-import { buyItem } from "./utils/buyItem";
+import { useBuyItem } from "./hooks/useBuyItem"; // новый хук
 
 import GodlyCover from "@assets/coversItem/godly.png";
 import AncientsCover from "@assets/coversItem/ancients.png";
@@ -27,14 +25,22 @@ export const ItemModal = () => {
   const { handleOverlayClick } = useModalClose();
   const { quantity, increase, decrease } = useQuantity(1);
   const { user, isAuthenticated } = useProfile();
+  const { mutate: buyItem, isPending } = useBuyItem();
 
   const item: Item = location.state?.item;
   if (!item) return null;
 
-  const handleBuy = async () => {
+  const handleBuy = () => {
     if (!user) return;
-    const success = await buyItem(item, quantity, user);
-    if (success) dispatch(fetchProfile());
+
+    buyItem(
+      { item, quantity, user },
+      {
+        onSuccess: () => {
+          dispatch(fetchProfile());
+        },
+      }
+    );
   };
 
   const rarityItemMap = {
@@ -100,14 +106,16 @@ export const ItemModal = () => {
                 <div className={styles.quantityControls}>
                   <button
                     className={styles.quantityButton}
-                    onClick={() => decrease()}
+                    onClick={decrease}
+                    disabled={isPending}
                   >
                     -
                   </button>
                   <span className={styles.quantityValue}>{quantity}</span>
                   <button
                     className={styles.quantityButton}
-                    onClick={() => increase()}
+                    onClick={increase}
+                    disabled={isPending}
                   >
                     +
                   </button>
@@ -119,9 +127,13 @@ export const ItemModal = () => {
 
             <div className={styles.actions}>
               {isAuthenticated ? (
-                <button className={styles.buyButton} onClick={handleBuy}>
+                <button
+                  className={styles.buyButton}
+                  onClick={handleBuy}
+                  disabled={isPending}
+                >
                   <img src={cart} alt="" className={styles.icon} />
-                  КУПИТЬ ПРЕДМЕТ
+                  {isPending ? "Покупка..." : "КУПИТЬ ПРЕДМЕТ"}
                 </button>
               ) : (
                 <Link
@@ -137,31 +149,17 @@ export const ItemModal = () => {
                 </Link>
               )}
 
-              {isAuthenticated ? (
-                <Link
-                  className={styles.balanceButton}
-                  to="/topup"
-                  state={{
-                    backgroundLocation:
-                      location.state?.backgroundLocation || location,
-                  }}
-                >
-                  <img src={credit} alt="" className={styles.icon} />
-                  ПОПОЛНИТЬ БАЛАНС
-                </Link>
-              ) : (
-                <Link
-                  className={styles.balanceButton}
-                  to="/login"
-                  state={{
-                    backgroundLocation:
-                      location.state?.backgroundLocation || location,
-                  }}
-                >
-                  <img src={credit} alt="" className={styles.icon} />
-                  ПОПОЛНИТЬ БАЛАНС
-                </Link>
-              )}
+              <Link
+                className={styles.balanceButton}
+                to={isAuthenticated ? "/topup" : "/login"}
+                state={{
+                  backgroundLocation:
+                    location.state?.backgroundLocation || location,
+                }}
+              >
+                <img src={credit} alt="" className={styles.icon} />
+                ПОПОЛНИТЬ БАЛАНС
+              </Link>
             </div>
           </div>
         </div>

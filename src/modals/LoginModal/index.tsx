@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import { Eye, EyeOff, User, X, Lock } from "lucide-react";
 import styles from "./LoginModal.module.scss";
-import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useModalClose } from "src/hooks/useModalClose";
 import { LoginSchema, TypeLoginSchema } from "@components/schemes";

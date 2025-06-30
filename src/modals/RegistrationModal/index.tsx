@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, User, X, Lock, Mail } from "lucide-react";
 import styles from "./RegistrationModal.module.scss";
 import { useModalClose } from "src/hooks/useModalClose";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterSchema, TypeRegisterSchema } from "@components/schemes";
 
 import { toast } from "react-toastify";

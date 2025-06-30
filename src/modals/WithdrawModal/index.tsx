@@ -2,7 +2,7 @@ import type React from "react";
 import { useState } from "react";
 import { X, User } from "lucide-react";
 import styles from "./WithdrawModal.module.scss";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
 import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
 import { toast } from "react-toastify";

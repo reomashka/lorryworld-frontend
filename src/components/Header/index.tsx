@@ -1,6 +1,5 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router";
 import wallet from "@assets/svg/wallet.svg";
 import logo from "@assets/svg/logo.svg";
 import avatar from "@assets/svg/avatar.svg";

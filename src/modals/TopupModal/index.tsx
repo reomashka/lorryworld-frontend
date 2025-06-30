@@ -2,7 +2,7 @@ import type React from "react";
 import { useState } from "react";
 import { X, CreditCard, Smartphone, Coins } from "lucide-react";
 import styles from "./TopupModal.module.scss";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
 import { useProfile } from "src/hooks/useProfile";
 
