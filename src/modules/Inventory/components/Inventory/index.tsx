@@ -8,7 +8,6 @@ import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
 export const Inventory = () => {
   const { items, isDisabled, isLoading } = useInventoryItems();
-
   const location = useLocation();
 
   // Фильтрация товаров с status PURCHASED

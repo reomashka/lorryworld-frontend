@@ -1,5 +1,6 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router";
 import wallet from "@assets/svg/wallet.svg";
 import logo from "@assets/svg/logo.svg";
 import avatar from "@assets/svg/avatar.svg";
@@ -45,18 +46,30 @@ export const Header = () => {
           </Link>
 
           <nav className={styles.mainNav}>
-            <Link className={`${styles.navButton} ${styles.shopButton}`} to="/">
+            <NavLink
+              className={({ isActive }) =>
+                `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+              }
+              to="/"
+            >
               <img src={cart} alt="" />
               МАГАЗИН
-            </Link>
+            </NavLink>
             {isAuthenticated ? (
-              <Link className={styles.navButton} to="/inventory">
+              <NavLink
+                className={({ isActive }) =>
+                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                }
+                to="/inventory"
+              >
                 <img src={inventory} alt="" />
                 ИНВЕНТАРЬ
-              </Link>
+              </NavLink>
             ) : (
-              <Link
-                className={styles.navButton}
+              <NavLink
+                className={({ isActive }) =>
+                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                }
                 to="/login"
                 state={{
                   backgroundLocation:
@@ -65,12 +78,17 @@ export const Header = () => {
               >
                 <img src={inventory} alt="" />
                 ИНВЕНТАРЬ
-              </Link>
+              </NavLink>
             )}
-            <Link className={styles.navButton} to="/help">
+            <NavLink
+              className={({ isActive }) =>
+                `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+              }
+              to="/help"
+            >
               <img src={info} alt="" />
               ПОМОЩЬ
-            </Link>
+            </NavLink>
           </nav>
         </div>
 

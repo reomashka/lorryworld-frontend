@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
 import { Item } from "@interfaces/Item.interface";
+import { useNavigate } from "react-router";
 
 interface BuyItemPayload {
   item: Item;
@@ -10,6 +11,7 @@ interface BuyItemPayload {
 }
 
 export const useBuyItem = () => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: async ({ item, quantity, user }: BuyItemPayload) => {
       const totalPrice = item.price * quantity;
@@ -42,7 +44,7 @@ export const useBuyItem = () => {
 ID Аккаунта: <i>${user.id}</i>`,
         false
       );
-
+      navigate("/");
       return true;
     },
     onSuccess: () => {

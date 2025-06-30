@@ -63,7 +63,6 @@
     display: none;
   }
 }
-
 .navButton {
   display: flex;
   align-items: center;
@@ -79,9 +78,13 @@
   text-decoration: none;
   border-radius: 7px;
 
-  &:hover {
+  &:not(.navButtonActive):hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+.navButtonActive {
+  background-color: #df382d;
 }
 
 .shopButton {

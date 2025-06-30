@@ -20,7 +20,7 @@ export const HelpModule = () => {
             </div>
             <div className="note">
               <strong>СВЯЗЬ С АДМИНОМ</strong> <br />
-              Телеграм<a href="https://t.me/@gingermoor"> @gingermoor</a>
+              Телеграм<a href="https://t.me/gingermoor"> @gingermoor</a>
               <br />
               Почта{" "}
               <a href="mailto:lorryworldspace@gmail.com">
