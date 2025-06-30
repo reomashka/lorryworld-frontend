@@ -29,7 +29,7 @@ export const ClaimItemsModal = () => {
           <p>Пожалуйста, свяжитесь с админом, чтобы получить предметы</p>
 
           <a
-            href="http://t.me/@gingermoor"
+            href="http://t.me/gingermoor"
             className={`${styles.socialButton} ${styles["socialButton--tg"]}`}
           >
             <img src={tg} alt="Telegram" />
