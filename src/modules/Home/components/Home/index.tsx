@@ -55,7 +55,7 @@ export const Home = () => {
             setFilters((prev) => ({ ...prev, selectedSort }))
           }
         />
-        {!isLoading ? (
+        {isLoading ? (
           <ItemGrid
             items={items}
             onItemClick={(item) => {
