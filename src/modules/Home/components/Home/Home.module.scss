@@ -14,7 +14,6 @@ body {
   display: flex;
   flex: 1;
   height: 100vh;
-  overflow: hidden;
   background-color: #151515;
 }
 
@@ -25,7 +24,6 @@ body {
   margin: 30px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 
   @media (max-width: 600px) {
     padding: 10px;

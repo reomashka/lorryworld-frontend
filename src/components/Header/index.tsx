@@ -89,7 +89,7 @@ export const Header = () => {
               <img src={info} alt="" />
               ПОМОЩЬ
             </NavLink>
-            {!isAdmin && (
+            {isAdmin && (
               <NavLink
                 className={({ isActive }) =>
                   `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`

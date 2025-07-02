@@ -35,7 +35,6 @@ body {
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  overflow: hidden;
 }
 
 main {
