@@ -75,7 +75,7 @@ export const Inventory = () => {
           )}
 
           {/* НИЗ: товары, которые ждут выдачи + надпись */}
-          <p className={styles.notIssuedItems}>Ждут выдачи</p>
+          {hasNotIssued && <p className={styles.notIssuedItems}>Ждут выдачи</p>}
 
           {isLoading
             ? Array.from({ length: 4 }).map((_, index) => (

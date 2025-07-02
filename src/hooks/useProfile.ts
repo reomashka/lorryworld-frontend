@@ -11,6 +11,7 @@ export const useProfile = () => {
   const error = useSelector((state: RootState) => state.user.error);
 
   const isAuthenticated = user !== null;
+  const isAdmin = user?.role === "ADMIN";
   const isLoading = status === "loading";
   const isFailed = status === "failed";
   const isUnauthorized = isFailed && error === "Unauthorized";
@@ -29,5 +30,6 @@ export const useProfile = () => {
     isLoading,
     isFailed,
     isUnauthorized,
+    isAdmin,
   };
 };

@@ -13,7 +13,8 @@ body {
 .storeContent {
   display: flex;
   flex: 1;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background-color: #151515;
 }
 
@@ -22,6 +23,9 @@ body {
   flex: 1;
   padding: 20px;
   margin: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 
   @media (max-width: 600px) {
     padding: 10px;

@@ -11,11 +11,11 @@ import inventory from "@assets/svg/inventory.svg";
 import { PopupProfile } from "src/UI/PopupProfile";
 
 import styles from "./Header.module.scss";
-import { User } from "lucide-react";
+import { ShieldUser, User } from "lucide-react";
 import { useProfile } from "src/hooks/useProfile";
 
 export const Header = () => {
-  const { isAuthenticated, user } = useProfile();
+  const { isAuthenticated, user, isAdmin } = useProfile();
 
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -89,6 +89,17 @@ export const Header = () => {
               <img src={info} alt="" />
               ПОМОЩЬ
             </NavLink>
+            {!isAdmin && (
+              <NavLink
+                className={({ isActive }) =>
+                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                }
+                to="/profile"
+              >
+                <ShieldUser />
+                АДМИНКА
+              </NavLink>
+            )}
           </nav>
         </div>
 
