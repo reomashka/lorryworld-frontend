@@ -94,7 +94,7 @@ export const Header = () => {
                 className={({ isActive }) =>
                   `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
                 }
-                to="/profile"
+                to="/admin"
               >
                 <ShieldUser />
                 АДМИНКА

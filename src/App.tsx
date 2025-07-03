@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { HelpPage } from "@pages/HelpPage";
 import { WithdrawModal } from "@modals/WithdrawModal";
 import { ClaimItemsModal } from "@modals/ClaimItemsModal";
+import { AdminPanelPage } from "@pages/AdminPanelPage";
 
 export default function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/help" element={<HelpPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/admin" element={<AdminPanelPage />} />
       </Routes>
 
       {state?.backgroundLocation && (

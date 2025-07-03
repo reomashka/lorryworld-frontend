@@ -5,6 +5,7 @@ import styles from "./TopupModal.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
 import { useProfile } from "src/hooks/useProfile";
+import { toast } from "react-toastify";
 
 export const TopupModal = () => {
   const navigate = useNavigate();
@@ -80,8 +81,9 @@ export const TopupModal = () => {
                   className={styles.amountInput}
                 />
               </div>
-              <span className={styles.commission}>Комиссия 0%</span>
+              {/* <span className={styles.commission}>Комиссия 0%</span> */}
             </div>
+            <span className={styles.commission}>Комиссия 0%</span>
           </div>
 
           {/* <div className={styles.formGroup}>
@@ -140,6 +142,12 @@ export const TopupModal = () => {
             type="submit"
             className={styles.submitBtn}
             disabled={!amount || !selectedMethod}
+            onClick={(e) => {
+              if (Number(amount) < 50) {
+                e.preventDefault();
+                toast.error("Минимальная сумма пополнения 50 рублей");
+              }
+            }}
           >
             <Coins size={20} />
             ПОПОЛНИТЬ

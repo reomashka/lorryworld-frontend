@@ -1,0 +1,247 @@
+.container {
+  min-height: 100vh;
+  //   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background-color: #151515;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+  }
+}
+
+.dailyCard {
+  &::before {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+  }
+
+  .cardIcon {
+    color: #4facfe;
+  }
+}
+
+.weeklyCard {
+  &::before {
+    background: linear-gradient(90deg, #43e97b, #38f9d7);
+  }
+
+  .cardIcon {
+    color: #43e97b;
+  }
+}
+
+.totalCard {
+  &::before {
+    background: linear-gradient(90deg, #fa709a, #fee140);
+  }
+
+  .cardIcon {
+    color: #fa709a;
+  }
+}
+
+.itemsCard {
+  &::before {
+    background: linear-gradient(90deg, #a8edea, #fed6e3);
+  }
+
+  .cardIcon {
+    color: #667eea;
+  }
+}
+
+.cardIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  background: rgba(102, 126, 234, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.cardContent {
+  .cardTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cardValue {
+    margin-bottom: 1rem;
+
+    .amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      display: block;
+      line-height: 1.2;
+    }
+  }
+
+  .cardChange {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .positive {
+      color: #10b981;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .negative {
+      color: #ef4444;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .neutral {
+      color: #6b7280;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .changeText {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.skeleton {
+  height: 3rem;
+  background: linear-gradient(90deg, #797979 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+
+  .footerText {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+
+    .title {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .statCard {
+    padding: 1.5rem;
+  }
+
+  .cardContent {
+    .cardValue {
+      .amount {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    .title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .cardContent {
+    .cardValue {
+      .amount {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
