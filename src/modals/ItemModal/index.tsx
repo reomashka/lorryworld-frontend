@@ -60,6 +60,8 @@ export const ItemModal = () => {
     SET: "Сет",
   };
 
+  const priceToUse = item.sale && item.sale > 0 ? item.sale : item.price || 0;
+
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.modal}>
@@ -123,7 +125,7 @@ export const ItemModal = () => {
               </div>
             </div>
 
-            <div className={styles.price}>{(item.price || 0) * quantity} ₽</div>
+            <div className={styles.price}>{priceToUse * quantity} ₽</div>
 
             <div className={styles.actions}>
               {isAuthenticated ? (
