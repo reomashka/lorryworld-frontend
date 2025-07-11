@@ -1,47 +1,25 @@
-import { useEffect, useState } from "react";
 import styles from "./AdminModule.module.scss";
 
-interface StatsData {
-  dailyEarnings: number;
-  weeklyEarnings: number;
-  totalEarnings: number;
-  itemsSold: number;
-}
+import { getAdminStats, StatsData } from "src/api/getAdminStats";
+import { useQuery } from "@tanstack/react-query";
 
 export const AdminModule = () => {
-  const [stats, setStats] = useState<StatsData>({
-    dailyEarnings: 0,
-    weeklyEarnings: 0,
-    totalEarnings: 0,
-    itemsSold: 0,
+  const { data, isLoading } = useQuery<StatsData>({
+    queryKey: ["admin-stats"],
+    queryFn: getAdminStats,
   });
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setStats({
-        dailyEarnings: 1250.75,
-        weeklyEarnings: 8750.5,
-        totalEarnings: 125430.25,
-        itemsSold: 342,
-      });
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("ru-RU", {
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat("ru-RU", {
       style: "currency",
       currency: "RUB",
     }).format(amount);
-  };
 
-  const formatNumber = (num: number) => {
-    return new Intl.NumberFormat("ru-RU").format(num);
-  };
+  const formatNumber = (num: number) =>
+    new Intl.NumberFormat("ru-RU").format(num);
+
+  const updatedAt = () => new Date().toLocaleString("ru-RU");
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -75,7 +53,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(stats.dailyEarnings)}
+                  {formatCurrency(data?.earnings.today)}
                 </span>
               )}
             </div>
@@ -118,7 +96,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(stats.weeklyEarnings)}
+                  {formatCurrency(data?.earnings.today)}
                 </span>
               )}
             </div>
@@ -175,7 +153,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(stats.totalEarnings)}
+                  {formatCurrency(data?.earnings.today)}
                 </span>
               )}
             </div>
@@ -225,7 +203,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(stats.itemsSold)}
+                  {formatNumber(data?.earnings.today)}
                 </span>
               )}
             </div>
@@ -275,7 +253,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(stats.itemsSold)}
+                  {formatNumber(data?.earnings.today)}
                 </span>
               )}
             </div>
@@ -321,7 +299,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(stats.itemsSold)}
+                  {formatNumber(data?.items.yesterday)}
                 </span>
               )}
             </div>
