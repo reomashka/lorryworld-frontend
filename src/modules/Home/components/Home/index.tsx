@@ -19,7 +19,7 @@ export const Home = () => {
     minPrice: 0,
     maxPrice: 0,
     searchTerm: "",
-    selectedSort: "standard",
+    selectedSort: "expensive",
   });
 
   const { items, isLoading } = useFilteredItems(filters);

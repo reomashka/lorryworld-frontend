@@ -18,7 +18,7 @@ export const AdminModule = () => {
   const formatNumber = (num: number) =>
     new Intl.NumberFormat("ru-RU").format(num);
 
-  const updatedAt = () => new Date().toLocaleString("ru-RU");
+  // const updatedAt = () => new Date().toLocaleString("ru-RU");
 
   return (
     <div className={styles.container}>
@@ -53,7 +53,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(data?.earnings.today)}
+                  {formatCurrency(data?.earnings.today ?? 0)}
                 </span>
               )}
             </div>
@@ -96,7 +96,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(data?.earnings.today)}
+                  {formatCurrency(data?.earnings.week ?? 0)}
                 </span>
               )}
             </div>
@@ -147,13 +147,13 @@ export const AdminModule = () => {
             </svg>
           </div>
           <div className={styles.cardContent}>
-            <h3 className={styles.cardTitle}>Всего заработано</h3>
+            <h3 className={styles.cardTitle}>За вчера</h3>
             <div className={styles.cardValue}>
               {isLoading ? (
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatCurrency(data?.earnings.today)}
+                  {formatCurrency(data?.earnings.yesterday ?? 0)}
                 </span>
               )}
             </div>
@@ -203,7 +203,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(data?.earnings.today)}
+                  {formatNumber(data?.items.today ?? 0)}
                 </span>
               )}
             </div>
@@ -253,7 +253,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(data?.earnings.today)}
+                  {formatNumber(data?.items.week ?? 0)}
                 </span>
               )}
             </div>
@@ -299,7 +299,7 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(data?.items.yesterday)}
+                  {formatNumber(data?.items.yesterday ?? 0)}
                 </span>
               )}
             </div>
