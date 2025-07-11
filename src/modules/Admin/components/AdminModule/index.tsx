@@ -100,10 +100,6 @@ export const AdminModule = () => {
                 </span>
               )}
             </div>
-            {/* <div className={styles.cardChange}> */}
-            {/* <span className={styles.positive}>+8.2%</span> */}
-            {/* <span className={styles.changeText}>от прошлой недели</span> */}
-            {/* </div> */}
           </div>
         </div>
 

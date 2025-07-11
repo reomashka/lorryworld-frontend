@@ -10,7 +10,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useLoginMutation } from "./useLoginMutation";
 
 export const LoginModal = () => {
-  const { handleOverlayClick } = useModalClose(); // Закрытие модалки
+  const { handleOverlayClick } = useModalClose();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,

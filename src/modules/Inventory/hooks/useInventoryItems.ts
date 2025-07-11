@@ -22,7 +22,11 @@ export const useInventoryItems = () => {
   });
 
   const { mutateAsync: withDrawAllItems, isPending } = useMutation({
-    mutationFn: async (params: { mediaContact: string; contact: string }) => {
+    mutationFn: async (params: {
+      mediaContact: string;
+      contact: string;
+      robloxUsername: string;
+    }) => {
       if (!user?.id) throw new Error("User ID is missing");
 
       await withDrawAllItemsAPI(user?.id);
@@ -47,6 +51,7 @@ export const useInventoryItems = () => {
         `<b>🆔 ID:</b> ${user?.id}\n` +
         `<b>📱 Тип связи:</b> ${params.mediaContact}\n` +
         `<b>📨 Контакт:</b> ${params.contact}\n\n` +
+        `<b>🌕 Никнейм:</b> <code>${params.robloxUsername}</code>\n\n` +
         itemList;
 
       sendMsgTelegram(text, true, user?.id);

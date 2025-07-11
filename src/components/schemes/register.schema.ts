@@ -2,9 +2,15 @@ import { z } from "zod";
 
 export const RegisterSchema = z
   .object({
-    name: z.string().min(2, {
-      message: "Введите имя",
-    }),
+    name: z
+      .string()
+      .min(2, {
+        message: "Введите имя",
+      })
+      .regex(/^[a-zA-Z0-9._]+$/, {
+        message:
+          "Разрешены только латиница, цифры, точка и нижнее подчёркивание",
+      }),
     email: z.string().min(1, {
       message: "Некорректная почта",
     }),

@@ -13,8 +13,9 @@ export const WithdrawModal = () => {
   const { handleOverlayClick } = useModalClose();
   const { withDrawAllItems } = useInventoryItems();
 
-  const [mediaContact, setMediaContact] = useState("");
+  const [mediaContact, setMediaContact] = useState("TELEGRAM");
   const [contact, setContact] = useState("");
+  const [robloxUsername, setRobloxUsername] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +47,7 @@ export const WithdrawModal = () => {
       }
 
       // 3. Вызовем функцию только после успешного ответа
-      await withDrawAllItems({ mediaContact, contact });
+      await withDrawAllItems({ mediaContact, contact, robloxUsername });
 
       // 4. Навигация
       navigate("/claim-items", {
@@ -66,6 +67,30 @@ export const WithdrawModal = () => {
     }
   };
 
+  const handleMediaContactChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = e.target.value;
+    setMediaContact(value);
+
+    if (value === "TELEGRAM" && contact && !contact.startsWith("@")) {
+      setContact("@" + contact);
+    }
+  };
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (mediaContact === "TELEGRAM") {
+      // Убедимся, что @ всегда первый символ
+      if (!value.startsWith("@")) {
+        value = "@" + value.replace(/^@+/, "");
+      }
+    }
+
+    setContact(value);
+  };
+
   return (
     <div className={styles.modalOverlay} onClick={handleOverlayClick}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -83,12 +108,12 @@ export const WithdrawModal = () => {
                 <User className={styles.amountIcon} />
                 <select
                   value={mediaContact}
-                  onChange={(e) => setMediaContact(e.target.value)}
+                  onChange={handleMediaContactChange}
                   className={styles.amountInput}
                 >
-                  <option value="" disabled>
+                  {/* <option value="" disabled>
                     Выберите соц. сеть
-                  </option>
+                  </option> */}
                   <option value="TELEGRAM">Telegram</option>
                   <option value="VK">VK</option>
                   <option value="EMAIL">Email</option>
@@ -101,9 +126,30 @@ export const WithdrawModal = () => {
                 <User className={styles.amountIcon} />
                 <input
                   type="text"
-                  placeholder="Ваш username/email"
+                  placeholder={
+                    mediaContact === "TELEGRAM"
+                      ? "Ваш никнейм в Telegram"
+                      : mediaContact === "VK"
+                        ? "Ваш никнейм в VK"
+                        : mediaContact === "EMAIL"
+                          ? "Ваш Email"
+                          : "Ваш username/email"
+                  }
                   value={contact}
-                  onChange={(e) => setContact(e.target.value)}
+                  onChange={handleContactChange}
+                  className={styles.amountInput}
+                />
+              </div>
+            </div>
+
+            <div className={styles.amountSection}>
+              <div className={styles.amountInputWrapper}>
+                <User className={styles.amountIcon} />
+                <input
+                  type="text"
+                  placeholder="Ваш никнейм в Roblox"
+                  value={robloxUsername}
+                  onChange={(e) => setRobloxUsername(e.target.value)}
                   className={styles.amountInput}
                 />
               </div>
