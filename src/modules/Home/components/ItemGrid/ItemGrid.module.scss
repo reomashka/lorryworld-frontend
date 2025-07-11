@@ -58,3 +58,24 @@
   font-weight: bold;
   color: white;
 }
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.oldPrice {
+  font-size: 18px;
+  color: gray;
+  text-decoration: line-through;
+  text-decoration-color: red;
+  text-decoration-thickness: 2px;
+}
+
+.newPrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}

@@ -49,9 +49,19 @@ const ItemCard = React.memo(
           />
           <img src={rarityItemMap[item.rarity as RarityKey]} alt={item.name} />
         </div>
+
         <div className={styles.itemInfo}>
           <div className={styles.itemName}>{item.name}</div>
-          <div className={styles.itemPrice}>{item.price} ₽</div>
+          <div className={styles.priceWrapper}>
+            {item.sale > 0 ? (
+              <>
+                <div className={styles.oldPrice}>{item.price} ₽</div>
+                <div className={styles.newPrice}>{item.sale} ₽</div>
+              </>
+            ) : (
+              <div className={styles.itemPrice}>{item.price} ₽</div>
+            )}
+          </div>
         </div>
       </div>
     );

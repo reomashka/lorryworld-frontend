@@ -25,7 +25,7 @@ export const ClaimItemsModal = () => {
         </button>
 
         <div className={styles.modalContent}>
-          <h1>ЗАЙДИТЕ НА СЕРВЕР</h1>
+          <h1>ПОЛУЧЕНИЕ ТОВАРА</h1>
           <p>Пожалуйста, свяжитесь с админом, чтобы получить предметы</p>
 
           <a

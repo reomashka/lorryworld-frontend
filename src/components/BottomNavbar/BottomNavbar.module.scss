@@ -14,6 +14,8 @@
     align-items: center;
 
     .navItem {
+      position: relative; // <- добавь сюда
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -62,6 +64,26 @@
         padding: 7px 10px 7px 10px;
         border-radius: 10px;
         background: rgba(169, 62, 149, 0.2);
+
+        // УВЕДОМЛЕНИЕ
+        // &::after {
+        //   content: "1";
+        //   position: absolute;
+        //   top: 0px;
+        //   right: 5px;
+        //   width: 16px;
+        //   height: 16px;
+        //   font-size: 10 px;
+        //   font-weight: bold;
+        //   color: white;
+        //   background-color: #df382d;
+        //   border-radius: 50%;
+        //   display: flex;
+        //   align-items: center;
+        //   justify-content: center;
+        //   pointer-events: none;
+        //   user-select: none;
+        // }
       }
 
       &_login {
