@@ -14,8 +14,13 @@ export const useBuyItem = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: async ({ item, quantity, user }: BuyItemPayload) => {
-      const priceToUse = item.sale > 0 ? item.sale : item.price || 0;
+      const sale = Number(item.sale);
+      const price = Number(item.price);
+
+      const priceToUse = sale > 0 ? sale : price || 0;
       const totalPrice = priceToUse * quantity;
+
+      console.log("Balance:", user.balance, "Total price:", totalPrice);
 
       if (user.balance < totalPrice) {
         throw new Error("Недостаточно средств. Пополните баланс.");
