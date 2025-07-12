@@ -84,23 +84,23 @@
   }
 
   // Уведомление (!)
-  // &::after {
-  //   content: "1";
-  //   position: absolute;
-  //   top: 6px;
-  //   right: 6px;
-  //   width: 16px;
-  //   height: 16px;
-  //   font-size: 10px;
-  //   font-weight: bold;
-  //   color: white;
-  //   background-color: #df382d;
-  //   border-radius: 50%;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   pointer-events: none;
-  // }
+  &[data-count]::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: #df382d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
 }
 
 .navButtonActive {

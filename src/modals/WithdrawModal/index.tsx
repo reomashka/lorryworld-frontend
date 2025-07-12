@@ -4,7 +4,7 @@ import { X, User } from "lucide-react";
 import styles from "./WithdrawModal.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
-import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
+import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { toast } from "react-toastify";
 
 export const WithdrawModal = () => {

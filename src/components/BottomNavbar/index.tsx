@@ -11,10 +11,13 @@ import { PopupProfile } from "src/UI/PopupProfile";
 import styles from "./BottomNavbar.module.scss";
 import { useProfile } from "src/hooks/useProfile";
 
+import { useInventoryItems } from "src/hooks/useInventoryItems";
+
 export const BottomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { isAuthenticated } = useProfile();
+  const { purchasedItems } = useInventoryItems();
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -36,7 +39,12 @@ export const BottomNavbar = () => {
 
       {isAuthenticated ? (
         <Link to="/inventory" className={styles.navItem}>
-          <div className={styles.navItem_inventory}>
+          <div
+            className={styles.navItem_inventory}
+            data-count={
+              purchasedItems.length > 0 ? purchasedItems.length : undefined
+            }
+          >
             <img src={inventory} alt="Инвентарь" />
           </div>
           <span>Инвентарь</span>

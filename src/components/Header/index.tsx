@@ -10,12 +10,16 @@ import inventory from "@assets/svg/inventory.svg";
 
 import { PopupProfile } from "src/UI/PopupProfile";
 
+import { useInventoryItems } from "src/hooks/useInventoryItems";
+
 import styles from "./Header.module.scss";
 import { ShieldUser, User } from "lucide-react";
 import { useProfile } from "src/hooks/useProfile";
 
 export const Header = () => {
   const { isAuthenticated, user, isAdmin } = useProfile();
+
+  const { purchasedItems } = useInventoryItems();
 
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -38,6 +42,7 @@ export const Header = () => {
               <div className={styles.logo}>
                 <img src={logo} alt="logo" />
               </div>
+
               <div className={styles.brandInfo}>
                 <h1>Lorry World</h1>
                 <p>Магазин Murder Mystery 2</p>
@@ -61,6 +66,9 @@ export const Header = () => {
                   `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
                 }
                 to="/inventory"
+                data-count={
+                  purchasedItems.length > 0 ? purchasedItems.length : undefined
+                }
               >
                 <img src={inventory} alt="" />
                 ИНВЕНТАРЬ

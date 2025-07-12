@@ -66,24 +66,24 @@
         background: rgba(169, 62, 149, 0.2);
 
         // УВЕДОМЛЕНИЕ
-        // &::after {
-        //   content: "1";
-        //   position: absolute;
-        //   top: 0px;
-        //   right: 5px;
-        //   width: 16px;
-        //   height: 16px;
-        //   font-size: 10 px;
-        //   font-weight: bold;
-        //   color: white;
-        //   background-color: #df382d;
-        //   border-radius: 50%;
-        //   display: flex;
-        //   align-items: center;
-        //   justify-content: center;
-        //   pointer-events: none;
-        //   user-select: none;
-        // }
+        &[data-count]::after {
+          content: attr(data-count);
+          position: absolute;
+          top: 0px;
+          right: 5px;
+          width: 16px;
+          height: 16px;
+          font-size: 10px;
+          font-weight: bold;
+          color: white;
+          background-color: #df382d;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+          user-select: none;
+        }
       }
 
       &_login {

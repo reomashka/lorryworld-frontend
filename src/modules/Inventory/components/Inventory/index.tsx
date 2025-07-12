@@ -1,7 +1,7 @@
 import styles from "./Inventory.module.scss";
 import { Boxes, ShieldUser } from "lucide-react";
 
-import { useInventoryItems } from "@modules/Inventory/hooks/useInventoryItems";
+import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";

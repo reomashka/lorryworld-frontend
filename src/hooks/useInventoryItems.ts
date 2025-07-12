@@ -11,7 +11,6 @@ export const useInventoryItems = () => {
   const { user } = useProfile();
   const queryClient = useQueryClient();
 
-  // Получение купленных предметов
   const { data: items = [], isLoading } = useQuery<UserItem[]>({
     queryKey: ["purchasedItems", user?.id],
     queryFn: () => {
@@ -64,14 +63,25 @@ export const useInventoryItems = () => {
     },
   });
 
-  const isDisabled =
-    items.filter((item) => item.status === "PURCHASED").length === 0;
+  // Фильтрация предметов
+  const purchasedItems = items.filter((item) => item.status === "PURCHASED");
+
+  const waitingItems = items.filter(
+    (item) => item.status === "WITHDRAWN" && item.isIssued === false
+  );
+
+  const hasNotIssued = waitingItems.some((item) => item.isIssued === false);
+
+  const isDisabled = purchasedItems.length === 0;
 
   return {
     items,
+    purchasedItems,
+    waitingItems,
+    hasNotIssued,
     isDisabled,
     withDrawAllItems,
     isLoading,
-    isPending, // статус выполнения мутации
+    isPending,
   };
 };
