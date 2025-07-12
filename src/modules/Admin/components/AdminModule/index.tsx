@@ -13,6 +13,8 @@ export const AdminModule = () => {
     new Intl.NumberFormat("ru-RU", {
       style: "currency",
       currency: "RUB",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(amount);
 
   const formatNumber = (num: number) =>
@@ -64,45 +66,6 @@ export const AdminModule = () => {
           </div>
         </div>
 
-        <div className={`${styles.statCard} ${styles.weeklyCard}`}>
-          <div className={styles.cardIcon}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 3V21H21"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M7 12L12 7L16 11L21 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <div className={styles.cardContent}>
-            <h3 className={styles.cardTitle}>За неделю</h3>
-            <div className={styles.cardValue}>
-              {isLoading ? (
-                <div className={styles.skeleton}></div>
-              ) : (
-                <span className={styles.amount}>
-                  {formatCurrency(data?.earnings.week ?? 0)}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
         <div className={`${styles.statCard} ${styles.totalCard}`}>
           <div className={styles.cardIcon}>
             <svg
@@ -142,6 +105,7 @@ export const AdminModule = () => {
               />
             </svg>
           </div>
+
           <div className={styles.cardContent}>
             <h3 className={styles.cardTitle}>За вчера</h3>
             <div className={styles.cardValue}>
@@ -154,7 +118,46 @@ export const AdminModule = () => {
               )}
             </div>
             <div className={styles.cardChange}>
-              <span className={styles.neutral}>Общая сумма</span>
+              {/* <span className={styles.neutral}>Общая сумма</span> */}
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.statCard} ${styles.weeklyCard}`}>
+          <div className={styles.cardIcon}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 3V21H21"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M7 12L12 7L16 11L21 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className={styles.cardContent}>
+            <h3 className={styles.cardTitle}>За неделю</h3>
+            <div className={styles.cardValue}>
+              {isLoading ? (
+                <div className={styles.skeleton}></div>
+              ) : (
+                <span className={styles.amount}>
+                  {formatCurrency(data?.earnings.week ?? 0)}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -249,9 +252,13 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(data?.items.week ?? 0)}
+                  {formatNumber(data?.items.yesterday ?? 0)}
                 </span>
               )}
+            </div>
+            <div className={styles.cardChange}>
+              {/* <span className={styles.positive}>+8.2%</span> */}
+              <span className={styles.changeText}>За вчера</span>
             </div>
           </div>
         </div>
@@ -295,9 +302,13 @@ export const AdminModule = () => {
                 <div className={styles.skeleton}></div>
               ) : (
                 <span className={styles.amount}>
-                  {formatNumber(data?.items.yesterday ?? 0)}
+                  {formatNumber(data?.items.week ?? 0)}
                 </span>
               )}
+            </div>
+            <div className={styles.cardChange}>
+              {/* <span className={styles.positive}>+8.2%</span> */}
+              <span className={styles.changeText}>За неделю</span>
             </div>
           </div>
         </div>
