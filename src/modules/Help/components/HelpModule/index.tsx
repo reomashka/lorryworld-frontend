@@ -1,3 +1,8 @@
+/**
+ * Главный компонент модуля Help.
+ * Импорт через `@/modules/Help`.
+ */
+
 import "./HelpPage.scss";
 
 export const HelpModule = () => {

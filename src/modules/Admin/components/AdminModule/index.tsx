@@ -1,7 +1,13 @@
+/**
+ * Главный компонент модуля Admin.
+ * Импорт через `@/modules/Admin`.
+ */
+
 import styles from "./AdminModule.module.scss";
 
 import { getAdminStats, StatsData } from "src/api/getAdminStats";
 import { useQuery } from "@tanstack/react-query";
+import { Recharts } from "../Recharts";
 
 export const AdminModule = () => {
   const { data, isLoading } = useQuery<StatsData>({
@@ -20,13 +26,11 @@ export const AdminModule = () => {
   const formatNumber = (num: number) =>
     new Intl.NumberFormat("ru-RU").format(num);
 
-  // const updatedAt = () => new Date().toLocaleString("ru-RU");
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Статистика продаж</h1>
-        {/* <p className={styles.subtitle}>Заработано</p> */}
+        <p className={styles.subtitle}>Заработано/продано</p>
       </div>
 
       <div className={styles.statsGrid}>
@@ -314,6 +318,11 @@ export const AdminModule = () => {
         </div>
       </div>
 
+      <div className={styles.header}>
+        <h1 className={styles.title}>Количество регистраций</h1>
+      </div>
+
+      <Recharts />
       <div className={styles.footer}>
         <p className={styles.footerText}>
           Последнее обновление: {new Date().toLocaleString("ru-RU")}

@@ -1,3 +1,8 @@
+/**
+ * Главный компонент модуля Inventory.
+ * Импорт через `@/modules/Inventory`.
+ */
+
 import styles from "./Inventory.module.scss";
 import { Boxes, ShieldUser } from "lucide-react";
 

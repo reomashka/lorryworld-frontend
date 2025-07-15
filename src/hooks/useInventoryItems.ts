@@ -2,9 +2,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "src/hooks/useProfile";
 import { toast } from "react-toastify";
 import { fetchPurchasedItems } from "src/api/fetchPurchasedItems";
-import { withDrawAllItemsAPI } from "src/api/withDrawAllItemsAPI";
+import { withDrawAllItems as withDrawAllItemsAPI } from "src/api/withDrawAllItems";
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
-import { getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItemsAPI";
+import { getRecentWithdrawnItems as getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItems";
 import UserItem from "@interfaces/UserItem.interface";
 
 export const useInventoryItems = () => {

@@ -1,1 +1,1 @@
-export { Inventory } from "./components/Inventory";
+export { Inventory } from "./components/InventoryModule";

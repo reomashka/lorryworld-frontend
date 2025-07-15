@@ -1,3 +1,8 @@
+/**
+ * Главный компонент модуля Profile.
+ * Импорт через `@/modules/Profile`.
+ */
+
 import { useState } from "react";
 
 import styles from "./Profile.module.scss";

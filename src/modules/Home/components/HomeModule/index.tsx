@@ -1,3 +1,8 @@
+/**
+ * Главный компонент модуля Home.
+ * Импорт через `@/modules/Home`.
+ */
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
