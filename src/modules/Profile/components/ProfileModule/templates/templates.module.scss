@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 $background-color: #1b1b1b;
 $card-background: #1b1b1b;
@@ -91,7 +93,7 @@ $border-color: #333333;
     background-color: $primary-color;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color.adjust($primary-color, $lightness: -10%);
     }
   }
 }
