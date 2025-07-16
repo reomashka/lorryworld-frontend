@@ -5,6 +5,7 @@ import { HelpPage } from "../pages/HelpPage";
 import { InventoryPage } from "../pages/InventoryPage";
 import { AdminPanelPage } from "../pages/AdminPanelPage";
 import { PrivateRoute } from "./PrivateRoute";
+import { AgreementPage } from "@pages/AgreementPage";
 
 export const MainRoutes = () => {
   const location = useLocation();
@@ -19,6 +20,8 @@ export const MainRoutes = () => {
       <Route path="/help" element={<HelpPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/inventory" element={<InventoryPage />} />
+
+      <Route path="/agreement" element={<AgreementPage />} />
 
       <Route element={<PrivateRoute />}>
         <Route path="/admin" element={<AdminPanelPage />} />
