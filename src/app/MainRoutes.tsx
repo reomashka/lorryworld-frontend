@@ -5,7 +5,10 @@ import { HelpPage } from "../pages/HelpPage";
 import { InventoryPage } from "../pages/InventoryPage";
 import { AdminPanelPage } from "../pages/AdminPanelPage";
 import { PrivateRoute } from "./PrivateRoute";
+import { PrivacyPage } from "@pages/PrivacyPage";
 import { AgreementPage } from "@pages/AgreementPage";
+import { PurchaseTermsPage } from "@pages/PurchaseTermsPage";
+import { ContactsPage } from "@pages/ContactsPage";
 
 export const MainRoutes = () => {
   const location = useLocation();
@@ -21,7 +24,11 @@ export const MainRoutes = () => {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/inventory" element={<InventoryPage />} />
 
-      <Route path="/agreement" element={<AgreementPage />} />
+      {/* legal */}
+      <Route path="/legal/agreement" element={<AgreementPage />} />
+      <Route path="/legal/privacy" element={<PrivacyPage />} />
+      <Route path="/legal/contacts" element={<ContactsPage />} />
+      <Route path="/legal/purchase-terms" element={<PurchaseTermsPage />} />
 
       <Route element={<PrivateRoute />}>
         <Route path="/admin" element={<AdminPanelPage />} />

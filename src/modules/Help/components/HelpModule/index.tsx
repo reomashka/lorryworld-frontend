@@ -21,7 +21,12 @@ export const HelpModule = () => {
           <div className={styles.cardContent}>
             <p className={styles.cardText}>
               А пока вы можете ознакомиться с инструкцией в нашем{" "}
-              <a href="#" className={styles.link}>
+              <a
+                href="https://t.me/lorryworldmm2/9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
                 телеграм канале
               </a>
               .
@@ -31,19 +36,32 @@ export const HelpModule = () => {
               <h3 className={styles.contactsTitle}>СВЯЗЬ С АДМИНОМ</h3>
               <div className={styles.contactItem}>
                 <span className={styles.contactLabel}>Телеграм</span>
-                <a href="#" className={styles.contactLink}>
+                <a
+                  href="https://t.me/gingermoor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.contactLink}
+                >
                   @gingermoor
                 </a>
               </div>
               <div className={styles.contactItem}>
                 <span className={styles.contactLabel}>Почта</span>
-                <a href="#" className={styles.contactLink}>
+                <a
+                  href="mailto:lorryworldspace@gmail.com"
+                  className={styles.contactLink}
+                >
                   lorryworldspace@gmail.com
                 </a>
               </div>
               <div className={styles.contactItem}>
                 <span className={styles.contactLabel}>Вконтакте</span>
-                <a href="#" className={styles.contactLink}>
+                <a
+                  href="https://vk.com/lorryworldgg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.contactLink}
+                >
                   lorryworldgg
                 </a>
               </div>
@@ -51,14 +69,18 @@ export const HelpModule = () => {
           </div>
         </div>
         <div className={styles.footerButtons}>
-          <Link className={styles.footerButton} to="/agreement">
+          <Link className={styles.footerButton} to="/legal/agreement">
             Пользовательское соглашение
           </Link>
-          <button className={styles.footerButton}>
+          <Link className={styles.footerButton} to="/legal/privacy">
             Политика конфиденциальности
-          </button>
-          <button className={styles.footerButton}>Условия покупок</button>
-          <button className={styles.footerButton}>Контакты</button>
+          </Link>
+          <Link className={styles.footerButton} to="/legal/purchase-terms">
+            Условия покупок
+          </Link>
+          <Link className={styles.footerButton} to="/legal/contacts">
+            Контакты
+          </Link>
         </div>
       </main>
     </div>
