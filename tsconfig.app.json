@@ -29,7 +29,8 @@
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
-      "@modals/*": ["src/modals/*"]
+      "@modals/*": ["src/modals/*"],
+      "@stores/*": ["src/stores/*"]
     }
   },
   "include": ["src"]

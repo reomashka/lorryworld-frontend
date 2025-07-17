@@ -7,8 +7,7 @@ import cart from "@assets/svg/cart_two.svg";
 import { useModalClose } from "src/hooks/useModalClose";
 import { Item } from "@interfaces/Item.interface";
 import { useProfile } from "src/hooks/useProfile";
-import { useAppDispatch } from "src/hooks/useAppDispatch";
-import { fetchProfile } from "src/store/userSlice";
+import { userStore } from "@stores/userStore";
 import { useQuantity } from "./hooks/useQuantity";
 import { useBuyItem } from "./hooks/useBuyItem"; // новый хук
 
@@ -19,7 +18,6 @@ import CorruptCover from "@assets/coversItem/corrupt.png";
 import VintagesCover from "@assets/coversItem/vintages.png";
 
 export const ItemModal = () => {
-  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
@@ -37,7 +35,7 @@ export const ItemModal = () => {
       { item, quantity, user },
       {
         onSuccess: () => {
-          dispatch(fetchProfile());
+          userStore.fetchProfile();
         },
       }
     );

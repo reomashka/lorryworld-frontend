@@ -14,9 +14,11 @@ import { useInventoryItems } from "src/hooks/useInventoryItems";
 
 import styles from "./Header.module.scss";
 import { ShieldUser, User } from "lucide-react";
+
+import { observer } from "mobx-react-lite";
 import { useProfile } from "src/hooks/useProfile";
 
-export const Header = () => {
+export const Header = observer(() => {
   const { isAuthenticated, user, isAdmin } = useProfile();
 
   const { purchasedItems } = useInventoryItems();
@@ -151,4 +153,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+});
