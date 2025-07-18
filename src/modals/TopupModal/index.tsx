@@ -66,29 +66,27 @@ export const TopupModal = observer(() => {
           <X size={24} />
         </button>
 
-        {user?.role == "ADMIN" ? (
-          <>
-            <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ СЧЕТА</h2>
+        <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ СЧЕТА</h2>
 
-            <form onSubmit={handleSubmit} className={styles.modalForm}>
-              <div className={styles.formGroup}>
-                <div className={styles.amountSection}>
-                  <div className={styles.amountInputWrapper}>
-                    <Coins className={styles.amountIcon} />
-                    <input
-                      type="text"
-                      placeholder="Сумма"
-                      value={amount}
-                      onChange={handleChange}
-                      className={styles.amountInput}
-                    />
-                  </div>
-                  {/* <span className={styles.commission}>Комиссия 0%</span> */}
-                </div>
-                <span className={styles.commission}>Комиссия 0%</span>
+        <form onSubmit={handleSubmit} className={styles.modalForm}>
+          <div className={styles.formGroup}>
+            <div className={styles.amountSection}>
+              <div className={styles.amountInputWrapper}>
+                <Coins className={styles.amountIcon} />
+                <input
+                  type="text"
+                  placeholder="Сумма"
+                  value={amount}
+                  onChange={handleChange}
+                  className={styles.amountInput}
+                />
               </div>
+              {/* <span className={styles.commission}>Комиссия 0%</span> */}
+            </div>
+            <span className={styles.commission}>Комиссия 0%</span>
+          </div>
 
-              {/* <div className={styles.formGroup}>
+          {/* <div className={styles.formGroup}>
             <div className={styles.promoSection}>
               <div className={styles.promoInputWrapper}>
                 <Mail className={styles.amountIcon} />
@@ -112,55 +110,49 @@ export const TopupModal = observer(() => {
             {promoCode}
           </div> */}
 
-              <div className={styles.paymentMethods}>
-                <h3 className={styles.paymentTitle}>
-                  ВЫБЕРИТЕ МЕТОД ПОПОЛНЕНИЯ
-                </h3>
+          <div className={styles.paymentMethods}>
+            <h3 className={styles.paymentTitle}>ВЫБЕРИТЕ МЕТОД ПОПОЛНЕНИЯ</h3>
 
-                <div className={styles.paymentOptions}>
-                  <button
-                    type="button"
-                    className={`${styles.paymentOption} ${
-                      selectedMethod === "sbp" ? styles.active : ""
-                    }`}
-                    onClick={() => setSelectedMethod("sbp")}
-                  >
-                    <Smartphone size={20} />
-                    СБП
-                  </button>
-
-                  <button
-                    type="button"
-                    className={`${styles.paymentOption} ${
-                      selectedMethod === "card" ? styles.active : ""
-                    }`}
-                    onClick={() => setSelectedMethod("card")}
-                  >
-                    <CreditCard size={20} />
-                    КАРТА РФ
-                  </button>
-                </div>
-              </div>
+            <div className={styles.paymentOptions}>
+              <button
+                type="button"
+                className={`${styles.paymentOption} ${
+                  selectedMethod === "sbp" ? styles.active : ""
+                }`}
+                onClick={() => setSelectedMethod("sbp")}
+              >
+                <Smartphone size={20} />
+                СБП
+              </button>
 
               <button
-                type="submit"
-                className={styles.submitBtn}
-                disabled={!amount || !selectedMethod}
-                onClick={(e) => {
-                  if (Number(amount) < 3) {
-                    e.preventDefault();
-                    toast.error("Минимальная сумма пополнения 3 рублей");
-                  }
-                }}
+                type="button"
+                className={`${styles.paymentOption} ${
+                  selectedMethod === "card" ? styles.active : ""
+                }`}
+                onClick={() => setSelectedMethod("card")}
               >
-                <Coins size={20} />
-                ПОПОЛНИТЬ
+                <CreditCard size={20} />
+                КАРТА РФ
               </button>
-            </form>
-          </>
-        ) : (
-          <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ ВРЕМЕННО НЕДОСТУПНО</h2>
-        )}
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={!amount || !selectedMethod}
+            onClick={(e) => {
+              if (Number(amount) < 3) {
+                e.preventDefault();
+                toast.error("Минимальная сумма пополнения 3 рублей");
+              }
+            }}
+          >
+            <Coins size={20} />
+            ПОПОЛНИТЬ
+          </button>
+        </form>
       </div>
     </div>
   );
