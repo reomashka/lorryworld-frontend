@@ -6,13 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
 import { useProfile } from "src/hooks/useProfile";
 import { toast } from "react-toastify";
+import { observer } from "mobx-react-lite";
 
-export const TopupModal = () => {
+export const TopupModal = observer(() => {
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
 
   const [amount, setAmount] = useState("");
-  // const [promoCode, setPromoCode] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<"sbp" | "card" | null>(
     null
   );
@@ -33,7 +33,7 @@ export const TopupModal = () => {
         },
         body: JSON.stringify({
           userId: user.id,
-          amount: Number(amount),
+          sum: Number(amount),
         }),
       });
 
@@ -66,27 +66,29 @@ export const TopupModal = () => {
           <X size={24} />
         </button>
 
-        <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ СЧЕТА</h2>
+        {user?.role == "ADMIN" ? (
+          <>
+            <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ СЧЕТА</h2>
 
-        <form onSubmit={handleSubmit} className={styles.modalForm}>
-          <div className={styles.formGroup}>
-            <div className={styles.amountSection}>
-              <div className={styles.amountInputWrapper}>
-                <Coins className={styles.amountIcon} />
-                <input
-                  type="text"
-                  placeholder="Сумма"
-                  value={amount}
-                  onChange={handleChange}
-                  className={styles.amountInput}
-                />
+            <form onSubmit={handleSubmit} className={styles.modalForm}>
+              <div className={styles.formGroup}>
+                <div className={styles.amountSection}>
+                  <div className={styles.amountInputWrapper}>
+                    <Coins className={styles.amountIcon} />
+                    <input
+                      type="text"
+                      placeholder="Сумма"
+                      value={amount}
+                      onChange={handleChange}
+                      className={styles.amountInput}
+                    />
+                  </div>
+                  {/* <span className={styles.commission}>Комиссия 0%</span> */}
+                </div>
+                <span className={styles.commission}>Комиссия 0%</span>
               </div>
-              {/* <span className={styles.commission}>Комиссия 0%</span> */}
-            </div>
-            <span className={styles.commission}>Комиссия 0%</span>
-          </div>
 
-          {/* <div className={styles.formGroup}>
+              {/* <div className={styles.formGroup}>
             <div className={styles.promoSection}>
               <div className={styles.promoInputWrapper}>
                 <Mail className={styles.amountIcon} />
@@ -110,50 +112,56 @@ export const TopupModal = () => {
             {promoCode}
           </div> */}
 
-          <div className={styles.paymentMethods}>
-            <h3 className={styles.paymentTitle}>ВЫБЕРИТЕ МЕТОД ПОПОЛНЕНИЯ</h3>
+              <div className={styles.paymentMethods}>
+                <h3 className={styles.paymentTitle}>
+                  ВЫБЕРИТЕ МЕТОД ПОПОЛНЕНИЯ
+                </h3>
 
-            <div className={styles.paymentOptions}>
+                <div className={styles.paymentOptions}>
+                  <button
+                    type="button"
+                    className={`${styles.paymentOption} ${
+                      selectedMethod === "sbp" ? styles.active : ""
+                    }`}
+                    onClick={() => setSelectedMethod("sbp")}
+                  >
+                    <Smartphone size={20} />
+                    СБП
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`${styles.paymentOption} ${
+                      selectedMethod === "card" ? styles.active : ""
+                    }`}
+                    onClick={() => setSelectedMethod("card")}
+                  >
+                    <CreditCard size={20} />
+                    КАРТА РФ
+                  </button>
+                </div>
+              </div>
+
               <button
-                type="button"
-                className={`${styles.paymentOption} ${
-                  selectedMethod === "sbp" ? styles.active : ""
-                }`}
-                onClick={() => setSelectedMethod("sbp")}
+                type="submit"
+                className={styles.submitBtn}
+                disabled={!amount || !selectedMethod}
+                onClick={(e) => {
+                  if (Number(amount) < 50) {
+                    e.preventDefault();
+                    toast.error("Минимальная сумма пополнения 50 рублей");
+                  }
+                }}
               >
-                <Smartphone size={20} />
-                СБП
+                <Coins size={20} />
+                ПОПОЛНИТЬ
               </button>
-
-              <button
-                type="button"
-                className={`${styles.paymentOption} ${
-                  selectedMethod === "card" ? styles.active : ""
-                }`}
-                onClick={() => setSelectedMethod("card")}
-              >
-                <CreditCard size={20} />
-                КАРТА РФ
-              </button>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className={styles.submitBtn}
-            disabled={!amount || !selectedMethod}
-            onClick={(e) => {
-              if (Number(amount) < 50) {
-                e.preventDefault();
-                toast.error("Минимальная сумма пополнения 50 рублей");
-              }
-            }}
-          >
-            <Coins size={20} />
-            ПОПОЛНИТЬ
-          </button>
-        </form>
+            </form>
+          </>
+        ) : (
+          <h2 className={styles.modalTitle}>ПОПОЛНЕНИЕ ВРЕМЕННО НЕДОСТУПНО</h2>
+        )}
       </div>
     </div>
   );
-};
+});

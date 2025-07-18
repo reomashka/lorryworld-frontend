@@ -28,6 +28,7 @@ class UserStore {
   user: User | null = null;
   status: "idle" | "loading" | "succeeded" | "failed" = "idle";
   error: string | null = null;
+  isResolved = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -47,11 +48,13 @@ class UserStore {
         runInAction(() => {
           this.user = data;
           this.status = "succeeded";
+          this.isResolved = true;
         });
       })
       .catch((error) => {
         runInAction(() => {
           this.status = "failed";
+          this.isResolved = true;
           this.error =
             error instanceof Error ? error.message : "Failed to fetch profile";
         });

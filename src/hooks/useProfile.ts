@@ -1,7 +1,7 @@
 import { userStore } from "@stores/userStore";
 
 export const useProfile = () => {
-  const { user, status, error } = userStore;
+  const { user, status, error, isResolved } = userStore;
 
   const isAuthenticated = user !== null;
   const isAdmin = user?.role === "ADMIN";
@@ -18,5 +18,6 @@ export const useProfile = () => {
     isFailed,
     isUnauthorized,
     isAdmin,
+    isResolved,
   };
 };

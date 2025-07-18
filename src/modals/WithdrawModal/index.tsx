@@ -6,8 +6,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useModalClose } from "src/hooks/useModalClose";
 import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { toast } from "react-toastify";
+import { observer } from "mobx-react-lite";
 
-export const WithdrawModal = () => {
+export const WithdrawModal = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
@@ -130,10 +131,10 @@ export const WithdrawModal = () => {
                     mediaContact === "TELEGRAM"
                       ? "Ваш никнейм в Telegram"
                       : mediaContact === "VK"
-                        ? "Ваш никнейм в VK"
-                        : mediaContact === "EMAIL"
-                          ? "Ваш Email"
-                          : "Ваш username/email"
+                      ? "Ваш никнейм в VK"
+                      : mediaContact === "EMAIL"
+                      ? "Ваш Email"
+                      : "Ваш username/email"
                   }
                   value={contact}
                   onChange={handleContactChange}
@@ -163,4 +164,4 @@ export const WithdrawModal = () => {
       </div>
     </div>
   );
-};
+});

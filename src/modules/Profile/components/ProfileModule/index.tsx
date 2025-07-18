@@ -10,8 +10,9 @@ import styles from "./Profile.module.scss";
 import { useProfile } from "src/hooks/useProfile";
 import { ProfileTemplate } from "./templates/Profile";
 import { PaymentTemplate } from "./templates/Payment";
+import { observer } from "mobx-react-lite";
 
-export const Profile = () => {
+export const Profile = observer(() => {
   const { status, error } = useProfile();
   const [activeTab, setActiveTab] = useState<"profile" | "payments">("profile");
 
@@ -30,4 +31,4 @@ export const Profile = () => {
       </main>
     </div>
   );
-};
+});

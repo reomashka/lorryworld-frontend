@@ -12,8 +12,9 @@ import styles from "./BottomNavbar.module.scss";
 import { useProfile } from "src/hooks/useProfile";
 
 import { useInventoryItems } from "src/hooks/useInventoryItems";
+import { observer } from "mobx-react-lite";
 
-export const BottomNavbar = () => {
+export const BottomNavbar = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { isAuthenticated } = useProfile();
@@ -92,4 +93,4 @@ export const BottomNavbar = () => {
       {isOpen && <PopupProfile onClose={togglePopup} onLogout={handleLogout} />}
     </nav>
   );
-};
+});

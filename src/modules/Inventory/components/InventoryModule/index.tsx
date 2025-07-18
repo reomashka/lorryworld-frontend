@@ -10,8 +10,9 @@ import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
+import { observer } from "mobx-react-lite";
 
-export const Inventory = () => {
+export const Inventory = observer(() => {
   const { items, isDisabled, isLoading } = useInventoryItems();
   const location = useLocation();
 
@@ -42,7 +43,9 @@ export const Inventory = () => {
                   e.preventDefault();
                 }
               }}
-              className={`${styles.sidebarTab} ${isDisabled ? styles.disabled : ""}`}
+              className={`${styles.sidebarTab} ${
+                isDisabled ? styles.disabled : ""
+              }`}
             >
               <Boxes />
               Вывести все предметы
@@ -99,4 +102,4 @@ export const Inventory = () => {
       </main>
     </div>
   );
-};
+});

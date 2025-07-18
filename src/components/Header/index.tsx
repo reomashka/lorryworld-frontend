@@ -19,7 +19,8 @@ import { observer } from "mobx-react-lite";
 import { useProfile } from "src/hooks/useProfile";
 
 export const Header = observer(() => {
-  const { isAuthenticated, user, isAdmin } = useProfile();
+  const { isAuthenticated, user, isAdmin, isLoading, isResolved } =
+    useProfile();
 
   const { purchasedItems } = useInventoryItems();
 
@@ -65,7 +66,9 @@ export const Header = observer(() => {
             {isAuthenticated ? (
               <NavLink
                 className={({ isActive }) =>
-                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                  `${styles.navButton} ${
+                    isActive ? styles.navButtonActive : ""
+                  }`
                 }
                 to="/inventory"
                 data-count={
@@ -78,7 +81,9 @@ export const Header = observer(() => {
             ) : (
               <NavLink
                 className={({ isActive }) =>
-                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                  `${styles.navButton} ${
+                    isActive ? styles.navButtonActive : ""
+                  }`
                 }
                 to="/login"
                 state={{
@@ -102,7 +107,9 @@ export const Header = observer(() => {
             {isAdmin && (
               <NavLink
                 className={({ isActive }) =>
-                  `${styles.navButton} ${isActive ? styles.navButtonActive : ""}`
+                  `${styles.navButton} ${
+                    isActive ? styles.navButtonActive : ""
+                  }`
                 }
                 to="/admin"
               >
@@ -113,42 +120,46 @@ export const Header = observer(() => {
           </nav>
         </div>
 
-        {!isAuthenticated ? (
-          <Link
-            to="/login"
-            state={{ backgroundLocation: location }}
-            className={styles.loginButton}
-          >
-            <User /> <span> ВОЙТИ</span>
-          </Link>
-        ) : (
-          <div className={styles.userControls}>
-            <div className={styles.balance}>
-              <span className={styles.balanceIcon}>
-                <img src={wallet} alt="" width={30} />
-              </span>
-              <span className={styles.balanceAmount}>{user?.balance} ₽</span>
-              <Link
-                className={styles.addFunds}
-                to="/topup"
-                state={{
-                  backgroundLocation:
-                    location.state?.backgroundLocation || location,
-                }}
-              >
-                +
-              </Link>
-            </div>
-            <div className={styles.userProfile}>
-              <button className={styles.avatarButton} onClick={togglePopup}>
-                <img src={avatar} alt="avatar" />
-              </button>
+        {!isLoading && isResolved ? (
+          !isAuthenticated ? (
+            <Link
+              to="/login"
+              state={{ backgroundLocation: location }}
+              className={styles.loginButton}
+            >
+              <User /> <span> ВОЙТИ</span>
+            </Link>
+          ) : (
+            <div className={styles.userControls}>
+              <div className={styles.balance}>
+                <span className={styles.balanceIcon}>
+                  <img src={wallet} alt="" width={30} />
+                </span>
+                <span className={styles.balanceAmount}>{user?.balance} ₽</span>
+                <Link
+                  className={styles.addFunds}
+                  to="/topup"
+                  state={{
+                    backgroundLocation:
+                      location.state?.backgroundLocation || location,
+                  }}
+                >
+                  +
+                </Link>
+              </div>
+              <div className={styles.userProfile}>
+                <button className={styles.avatarButton} onClick={togglePopup}>
+                  <img src={avatar} alt="avatar" />
+                </button>
 
-              {isOpen && (
-                <PopupProfile onClose={togglePopup} onLogout={handleLogout} />
-              )}
+                {isOpen && (
+                  <PopupProfile onClose={togglePopup} onLogout={handleLogout} />
+                )}
+              </div>
             </div>
-          </div>
+          )
+        ) : (
+          "Загрузка"
         )}
       </div>
     </header>

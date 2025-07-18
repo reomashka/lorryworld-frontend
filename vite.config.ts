@@ -1,19 +1,18 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
-// import { visualizer } from "rollup-plugin-visualizer";
+import { visualizer } from "rollup-plugin-visualizer";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
-    // visualizer({
-    //   filename: "stats.html",
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    // }),
+    visualizer({
+      filename: "stats.html",
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+    }),
   ],
   server: {
     proxy: {
@@ -21,7 +20,7 @@ export default defineConfig({
       "/uploads": "http://localhost:3000",
     },
   },
-  // build: {
-  //   sourcemap: true,
-  // },
+  build: {
+    sourcemap: true,
+  },
 });

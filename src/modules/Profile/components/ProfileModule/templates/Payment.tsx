@@ -8,6 +8,7 @@ import calendar from "@assets/svg/calendar.svg";
 import coins from "@assets/svg/coins_red.svg";
 import check from "@assets/svg/check.svg";
 import timer from "@assets/svg/timer.svg";
+import { observer } from "mobx-react-lite";
 
 type Props = {
   activeTab: "profile" | "payments";
@@ -37,128 +38,137 @@ const getStatusText = (status: PaymentStatus): string => {
   }
 };
 
-export const PaymentTemplate = ({ activeTab, setActiveTab }: Props) => {
-  const { user } = useProfile();
-  const [payments, setPayments] = useState<Payment[]>([]);
+export const PaymentTemplate = observer(
+  ({ activeTab, setActiveTab }: Props) => {
+    const { user } = useProfile();
+    const [payments, setPayments] = useState<Payment[]>([]);
 
-  useEffect(() => {
-    const fetchPayments = async () => {
-      if (!user?.id) return;
+    useEffect(() => {
+      const fetchPayments = async () => {
+        if (!user?.id) return;
 
-      try {
-        const response = await fetch(`/api/payment/get-payments/${user.id}`);
-        console.log(user.id);
-        if (!response.ok) {
-          console.error("Ошибка загрузки платежей:", response.statusText);
-          return;
+        try {
+          const response = await fetch(`/api/payment/get-payments/${user.id}`);
+          console.log(user.id);
+          if (!response.ok) {
+            console.error("Ошибка загрузки платежей:", response.statusText);
+            return;
+          }
+          const data: Payment[] = await response.json();
+          console.log(data);
+          setPayments(data);
+        } catch (err) {
+          console.error("Ошибка сети:", err);
         }
-        const data: Payment[] = await response.json();
-        console.log(data);
-        setPayments(data);
-      } catch (err) {
-        console.error("Ошибка сети:", err);
-      }
-    };
+      };
 
-    fetchPayments();
-  }, [user?.id]);
+      fetchPayments();
+    }, [user?.id]);
 
-  return (
-    <>
-      <div className={styles.sidebarPayment}>
-        <div className={styles.sidebarTabs}>
-          <button
-            className={`${styles.sidebarTab} ${
-              activeTab === "profile" ? styles.sidebarTabActive : ""
-            }`}
-            onClick={() => setActiveTab("profile")}
-          >
-            <User />
-            Профиль
-          </button>
-          <button
-            className={`${styles.sidebarTab} ${
-              activeTab === "payments" ? styles.sidebarTabActive : ""
-            }`}
-            onClick={() => setActiveTab("payments")}
-          >
-            <CreditCard />
-            Пополнения
-          </button>
-        </div>
+    return (
+      <>
+        <div className={styles.sidebarPayment}>
+          <div className={styles.sidebarTabs}>
+            <button
+              className={`${styles.sidebarTab} ${
+                activeTab === "profile" ? styles.sidebarTabActive : ""
+              }`}
+              onClick={() => setActiveTab("profile")}
+            >
+              <User />
+              Профиль
+            </button>
+            <button
+              className={`${styles.sidebarTab} ${
+                activeTab === "payments" ? styles.sidebarTabActive : ""
+              }`}
+              onClick={() => setActiveTab("payments")}
+            >
+              <CreditCard />
+              Пополнения
+            </button>
+          </div>
 
-        <div className={styles.profileInfo}>
-          <div className={styles.paymentsTable}>
-            <div className={styles.tableHeader}>
-              <div className={styles.headerCell}>
-                <img src={timer} alt="" /> СТАТУС
+          <div className={styles.profileInfo}>
+            <div className={styles.paymentsTable}>
+              <div className={styles.tableHeader}>
+                <div className={styles.headerCell}>
+                  <img src={timer} alt="" /> СТАТУС
+                </div>
+                <div className={styles.headerCell}>
+                  <img src={check} alt="" />
+                  МЕТОД
+                </div>
+                <div className={styles.headerCell}>
+                  <img src={coins} alt="" />
+                  СУММА
+                </div>
+                <div className={styles.headerCell}>
+                  <img src={calendar} alt="" />
+                  ДАТА
+                </div>
+                <div className={styles.headerCell}>
+                  <img src={clock} alt="" />
+                  ВРЕМЯ
+                </div>
               </div>
-              <div className={styles.headerCell}>
-                <img src={check} alt="" />
-                МЕТОД
-              </div>
-              <div className={styles.headerCell}>
-                <img src={coins} alt="" />
-                СУММА
-              </div>
-              <div className={styles.headerCell}>
-                <img src={calendar} alt="" />
-                ДАТА
-              </div>
-              <div className={styles.headerCell}>
-                <img src={clock} alt="" />
-                ВРЕМЯ
-              </div>
-            </div>
-            <div className={styles.tableBody}>
-              {payments
-                .slice()
-                .sort(
-                  (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-                )
-                .map((payment) => (
-                  <div key={payment.id} className={styles.tableRow}>
-                    <div className={styles.tableCell} data-label="Статус">
-                      <div className={styles.statusContainer}>
-                        <div
-                          className={`${styles.statusDot} ${styles[payment.status]}`}
-                        ></div>
-                        <span className={styles.statusText}>
-                          {getStatusText(payment.status)}
-                        </span>
+              <div className={styles.tableBody}>
+                {payments
+                  .slice()
+                  .sort(
+                    (a, b) =>
+                      new Date(b.createdAt).getTime() -
+                      new Date(a.createdAt).getTime()
+                  )
+                  .map((payment) => (
+                    <div key={payment.id} className={styles.tableRow}>
+                      <div className={styles.tableCell} data-label="Статус">
+                        <div className={styles.statusContainer}>
+                          <div
+                            className={`${styles.statusDot} ${
+                              styles[payment.status]
+                            }`}
+                          ></div>
+                          <span className={styles.statusText}>
+                            {getStatusText(payment.status)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className={styles.tableCell} data-label="Метод">
+                        {payment.comment}
+                      </div>
+                      <div className={styles.tableCell} data-label="Сумма">
+                        {payment.amount}
+                      </div>
+                      <div className={styles.tableCell} data-label="Дата">
+                        {new Date(payment.createdAt).toLocaleDateString(
+                          "ru-RU"
+                        )}
+                      </div>
+                      <div className={styles.tableCell} data-label="Время">
+                        {new Date(payment.createdAt).toLocaleTimeString(
+                          "ru-RU",
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )}
                       </div>
                     </div>
-
-                    <div className={styles.tableCell} data-label="Метод">
-                      {payment.comment}
+                  ))}
+                <div className={styles.tableBody}>
+                  {(!payments || payments.length === 0) && (
+                    <div className={styles.noData}>
+                      Вы еще не пополняли баланс
                     </div>
-                    <div className={styles.tableCell} data-label="Сумма">
-                      {payment.amount}
-                    </div>
-                    <div className={styles.tableCell} data-label="Дата">
-                      {new Date(payment.createdAt).toLocaleDateString("ru-RU")}
-                    </div>
-                    <div className={styles.tableCell} data-label="Время">
-                      {new Date(payment.createdAt).toLocaleTimeString("ru-RU", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </div>
-                  </div>
-                ))}
-              <div className={styles.tableBody}>
-                {(!payments || payments.length === 0) && (
-                  <div className={styles.noData}>
-                    Вы еще не пополняли баланс
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+);

@@ -16,8 +16,9 @@ import AncientsCover from "@assets/coversItem/ancients.png";
 import ChromaCover from "@assets/coversItem/chroma.png";
 import CorruptCover from "@assets/coversItem/corrupt.png";
 import VintagesCover from "@assets/coversItem/vintages.png";
+import { observer } from "mobx-react-lite";
 
-export const ItemModal = () => {
+export const ItemModal = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
@@ -72,7 +73,9 @@ export const ItemModal = () => {
             <div
               className={styles.imageBackground}
               style={{
-                backgroundImage: `url(${rarityItemMap[item.rarity as RarityKey]})`,
+                backgroundImage: `url(${
+                  rarityItemMap[item.rarity as RarityKey]
+                })`,
               }}
             >
               <img
@@ -166,4 +169,4 @@ export const ItemModal = () => {
       </div>
     </div>
   );
-};
+});

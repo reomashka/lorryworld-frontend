@@ -32,7 +32,6 @@ export const AdminModule = () => {
         <h1 className={styles.title}>Статистика продаж</h1>
         <p className={styles.subtitle}>Заработано/продано</p>
       </div>
-
       <div className={styles.statsGrid}>
         <div className={`${styles.statCard} ${styles.dailyCard}`}>
           <div className={styles.cardIcon}>
