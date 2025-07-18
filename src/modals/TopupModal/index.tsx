@@ -147,9 +147,9 @@ export const TopupModal = observer(() => {
                 className={styles.submitBtn}
                 disabled={!amount || !selectedMethod}
                 onClick={(e) => {
-                  if (Number(amount) < 50) {
+                  if (Number(amount) < 3) {
                     e.preventDefault();
-                    toast.error("Минимальная сумма пополнения 50 рублей");
+                    toast.error("Минимальная сумма пополнения 3 рублей");
                   }
                 }}
               >
