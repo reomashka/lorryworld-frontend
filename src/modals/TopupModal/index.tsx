@@ -81,9 +81,8 @@ export const TopupModal = observer(() => {
                   className={styles.amountInput}
                 />
               </div>
-              {/* <span className={styles.commission}>Комиссия 0%</span> */}
             </div>
-            <span className={styles.commission}>Комиссия 0%</span>
+            <span className={styles.commission}>Комиссия 3%</span>
           </div>
 
           {/* <div className={styles.formGroup}>
@@ -143,9 +142,9 @@ export const TopupModal = observer(() => {
             className={styles.submitBtn}
             disabled={!amount || !selectedMethod}
             onClick={(e) => {
-              if (Number(amount) < 3) {
+              if (Number(amount) < 50) {
                 e.preventDefault();
-                toast.error("Минимальная сумма пополнения 3 рублей");
+                toast.error("Минимальная сумма пополнения 50 рублей");
               }
             }}
           >

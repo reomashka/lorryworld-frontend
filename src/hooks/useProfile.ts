@@ -1,4 +1,4 @@
-import { userStore } from "@stores/userStore";
+import { userStore } from "@store/userStore";
 
 export const useProfile = () => {
   const { user, status, error, isResolved } = userStore;

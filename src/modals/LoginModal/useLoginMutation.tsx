@@ -3,6 +3,8 @@ import { loginFetchData } from "src/api/loginFetchData";
 import { TypeLoginSchema } from "@components/schemes";
 import { useNavigate } from "react-router-dom";
 
+import { userStore } from "@store/userStore";
+
 import { toast } from "react-toastify";
 
 export function useLoginMutation() {
@@ -12,7 +14,7 @@ export function useLoginMutation() {
     mutationFn: loginFetchData,
     onSuccess: () => {
       navigate("/", { replace: true });
-      window.location.reload();
+      userStore.fetchProfile();
       toast.success("Успешный вход в аккаунт");
     },
     onError: (err: Error) => {

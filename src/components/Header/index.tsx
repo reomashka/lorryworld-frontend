@@ -17,6 +17,7 @@ import { ShieldUser, User } from "lucide-react";
 
 import { observer } from "mobx-react-lite";
 import { useProfile } from "src/hooks/useProfile";
+import { DropdownMenu } from "src/UI/DropdownMenu";
 
 export const Header = observer(() => {
   const { isAuthenticated, user, isAdmin, isLoading, isResolved } =
@@ -117,6 +118,7 @@ export const Header = observer(() => {
                 АДМИНКА
               </NavLink>
             )}
+            {isAdmin && <DropdownMenu />}
           </nav>
         </div>
 

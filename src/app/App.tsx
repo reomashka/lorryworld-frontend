@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MainRoutes } from "./MainRoutes";
 import { ModalRoutes } from "./ModalRoutes";
 import { useEffect } from "react";
-import { userStore } from "@stores/userStore";
+import { userStore } from "src/store/userStore";
 
 export const App = () => {
   const location = useLocation();

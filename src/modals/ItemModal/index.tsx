@@ -7,7 +7,7 @@ import cart from "@assets/svg/cart_two.svg";
 import { useModalClose } from "src/hooks/useModalClose";
 import { Item } from "@interfaces/Item.interface";
 import { useProfile } from "src/hooks/useProfile";
-import { userStore } from "@stores/userStore";
+import { userStore } from "src/store/userStore";
 import { useQuantity } from "./hooks/useQuantity";
 import { useBuyItem } from "./hooks/useBuyItem"; // новый хук
 

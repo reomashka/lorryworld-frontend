@@ -9,6 +9,8 @@ import React from "react";
 import { Item } from "@interfaces/Item.interface";
 
 import styles from "./ItemGrid.module.scss";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+import { observer } from "mobx-react-lite";
 // import sword from "@assets/itemsHome/sword.png";
 
 type Props = {
@@ -33,6 +35,7 @@ const rarityOrder: Record<string, number> = {
 };
 
 type RarityKey = keyof typeof rarityItemMap;
+
 const ItemCard = React.memo(
   ({ item, onClick }: { item: Item; onClick: (item: Item) => void }) => {
     return (
@@ -68,7 +71,7 @@ const ItemCard = React.memo(
   }
 );
 
-export const ItemGrid = ({ items, onItemClick }: Props) => {
+export const ItemGrid = observer(({ items, onItemClick }: Props) => {
   const filterItems = [...items].sort(
     (a, b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]
   );
@@ -76,10 +79,13 @@ export const ItemGrid = ({ items, onItemClick }: Props) => {
   return (
     <div className={styles.itemsGrid}>
       {filterItems
-        .filter((item) => item.availability)
+        .filter(
+          (item) => item.availability && item.game === dropdownHeaderStore.game
+        )
+
         .map((item) => (
           <ItemCard key={item.id} item={item} onClick={onItemClick} />
         ))}
     </div>
   );
-};
+});

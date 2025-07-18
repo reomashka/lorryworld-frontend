@@ -1,7 +1,7 @@
 import { CreditCard, DoorClosed, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { userStore } from "@stores/userStore";
+import { userStore } from "@store/userStore";
 
 import styles from "./PopupProfile.module.scss";
 
@@ -16,7 +16,7 @@ export const PopupProfile = ({ onClose, onLogout }: PopupMenuProps) => {
 
   const handleLogout = async () => {
     try {
-      await userStore.logout();
+      userStore.logout();
       navigate("/");
     } catch (error) {
       console.error("Ошибка при выходе:", error);

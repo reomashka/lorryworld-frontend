@@ -10,6 +10,7 @@ import { RegisterSchema, TypeRegisterSchema } from "@components/schemes";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "src/api/fetchRegister";
+import { userStore } from "@store/userStore";
 
 export const RegistrationModal = () => {
   const { handleOverlayClick } = useModalClose();
@@ -31,7 +32,7 @@ export const RegistrationModal = () => {
     mutationFn: registerUser,
     onSuccess: () => {
       navigate("/", { replace: true });
-      window.location.reload();
+      userStore.fetchProfile();
       toast.success("Успешная регистрация аккаунта");
     },
     onError: (error) => {
