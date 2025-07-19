@@ -8,6 +8,14 @@ import styles from "./AdminModule.module.scss";
 import { getAdminStats, StatsData } from "src/api/getAdminStats";
 import { useQuery } from "@tanstack/react-query";
 import { Recharts } from "../Recharts";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
 export const AdminModule = () => {
   const { data, isLoading } = useQuery<StatsData>({
@@ -321,7 +329,10 @@ export const AdminModule = () => {
         <h1 className={styles.title}>Количество регистраций</h1>
       </div>
 
-      <Recharts />
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <Recharts />
+      </ThemeProvider>
       <div className={styles.footer}>
         <p className={styles.footerText}>
           Последнее обновление: {new Date().toLocaleString("ru-RU")}
