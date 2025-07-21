@@ -37,7 +37,8 @@ export const buyItem = async (
       `<b>Покупка</b> ${item.name} на ${item.price} рублей.
         Имя аккаунта: <i>${user.displayName}</i>
         ID Аккаунта: <i>${user.id}</i>`,
-      false
+      false,
+      item.game
     );
     return true;
   } catch (err) {

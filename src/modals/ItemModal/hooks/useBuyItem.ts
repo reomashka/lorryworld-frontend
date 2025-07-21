@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { sendMsgTelegram } from "src/api/sendMsgTelegram";
 import { Item } from "@interfaces/Item.interface";
 import { useNavigate } from "react-router";
 
@@ -43,13 +42,6 @@ export const useBuyItem = () => {
         throw new Error(data.message || "Ошибка при покупке.");
       }
 
-      // Уведомление в Telegram
-      sendMsgTelegram(
-        `<b>Покупка</b> ${item.name} на ${item.price} рублей.
-Имя аккаунта: <i>${user.displayName}</i>
-ID Аккаунта: <i>${user.id}</i>`,
-        false
-      );
       navigate("/");
       return true;
     },

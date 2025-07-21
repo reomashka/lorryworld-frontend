@@ -33,7 +33,7 @@ export const TopupModal = observer(() => {
         },
         body: JSON.stringify({
           userId: user.id,
-          sum: Number(amount),
+          amount: Number(amount),
         }),
       });
 

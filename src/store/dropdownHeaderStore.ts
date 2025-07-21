@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 class DropdownHeaderStore {
   isOpen = false;
-  game: "MM" | "GG" = "MM";
+  game: "MM" | "GAG" = "MM";
 
   constructor() {
     makeAutoObservable(this);
@@ -12,7 +12,7 @@ class DropdownHeaderStore {
     this.isOpen = !this.isOpen;
   }
 
-  select(value: "MM" | "GG") {
+  select(value: "MM" | "GAG") {
     this.game = value;
     this.isOpen = false;
   }

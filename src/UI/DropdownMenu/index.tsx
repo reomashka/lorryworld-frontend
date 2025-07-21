@@ -35,9 +35,9 @@ export const DropdownMenu = observer(() => {
           </li>
           <li
             className={styles.dropdownItem}
-            onClick={() => store.select("GG")}
+            onClick={() => store.select("GAG")}
           >
-            GG
+            GAG
           </li>
         </ul>
       )}

@@ -1,6 +1,7 @@
 export const sendMsgTelegram = async (
   text: string,
   withButton: boolean,
+  type: string,
   userId?: string
 ) => {
   const res = await fetch("/api/telegram/send-msg", {
@@ -9,12 +10,13 @@ export const sendMsgTelegram = async (
     body: JSON.stringify({
       text,
       withButton,
+      type,
       userId,
     }),
   });
 
   if (!res.ok) {
-    throw new Error("Ошибка");
+    throw new Error("Ошибка при отправке сообщения");
   }
 
   return res.json();

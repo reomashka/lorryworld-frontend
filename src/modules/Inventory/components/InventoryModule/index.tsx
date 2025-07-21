@@ -11,6 +11,7 @@ import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 import { observer } from "mobx-react-lite";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 export const Inventory = observer(() => {
   const { items, isDisabled, isLoading } = useInventoryItems();
@@ -73,9 +74,11 @@ export const Inventory = observer(() => {
           ) : (
             <div className={styles.purchaseGrid}>
               {purchasedItems.length > 0 ? (
-                purchasedItems.map((item, index) => (
-                  <PurchaseItemCard item={item} key={index} />
-                ))
+                purchasedItems
+                  .filter((item) => item.item.game == dropdownHeaderStore.game)
+                  .map((item, index) => (
+                    <PurchaseItemCard item={item} key={index} />
+                  ))
               ) : (
                 <p className={styles.noData}>Ваш инвентарь пуст</p>
               )}
