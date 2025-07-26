@@ -7,17 +7,14 @@ import styles from "./AdminModule.module.scss";
 
 import { getAdminStats, StatsData } from "src/api/getAdminStats";
 import { useQuery } from "@tanstack/react-query";
-import { Recharts } from "../Recharts";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+import { RegistrationChart } from "../RegistrationChart";
+import { DatePicker } from "../DatePicker";
+import { useState } from "react";
+import { DateRange } from "react-day-picker";
 
 export const AdminModule = () => {
+  const [range, setRange] = useState<DateRange | undefined>(undefined);
+
   const { data, isLoading } = useQuery<StatsData>({
     queryKey: ["admin-stats"],
     queryFn: getAdminStats,
@@ -40,6 +37,7 @@ export const AdminModule = () => {
         <h1 className={styles.title}>Статистика продаж</h1>
         <p className={styles.subtitle}>Заработано/продано</p>
       </div>
+
       <div className={styles.statsGrid}>
         <div className={`${styles.statCard} ${styles.dailyCard}`}>
           <div className={styles.cardIcon}>
@@ -59,8 +57,10 @@ export const AdminModule = () => {
               />
             </svg>
           </div>
+
           <div className={styles.cardContent}>
             <h3 className={styles.cardTitle}>За сегодня</h3>
+
             <div className={styles.cardValue}>
               {isLoading ? (
                 <div className={styles.skeleton}></div>
@@ -328,11 +328,20 @@ export const AdminModule = () => {
       <div className={styles.header}>
         <h1 className={styles.title}>Количество регистраций</h1>
       </div>
+      <div className={styles.datePicker}>
+        <DatePicker range={range} onRangeChange={setRange} />
+      </div>
+      <div className={`${styles.statCard} ${styles.dailyCard}`}>
+        {range?.from && range?.to ? (
+          <RegistrationChart
+            from={range.from.toISOString().split("T")[0]}
+            to={range.to.toISOString().split("T")[0]}
+          />
+        ) : (
+          <p>Выберите диапазон дат, чтобы увидеть статистику</p>
+        )}
+      </div>
 
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Recharts />
-      </ThemeProvider>
       <div className={styles.footer}>
         <p className={styles.footerText}>
           Последнее обновление: {new Date().toLocaleString("ru-RU")}

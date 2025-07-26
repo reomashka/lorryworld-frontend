@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import styles from "./FilterRarity.module.scss";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 type RarityOption = {
   id: string;
@@ -37,8 +38,12 @@ export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
     return `Выбрано: ${selectedRarities.length}`;
   };
 
+  const selectedGame = dropdownHeaderStore.game;
+
   return (
-    <div className={styles.filterSection}>
+    <div
+      className={`${styles.filterSection} ${styles[`_${selectedGame}`] || ""}`}
+    >
       <div className={styles.rarityFilter_container}>
         <h3 className={styles.rarityFilter_title}>Редкость</h3>
 

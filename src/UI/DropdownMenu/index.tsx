@@ -5,10 +5,15 @@ import styles from "./DropdownMenu.module.scss";
 export const DropdownMenu = observer(() => {
   const store = dropdownHeaderStore;
 
+  const games = {
+    MM: "MM2",
+    GAG: "GROW A GARDEN",
+  };
+
   return (
     <div className={styles.dropdown}>
       <button className={styles.toggleButton} onClick={() => store.toggle()}>
-        {store.game}
+        {games[store.game]}
         <svg
           width="12"
           height="12"
@@ -37,7 +42,7 @@ export const DropdownMenu = observer(() => {
             className={styles.dropdownItem}
             onClick={() => store.select("GAG")}
           >
-            GAG
+            GROW A GARDEN
           </li>
         </ul>
       )}

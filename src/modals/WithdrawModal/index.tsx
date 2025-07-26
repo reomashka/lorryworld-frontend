@@ -117,7 +117,6 @@ export const WithdrawModal = observer(() => {
                   </option> */}
                   <option value="TELEGRAM">Telegram</option>
                   <option value="VK">VK</option>
-                  <option value="EMAIL">Email</option>
                 </select>
               </div>
             </div>
@@ -132,8 +131,6 @@ export const WithdrawModal = observer(() => {
                       ? "Ваш никнейм в Telegram"
                       : mediaContact === "VK"
                       ? "Ваш никнейм в VK"
-                      : mediaContact === "EMAIL"
-                      ? "Ваш Email"
                       : "Ваш username/email"
                   }
                   value={contact}

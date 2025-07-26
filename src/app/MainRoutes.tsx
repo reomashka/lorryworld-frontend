@@ -6,6 +6,7 @@ import { HelpPage } from "../pages/HelpPage";
 import { InventoryPage } from "../pages/InventoryPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { lazy, Suspense } from "react";
+import { OrderPage } from "@pages/OrderPage";
 
 const AdminPanelPage = lazy(() => import("../pages/AdminPanelPage"));
 
@@ -27,6 +28,7 @@ export const MainRoutes = () => {
 
         <Route element={<PrivateRoute />}>
           <Route path="/admin" element={<AdminPanelPage />} />
+          <Route path="/orders" element={<OrderPage />} />
         </Route>
       </Routes>
     </Suspense>
