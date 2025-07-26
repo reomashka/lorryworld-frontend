@@ -53,8 +53,8 @@ export const useInventoryItems = () => {
         `<b>🌕 Никнейм:</b> <code>${params.robloxUsername}</code>\n\n` +
         itemList;
 
-      const game = recentWithdrawnItems[0]?.item?.game;
-      sendMsgTelegram(text, true, user?.id, game);
+      const type = recentWithdrawnItems[0]?.item?.game;
+      sendMsgTelegram(text, true, user?.id, type);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["purchasedItems", user?.id] });
