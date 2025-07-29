@@ -21,6 +21,10 @@ export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
     { id: "godly", name: "Godly", colorClass: "color-godly" },
     { id: "vintages", name: "Vintages", colorClass: "color-vintages" },
     { id: "corrupt", name: "Corrupt", colorClass: "color-corrupt" },
+    { id: "legendary", name: "Legendary", colorClass: "color-legendary" },
+    { id: "uncommon", name: "Uncommon", colorClass: "color-uncommon" },
+    { id: "rare", name: "Rare", colorClass: "color-rare" },
+    { id: "common", name: "Common", colorClass: "color-common" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -36,11 +38,28 @@
 }
 
 .brandInfo {
+  // margin-left: -10px;
   h1 {
     font-size: 24px;
     font-weight: 900;
     color: #ffffff;
     margin: 0;
+
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+
+    background: linear-gradient(
+      166.51deg,
+      #ffffff 13.8%,
+      #ffffff 46.88%,
+      #ab908b 90.33%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
 
   p {

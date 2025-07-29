@@ -16,6 +16,11 @@ import AncientsCover from "@assets/coversItem/ancients.png";
 import ChromaCover from "@assets/coversItem/chroma.png";
 import CorruptCover from "@assets/coversItem/corrupt.png";
 import VintagesCover from "@assets/coversItem/vintages.png";
+import CommonCover from "@assets/coversItem/common.png";
+import LegendaryCover from "@assets/coversItem/legendary.png";
+import RareCover from "@assets/coversItem/rare.png";
+import UncommonCover from "@assets/coversItem/uncommon.png";
+import BlueCover from "@assets/coversItem/blue.png";
 import { observer } from "mobx-react-lite";
 
 export const ItemModal = observer(() => {
@@ -48,6 +53,11 @@ export const ItemModal = observer(() => {
     Chroma: ChromaCover,
     Ancients: AncientsCover,
     Corrupt: CorruptCover,
+    Common: CommonCover,
+    Legendary: LegendaryCover,
+    Rare: RareCover,
+    Uncommon: UncommonCover,
+    Blue: BlueCover,
   } as const;
 
   type RarityKey = keyof typeof rarityItemMap;
@@ -57,6 +67,10 @@ export const ItemModal = observer(() => {
     KNIFE: "Нож",
     PET: "Пет",
     SET: "Сет",
+    FRUITS: "Fruits",
+    GIANTPETS: "Giant Pets",
+    PETS: "Pets",
+    BUNDLES: "Bundles",
   };
 
   const priceToUse = item.sale && item.sale > 0 ? item.sale : item.price || 0;

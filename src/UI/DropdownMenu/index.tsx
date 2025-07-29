@@ -1,5 +1,8 @@
 import { observer } from "mobx-react-lite";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+
+import GAG from "@assets/svg/GAG.svg";
+import MM from "@assets/MM.webp";
 import styles from "./DropdownMenu.module.scss";
 
 export const DropdownMenu = observer(() => {
@@ -10,9 +13,15 @@ export const DropdownMenu = observer(() => {
     GAG: "GROW A GARDEN",
   };
 
+  const gameIcons = {
+    MM,
+    GAG,
+  };
+
   return (
     <div className={styles.dropdown}>
       <button className={styles.toggleButton} onClick={() => store.toggle()}>
+        <img className={styles.iconBadge} src={gameIcons[store.game]} alt="" />{" "}
         {games[store.game]}
         <svg
           width="12"
@@ -36,13 +45,13 @@ export const DropdownMenu = observer(() => {
             className={styles.dropdownItem}
             onClick={() => store.select("MM")}
           >
-            MM2
+            <img className={styles.icon} src={MM} alt="" /> MM2
           </li>
           <li
             className={styles.dropdownItem}
             onClick={() => store.select("GAG")}
           >
-            GROW A GARDEN
+            <img className={styles.icon} src={GAG} alt="" /> GROW A GARDEN
           </li>
         </ul>
       )}

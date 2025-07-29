@@ -7,6 +7,21 @@ import styles from "./Sidebar.module.scss";
 import { useSidebar } from "src/hooks/contexts/SidebarContext";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
+const typeLabels: Record<string, Record<string, string>> = {
+  MM: {
+    KNIFE: "Ножи",
+    PISTOL: "Пистолеты",
+    SET: "Сеты",
+    PET: "Петы",
+  },
+  GAG: {
+    FRUITS: "Fruits",
+    GIANTPETS: "Giant Pets",
+    PET: "Pets",
+    BUNDLES: "Bundles",
+  },
+};
+
 interface SidebarProps {
   selectedTypes: string[];
   setSelectedTypes: (types: string[]) => void;
@@ -84,42 +99,19 @@ export const Sidebar = observer(
         <div className={styles.filterSection}>
           <h3>Тип</h3>
           <div className={styles.typeCheckboxes}>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={selectedTypes.includes("KNIFE")}
-                onChange={() => toggleType("KNIFE")}
-              />
-              <span className={styles.customCheckbox}></span>
-              Ножи
-            </label>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={selectedTypes.includes("PISTOL")}
-                onChange={() => toggleType("PISTOL")}
-              />
-              <span className={styles.customCheckbox}></span>
-              Пистолеты
-            </label>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={selectedTypes.includes("SET")}
-                onChange={() => toggleType("SET")}
-              />
-              <span className={styles.customCheckbox}></span>
-              Сеты
-            </label>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={selectedTypes.includes("PET")}
-                onChange={() => toggleType("PET")}
-              />
-              <span className={styles.customCheckbox}></span>
-              Петы
-            </label>
+            {Object.entries(typeLabels[selectedGame] || {}).map(
+              ([type, label]) => (
+                <label className={styles.checkboxLabel} key={type}>
+                  <input
+                    type="checkbox"
+                    checked={selectedTypes.includes(type)}
+                    onChange={() => toggleType(type)}
+                  />
+                  <span className={styles.customCheckbox}></span>
+                  {label}
+                </label>
+              )
+            )}
           </div>
         </div>
 

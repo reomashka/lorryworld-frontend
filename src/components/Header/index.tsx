@@ -48,7 +48,7 @@ export const Header = observer(() => {
               </div>
 
               <div className={styles.brandInfo}>
-                <h1>Lorry World</h1>
+                <h1>LorryWorld</h1>
                 <p>Магазин Murder Mystery 2</p>
               </div>
             </div>

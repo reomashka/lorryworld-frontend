@@ -132,24 +132,3 @@
   border-radius: 7px;
   position: relative;
 }
-
-._GAG {
-  .priceInput {
-    input {
-      border: 2px solid #f75990;
-    }
-  }
-
-  .customCheckbox {
-    border: 2px solid #f75990;
-  }
-
-  .checkboxLabel {
-    input {
-      &:checked + span {
-        background-color: #f75990;
-        border-color: #f75990;
-      }
-    }
-  }
-}

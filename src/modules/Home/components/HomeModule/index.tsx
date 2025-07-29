@@ -19,8 +19,27 @@ import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
 export const Home = () => {
   const [filters, setFilters] = useState<FilterState>({
-    selectedTypes: ["KNIFE", "PISTOL", "SET", "PET"],
-    selectedRarities: ["chroma", "ancients", "godly", "vintages", "corrupt"],
+    selectedTypes: [
+      "KNIFE",
+      "PISTOL",
+      "SET",
+      "PET",
+      "FRUITS",
+      "GIANTPETS",
+      "Pets",
+      "BUNDLES",
+    ],
+    selectedRarities: [
+      "chroma",
+      "ancients",
+      "godly",
+      "vintages",
+      "corrupt",
+      "rare",
+      "common",
+      "uncommon",
+      "legendary",
+    ],
     minPrice: 0,
     maxPrice: 0,
     searchTerm: "",

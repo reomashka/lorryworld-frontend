@@ -31,7 +31,7 @@ export const WithdrawModal = observer(() => {
       const response = await fetch("/api/users/profile", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mediaContact, contact }),
+        body: JSON.stringify({ mediaContact, contact, robloxUsername }),
       });
 
       // 2. Проверяем ответ
