@@ -8,6 +8,10 @@ import LegendaryCover from "@assets/coversItem/legendary.png";
 import RareCover from "@assets/coversItem/rare.png";
 import UncommonCover from "@assets/coversItem/uncommon.png";
 import BlueCover from "@assets/coversItem/blue.png";
+import GreenCover from "@assets/coversItem/green.png";
+import YellowCover from "@assets/coversItem/yellow.png";
+import RedCover from "@assets/coversItem/red.png";
+import PurpleCover from "@assets/coversItem/purple.png";
 
 const rarityItemMap = {
   // MM2
@@ -23,6 +27,10 @@ const rarityItemMap = {
 
   // GAG
   Blue: BlueCover,
+  Green: GreenCover,
+  Yellow: YellowCover,
+  Red: RedCover,
+  Purple: PurpleCover,
 } as const;
 
 export default rarityItemMap;
