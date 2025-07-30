@@ -6,6 +6,7 @@ import { withDrawAllItems as withDrawAllItemsAPI } from "src/api/withDrawAllItem
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
 import { getRecentWithdrawnItems as getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItems";
 import UserItem from "@interfaces/UserItem.interface";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 export const useInventoryItems = () => {
   const { user } = useProfile();
@@ -25,10 +26,11 @@ export const useInventoryItems = () => {
       mediaContact: string;
       contact: string;
       robloxUsername: string;
+      game: "MM" | "GAG";
     }) => {
       if (!user?.id) throw new Error("User ID is missing");
 
-      await withDrawAllItemsAPI(user?.id);
+      await withDrawAllItemsAPI(user?.id, params.game);
       toast.success("Все предметы успешно выведены!");
 
       const recentWithdrawnItems = await getRecentWithdrawnItemsAPI(user?.id);
@@ -53,7 +55,7 @@ export const useInventoryItems = () => {
         `<b>🌕 Никнейм:</b> <code>${params.robloxUsername}</code>\n\n` +
         itemList;
 
-      const type = recentWithdrawnItems[0]?.item?.game;
+      const type = dropdownHeaderStore.game;
       sendMsgTelegram(text, true, user?.id, type);
     },
     onSuccess: () => {

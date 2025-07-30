@@ -3,7 +3,6 @@
  * Импорт через `@/modules/Home`.
  */
 
-import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { Sidebar } from "@components/Sidebar";
@@ -11,49 +10,19 @@ import { Sidebar } from "@components/Sidebar";
 import { SearchBar } from "../SearchBar";
 import { ItemGrid } from "../ItemGrid";
 
-import { useFilteredItems } from "@modules/Home/components/useFilteredItems";
-import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
+import { useFilteredItems } from "@modules/Home/hooks/useFilteredItems";
 
 import styles from "./Home.module.scss";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
-export const Home = () => {
-  const [filters, setFilters] = useState<FilterState>({
-    selectedTypes: [
-      "KNIFE",
-      "PISTOL",
-      "SET",
-      "PET",
-      "FRUITS",
-      "GIANTPETS",
-      "Pets",
-      "BUNDLES",
-    ],
-    selectedRarities: [
-      "chroma",
-      "ancients",
-      "godly",
-      "vintages",
-      "corrupt",
-      "rare",
-      "common",
-      "uncommon",
-      "legendary",
-    ],
-    minPrice: 0,
-    maxPrice: 0,
-    searchTerm: "",
-    selectedSort: "expensive",
-  });
+import { useFilters } from "../../hooks/useFilters";
 
+export const Home = () => {
+  const { filters, updateFilters } = useFilters();
   const { items, isLoading } = useFilteredItems(filters);
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const updateFilters = (newFilters: Partial<FilterState>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-  };
 
   return (
     <div className={styles.storeContent}>
@@ -75,9 +44,7 @@ export const Home = () => {
           searchTerm={filters.searchTerm}
           setSearchTerm={(term) => updateFilters({ searchTerm: term })}
           selectedSort={filters.selectedSort}
-          setSelectedSort={(selectedSort) =>
-            setFilters((prev) => ({ ...prev, selectedSort }))
-          }
+          setSelectedSort={(selectedSort) => updateFilters({ selectedSort })}
         />
         {!isLoading ? (
           <ItemGrid

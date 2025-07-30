@@ -11,17 +11,9 @@ import { userStore } from "src/store/userStore";
 import { useQuantity } from "./hooks/useQuantity";
 import { useBuyItem } from "./hooks/useBuyItem"; // новый хук
 
-import GodlyCover from "@assets/coversItem/godly.png";
-import AncientsCover from "@assets/coversItem/ancients.png";
-import ChromaCover from "@assets/coversItem/chroma.png";
-import CorruptCover from "@assets/coversItem/corrupt.png";
-import VintagesCover from "@assets/coversItem/vintages.png";
-import CommonCover from "@assets/coversItem/common.png";
-import LegendaryCover from "@assets/coversItem/legendary.png";
-import RareCover from "@assets/coversItem/rare.png";
-import UncommonCover from "@assets/coversItem/uncommon.png";
-import BlueCover from "@assets/coversItem/blue.png";
 import { observer } from "mobx-react-lite";
+
+import rarityItemMap from "src/constants/rarityItemMap";
 
 export const ItemModal = observer(() => {
   const location = useLocation();
@@ -46,19 +38,6 @@ export const ItemModal = observer(() => {
       }
     );
   };
-
-  const rarityItemMap = {
-    Vintages: VintagesCover,
-    Godly: GodlyCover,
-    Chroma: ChromaCover,
-    Ancients: AncientsCover,
-    Corrupt: CorruptCover,
-    Common: CommonCover,
-    Legendary: LegendaryCover,
-    Rare: RareCover,
-    Uncommon: UncommonCover,
-    Blue: BlueCover,
-  } as const;
 
   type RarityKey = keyof typeof rarityItemMap;
 

@@ -1,4 +1,4 @@
-export const withDrawAllItems = async (userId: string) => {
+export const withDrawAllItems = async (userId: string, game: "MM" | "GAG") => {
   const response = await fetch(`/api/item/withdraw`, {
     method: "POST",
     headers: {
@@ -6,6 +6,7 @@ export const withDrawAllItems = async (userId: string) => {
     },
     body: JSON.stringify({
       userId: userId,
+      game: game,
     }),
   });
 

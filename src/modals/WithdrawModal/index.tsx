@@ -7,6 +7,7 @@ import { useModalClose } from "src/hooks/useModalClose";
 import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { toast } from "react-toastify";
 import { observer } from "mobx-react-lite";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 export const WithdrawModal = observer(() => {
   const location = useLocation();
@@ -48,7 +49,8 @@ export const WithdrawModal = observer(() => {
       }
 
       // 3. Вызовем функцию только после успешного ответа
-      await withDrawAllItems({ mediaContact, contact, robloxUsername });
+      const game = dropdownHeaderStore.game;
+      await withDrawAllItems({ mediaContact, contact, robloxUsername, game });
 
       // 4. Навигация
       navigate("/claim-items", {

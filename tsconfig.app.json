@@ -30,7 +30,8 @@
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@modals/*": ["src/modals/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@const/*": ["src/const/*"]
     }
   },
   "include": ["src"]

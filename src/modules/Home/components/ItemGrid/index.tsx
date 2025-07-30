@@ -1,14 +1,3 @@
-import GodlyCover from "@assets/coversItem/godly.png";
-import AncientsCover from "@assets/coversItem/ancients.png";
-import ChromaCover from "@assets/coversItem/chroma.png";
-import CorruptCover from "@assets/coversItem/corrupt.png";
-import VintagesCover from "@assets/coversItem/vintages.png";
-import CommonCover from "@assets/coversItem/common.png";
-import LegendaryCover from "@assets/coversItem/legendary.png";
-import RareCover from "@assets/coversItem/rare.png";
-import UncommonCover from "@assets/coversItem/uncommon.png";
-import BlueCover from "@assets/coversItem/blue.png";
-
 import React from "react";
 
 import { Item } from "@interfaces/Item.interface";
@@ -17,35 +6,12 @@ import styles from "./ItemGrid.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { observer } from "mobx-react-lite";
 
+import rarityItemMap from "src/constants/rarityItemMap";
+import rarityOrder from "src/constants/rarityOrder";
+
 type Props = {
   items: Item[];
   onItemClick: (item: Item) => void;
-};
-
-const rarityItemMap = {
-  Vintages: VintagesCover,
-  Godly: GodlyCover,
-  Chroma: ChromaCover,
-  Ancients: AncientsCover,
-  Corrupt: CorruptCover,
-  Common: CommonCover,
-  Legendary: LegendaryCover,
-  Rare: RareCover,
-  Uncommon: UncommonCover,
-  Blue: BlueCover,
-} as const;
-
-const rarityOrder: Record<string, number> = {
-  Ancients: 1,
-  Corrupt: 2,
-  Godly: 3,
-  Chroma: 4,
-  Vintages: 5,
-  Legendary: 6,
-  Rare: 7,
-  Uncommon: 8,
-  Common: 9,
-  Blue: 10,
 };
 
 type RarityKey = keyof typeof rarityItemMap;
