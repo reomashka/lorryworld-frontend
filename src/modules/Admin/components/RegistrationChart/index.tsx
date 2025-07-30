@@ -19,28 +19,39 @@ type RegistrationData = {
   count: number;
 };
 
-const generateMockData = (from: string, to: string): RegistrationData[] => {
-  const start = new Date(from);
-  const end = new Date(to);
-  const data: RegistrationData[] = [];
-
-  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-    const date = d.toISOString().split("T")[0];
-    const count = Math.floor(Math.random() * 20) + 1; // случайное число от 1 до 20
-    data.push({ date, count });
-  }
-
-  return data;
-};
-
 export const RegistrationChart: React.FC<Props> = ({ from, to }) => {
   const [data, setData] = useState<RegistrationData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      // временная генерация моков
-      const mocked = generateMockData(from, to);
-      setData(mocked);
+      try {
+        const res = await fetch(
+          `https://lorryworld.space/api/admin/registrations?from=${from}&to=${to}`
+        );
+        if (!res.ok) throw new Error("Ошибка при получении данных");
+        const rawData: { id: string; createdAt: string }[] = await res.json();
+
+        // Группировка по дате (формат: YYYY-MM-DD)
+        const grouped: Record<string, number> = {};
+        rawData.forEach((item) => {
+          const date = item.createdAt.split("T")[0];
+          grouped[date] = (grouped[date] || 0) + 1;
+        });
+
+        // Преобразуем в массив с датами от `from` до `to`
+        const start = new Date(from);
+        const end = new Date(to);
+        const aggregated: RegistrationData[] = [];
+
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+          const dateStr = d.toISOString().split("T")[0];
+          aggregated.push({ date: dateStr, count: grouped[dateStr] || 0 });
+        }
+
+        setData(aggregated);
+      } catch (error) {
+        console.error("Ошибка при загрузке регистраций:", error);
+      }
     };
 
     fetchData();
