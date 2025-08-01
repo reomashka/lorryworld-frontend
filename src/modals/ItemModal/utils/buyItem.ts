@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
-import { Item } from "@types/item.interface";
+import { Item } from "@sharedTypes/item.interface";
 
 export const buyItem = async (
   item: Item,

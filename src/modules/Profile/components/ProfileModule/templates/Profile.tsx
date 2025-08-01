@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useProfile } from "src/hooks/useProfile";
 
 import { toast } from "react-toastify";
-import UserItem from "@types/userItem.interface";
+import UserItem from "@sharedTypes/userItem.interface";
 import { observer } from "mobx-react-lite";
 
 import rarityItemMap from "src/constants/rarityItemMap";

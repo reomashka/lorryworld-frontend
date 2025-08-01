@@ -1,6 +1,6 @@
 import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
 import { fetchItems } from "src/api/fetchItems";
-import { Item } from "@types/item.interface";
+import { Item } from "@sharedTypes/item.interface";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 

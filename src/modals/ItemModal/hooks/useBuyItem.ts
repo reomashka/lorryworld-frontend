@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { Item } from "@types/item.interface";
+import { Item } from "@sharedTypes/item.interface";
 import { useNavigate } from "react-router";
 
 interface BuyItemPayload {
