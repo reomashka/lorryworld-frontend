@@ -83,11 +83,95 @@ a {
   }
 }
 
+// Контейнер для заказов
+.ordersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding: 20px 0;
+
+  @media (max-width: 580px) {
+    gap: 10px;
+  }
+}
+
+// Карточка заказа
+.orderCard {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  border: 2px solid #df382d;
+  border-radius: 12px;
+  padding: 20px 25px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(223, 56, 45, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(223, 56, 45, 0.2);
+    border-color: #e55353;
+  }
+
+  // Декоративный элемент
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(90deg, #df382d, #cf0200);
+    border-radius: 0 0 3px 3px;
+  }
+
+  @media (max-width: 580px) {
+    min-width: 120px;
+    padding: 15px 20px;
+  }
+}
+
+// Номер заказа
+.orderNumber {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 580px) {
+    font-size: 20px;
+  }
+}
+
+// Статус заказа
+.orderStatus {
+  color: #b0b0b0;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 580px) {
+    font-size: 11px;
+  }
+}
+
 /* Универсальный класс кнопок-ссылок */
 .socialButton {
   display: flex;
   align-items: center;
-  justify-content: center; /* Чтобы текст + иконка были по центру */
+  justify-content: center;
   gap: 10px;
   background-color: transparent;
   color: white;
@@ -119,8 +203,4 @@ a {
   border-color: #df382d;
   margin-top: 90px;
   margin-bottom: 30px;
-}
-
-.orderNumber {
-  white-space: nowrap;
 }

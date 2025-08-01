@@ -48,6 +48,7 @@ export const useInventoryItems = () => {
 
       const text =
         `<b>📤 Вывод предметов</b>\n\n` +
+        `<b> 📦 Номер заказа:</b> ${user}\n` +
         `<b>👤 Пользователь:</b> ${user.displayName}\n` +
         `<b>🆔 ID:</b> ${user?.id}\n` +
         `<b>📱 Тип связи:</b> ${params.mediaContact}\n` +
