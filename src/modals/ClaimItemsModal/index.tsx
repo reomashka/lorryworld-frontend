@@ -58,7 +58,7 @@ export const ClaimItemsModal = () => {
           ))}
 
           <a
-            href="https://t.me/gingermoor?text=Здравствуйте! Номер моего заказа №12"
+            href="https://t.me/gingermoor"
             className={`${styles.socialButton} ${styles["socialButton--tg"]}`}
           >
             <img src={tg} alt="Telegram" />
