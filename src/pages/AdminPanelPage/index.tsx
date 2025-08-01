@@ -1,5 +1,5 @@
 import { Header } from "@components/Header";
-import { AdminModule } from "@modules/Admin";
+import { AdminModule } from "@modules/Admin/components/AdminModule";
 import { BottomNavbar } from "@components/BottomNavbar";
 
 const AdminPanelPage = () => {
