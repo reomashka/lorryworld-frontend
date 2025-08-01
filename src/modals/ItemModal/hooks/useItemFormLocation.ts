@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Item } from "@interfaces/Item.interface";
+import { Item } from "@types/item.interface";
 import { useEffect } from "react";
 
 export const useItemFromLocation = (): Item | null => {

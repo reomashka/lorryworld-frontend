@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Item } from "@interfaces/Item.interface";
+import { Item } from "@types/item.interface";
 
 import styles from "./ItemGrid.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";

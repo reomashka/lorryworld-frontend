@@ -5,7 +5,7 @@ import { fetchPurchasedItems } from "src/api/fetchPurchasedItems";
 import { withDrawAllItems as withDrawAllItemsAPI } from "src/api/withDrawAllItems";
 import { sendMsgTelegram } from "src/api/sendMsgTelegram";
 import { getRecentWithdrawnItems as getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItems";
-import UserItem from "@interfaces/UserItem.interface";
+import UserItem from "@types/userItem.interface";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 export const useInventoryItems = () => {

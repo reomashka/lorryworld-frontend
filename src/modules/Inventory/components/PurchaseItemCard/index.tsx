@@ -1,4 +1,4 @@
-import UserItem from "@interfaces/UserItem.interface";
+import UserItem from "@types/userItem.interface";
 import rarityItemMap from "src/constants/rarityItemMap";
 
 import styles from "./PurchaseItemCard.module.scss";

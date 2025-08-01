@@ -25,7 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@interfaces/*": ["src/interfaces/*"],
+      "@sharedTypes/*": ["src/types/*"],
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],

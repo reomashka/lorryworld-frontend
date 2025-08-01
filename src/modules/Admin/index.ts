@@ -1,1 +1,1 @@
-export { AdminModule } from "./components/AdminModule";
+export { OrdersModule } from "./orders/OrdersModule";

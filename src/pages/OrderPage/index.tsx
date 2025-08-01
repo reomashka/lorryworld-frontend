@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./OrderPage.module.scss";
 import { Header } from "@components/Header";
+import { toast } from "react-toastify";
 
 interface Item {
   id: number;
@@ -46,6 +47,7 @@ interface User {
 
 interface Order {
   id: number;
+  orderNumber: number;
   userId: string;
   isIssued: boolean;
   createdAt: string;
@@ -74,87 +76,157 @@ export const OrderPage = () => {
   }
 
   async function saveChanges() {
-    const updates = Object.entries(modifiedOrders).map(([orderId, issued]) => ({
-      orderId,
-      issued,
-    }));
+    const updates = Object.entries(modifiedOrders)
+      .filter(([, issued]) => issued)
+      .map(([orderId]) => ({ orderId: Number(orderId) }));
+
     if (updates.length === 0) {
-      alert("Нет изменений для сохранения");
+      toast.error("Нет изменений для сохранения");
       return;
     }
+
     try {
       const res = await fetch("/api/order/update-issued", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updates),
       });
+
       if (res.ok) {
-        alert("Данные сохранены");
+        toast.success("Данные сохранены");
         setModifiedOrders({});
         const fresh = await fetch("/api/order/not-issued");
         const data = await fresh.json();
         setOrders(data);
       } else {
-        alert("Ошибка при сохранении");
+        toast.error("Ошибка при сохранении");
       }
     } catch {
-      alert("Ошибка сети");
+      toast.error("Ошибка сети");
     }
   }
 
-  // Кнопка СОХРАНИТЬ дизейблится, если нет изменений
   const isSaveDisabled = Object.keys(modifiedOrders).length === 0;
 
   return (
     <>
       <Header />
-      <div className={styles.container}>
-        {orders.map((order: Order) => {
-          const isIssued = Object.prototype.hasOwnProperty.call(
-            modifiedOrders,
-            order.id
-          )
-            ? modifiedOrders[order.id]
-            : order.isIssued;
-
-          return (
-            <div key={order.id} className={styles.card}>
-              <div className={styles.header}>Order ID: {order.id}</div>
-              <div className={styles.subheader}>
-                User ID: {order.user.id}
-                <br />
-                Name: {order.user.displayName}
-              </div>
-              <div>
-                <strong>Товары:</strong>
-                <ul className={styles.itemsList}>
-                  {order.items.map((item) => (
-                    <li key={item.id}>
-                      {item.item.name} ({item.item.game})
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.toggleWrapper}>
-                <input
-                  type="checkbox"
-                  checked={isIssued}
-                  onChange={() => toggleIssued(order.id)}
-                  id={`toggle-${order.id}`}
-                />
-                <label htmlFor={`toggle-${order.id}`}>Выдано</label>
-              </div>
+      <div className={styles.pageWrapper}>
+        <div className={styles.container}>
+          {orders.length === 0 && (
+            <div className={styles.emptyState}>
+              <div className={styles.emptyIcon}>✓</div>
+              <h2>Все заказы выданы</h2>
+              <p>На данный момент нет заказов, ожидающих выдачи</p>
             </div>
-          );
-        })}
+          )}
+
+          {orders.map((order: Order) => {
+            const isIssued = Object.prototype.hasOwnProperty.call(
+              modifiedOrders,
+              order.id
+            )
+              ? modifiedOrders[order.id]
+              : order.isIssued;
+
+            return (
+              <div
+                key={order.id}
+                className={`${styles.card} ${
+                  isIssued ? styles.cardIssued : ""
+                }`}
+              >
+                <div className={styles.cardHeader}>
+                  <div className={styles.orderInfo}>
+                    <div className={styles.orderId}>
+                      <span className={styles.label}>Order ID:</span>
+                      <span className={styles.value}>{order.id}</span>
+                    </div>
+                    <div className={styles.showId}>
+                      <span className={styles.label}>Show ID:</span>
+                      <span className={styles.badge}>
+                        #{String(order.orderNumber).padStart(3, "0")}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.statusIndicator}>
+                    <div
+                      className={`${styles.statusDot} ${
+                        isIssued ? styles.issued : styles.pending
+                      }`}
+                    ></div>
+                  </div>
+                </div>
+
+                <div className={styles.cardBody}>
+                  <div className={styles.userInfo}>
+                    <div className={styles.userDetail}>
+                      <span className={styles.label}>Имя:</span>
+                      <span className={styles.userName}>
+                        {order.user.displayName}
+                      </span>
+                    </div>
+                    <div className={styles.userDetail}>
+                      <span className={styles.label}>User ID:</span>
+                      <span className={styles.userId}>{order.user.id}</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.itemsSection}>
+                    <h4 className={styles.sectionTitle}>Товары</h4>
+                    <ul className={styles.itemsList}>
+                      {order.items.map((item) => (
+                        <li key={item.id} className={styles.item}>
+                          <span className={styles.itemName}>
+                            {`${item.item.name} x${item.quantity}`}
+                          </span>
+                          <span className={styles.itemGame}>
+                            ({item.item.game})
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className={styles.cardFooter}>
+                  <div className={styles.toggleWrapper}>
+                    <input
+                      type="checkbox"
+                      checked={isIssued}
+                      onChange={() => toggleIssued(order.id)}
+                      id={`toggle-${order.id}`}
+                      className={styles.checkbox}
+                    />
+                    <label
+                      htmlFor={`toggle-${order.id}`}
+                      className={styles.checkboxLabel}
+                    >
+                      <span className={styles.checkboxCustom}></span>
+                      <span className={styles.checkboxText}>Выдано</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {orders.length !== 0 && (
+          <div className={styles.actionBar}>
+            <button
+              className={`${styles.saveButton} ${
+                isSaveDisabled ? styles.disabled : ""
+              }`}
+              onClick={saveChanges}
+              disabled={isSaveDisabled}
+            >
+              <span className={styles.buttonIcon}>💾</span>
+              СОХРАНИТЬ
+            </button>
+          </div>
+        )}
       </div>
-      <button
-        className={styles.saveButton}
-        onClick={saveChanges}
-        disabled={isSaveDisabled}
-      >
-        СОХРАНИТЬ
-      </button>
     </>
   );
 };

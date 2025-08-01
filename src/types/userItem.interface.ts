@@ -1,4 +1,4 @@
-import { Item } from "./Item.interface";
+import { Item } from "./item.interface";
 
 export default interface UserItem {
   id: string;

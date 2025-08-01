@@ -5,7 +5,7 @@ import credit from "@assets/svg/credit.svg";
 import cart from "@assets/svg/cart_two.svg";
 
 import { useModalClose } from "src/hooks/useModalClose";
-import { Item } from "@interfaces/Item.interface";
+import { Item } from "@types/item.interface";
 import { useProfile } from "src/hooks/useProfile";
 import { userStore } from "src/store/userStore";
 import { useQuantity } from "./hooks/useQuantity";
