@@ -3,10 +3,7 @@ import { useProfile } from "src/hooks/useProfile";
 import { toast } from "react-toastify";
 import { fetchPurchasedItems } from "src/api/fetchPurchasedItems";
 import { withDrawAllItems as withDrawAllItemsAPI } from "src/api/withDrawAllItems";
-// import { sendMsgTelegram } from "src/api/sendMsgTelegram";
-// import { getRecentWithdrawnItems as getRecentWithdrawnItemsAPI } from "src/api/getRecentWithdrawnItems";
 import UserItem from "@sharedTypes/userItem.interface";
-// import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 export const useInventoryItems = () => {
   const { user } = useProfile();
@@ -32,32 +29,6 @@ export const useInventoryItems = () => {
 
       await withDrawAllItemsAPI(user?.id, params.game);
       toast.success("Все предметы успешно выведены!");
-
-      // const recentWithdrawnItems = await getRecentWithdrawnItemsAPI(user?.id);
-
-      // const itemList = recentWithdrawnItems
-      //   .map(
-      //     (item: UserItem) =>
-      //       `🔹 <b>${item.item.name}</b>\n` +
-      //       `💰 Цена: ${item.item.price}₽\n` +
-      //       `🎯 Тип: ${item.item.type}\n` +
-      //       `📦 Количество: ${item.quantity}\n` +
-      //       `🏷️ Редкость: ${item.item.rarity}`
-      //   )
-      //   .join(`\n\n`);
-
-      // const text =
-      //   `<b>📤 Вывод предметов</b>\n\n` +
-      //   `<b> 📦 Номер заказа:</b> ${user}\n` +
-      //   `<b>👤 Пользователь:</b> ${user.displayName}\n` +
-      //   `<b>🆔 ID:</b> ${user?.id}\n` +
-      //   `<b>📱 Тип связи:</b> ${params.mediaContact}\n` +
-      //   `<b>📨 Контакт:</b> ${params.contact}\n\n` +
-      //   `<b>🌕 Никнейм:</b> <code>${params.robloxUsername}</code>\n\n` +
-      //   itemList;
-
-      // const type = dropdownHeaderStore.game;
-      // sendMsgTelegram(text, true, user?.id, type);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["purchasedItems", user?.id] });
