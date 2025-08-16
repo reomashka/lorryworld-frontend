@@ -77,6 +77,7 @@ export const StatsItemsModule = observer(() => {
                   ?.filter(
                     (item: Item) => item.game === dropdownHeaderStore.game
                   )
+                  .sort((a: Item, b: Item) => b.totalQuantity - a.totalQuantity)
                   .map((item: Item) => (
                     <tr key={item.itemId} className={styles.tableRow}>
                       <td className={styles.tableCell}>{item.itemId}</td>
