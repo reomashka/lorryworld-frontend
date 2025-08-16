@@ -6,9 +6,13 @@ import { HelpPage } from "../pages/HelpPage";
 import { InventoryPage } from "../pages/InventoryPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { lazy, Suspense } from "react";
-import { OrderPage } from "@pages/OrderPage";
+import StatsItemsPage from "@pages/AdminPages/StatsItemsPage";
 
-const AdminPanelPage = lazy(() => import("../pages/AdminPanelPage"));
+const StatsPage = lazy(() => import("../pages/AdminPages/StatsPage"));
+const OrdersPage = lazy(() => import("../pages/AdminPages/OrdersPage"));
+const NavigationGridPage = lazy(
+  () => import("../pages/AdminPages/NavigationGridPage")
+);
 
 export const MainRoutes = () => {
   const location = useLocation();
@@ -27,8 +31,10 @@ export const MainRoutes = () => {
         <Route path="/legal/:page" element={<LegalPage />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/admin" element={<AdminPanelPage />} />
-          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/admin" element={<NavigationGridPage />} />
+          <Route path="/admin/stats" element={<StatsPage />} />
+          <Route path="/admin/orders" element={<OrdersPage />} />
+          <Route path="/admin/items" element={<StatsItemsPage />} />
         </Route>
       </Routes>
     </Suspense>

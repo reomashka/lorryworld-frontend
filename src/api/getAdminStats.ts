@@ -9,6 +9,11 @@ export interface StatsData {
     yesterday: number;
     week: number;
   };
+  registrations: {
+    today: number;
+    yesterday: number;
+    week: number;
+  };
 }
 
 export const getAdminStats = async () => {

@@ -9,21 +9,29 @@ import { Item } from "@sharedTypes/item.interface";
 import { useProfile } from "src/hooks/useProfile";
 import { userStore } from "src/store/userStore";
 import { useQuantity } from "./hooks/useQuantity";
-import { useBuyItem } from "./hooks/useBuyItem"; // новый хук
+import { useBuyItem } from "./hooks/useBuyItem";
 
 import { observer } from "mobx-react-lite";
 
 import rarityItemMap from "src/constants/rarityItemMap";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
+import { updateItemPrice as updateItemPriceApi } from "src/api/updateItemPrice";
+import { toast } from "react-toastify";
 
 export const ItemModal = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
   const { quantity, increase, decrease } = useQuantity(1);
-  const { user, isAuthenticated } = useProfile();
+  const { user, isAuthenticated, isAdmin } = useProfile();
   const { mutate: buyItem, isPending } = useBuyItem();
 
   const item: Item = location.state?.item;
+  const [price, setPrice] = useState(item.price || 0);
+  const [sale, setSale] = useState(item.sale || 0);
+
   if (!item) return null;
 
   const handleBuy = () => {
@@ -52,7 +60,24 @@ export const ItemModal = observer(() => {
     BUNDLES: "Bundles",
   };
 
-  const priceToUse = item.sale && item.sale > 0 ? item.sale : item.price || 0;
+  const priceToUse = sale && sale > 0 ? sale : price || 0;
+
+  const { mutate: savePrice, isPending: isSaving } = useMutation({
+    mutationFn: ({
+      id,
+      price,
+      sale,
+    }: {
+      id: number;
+      price: number;
+      sale: number;
+    }) => updateItemPriceApi(id, price, sale),
+    onSuccess: (data) => {
+      setPrice(data.price);
+      setSale(data.sale);
+      toast.success("Цена обновлена!");
+    },
+  });
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
@@ -117,6 +142,48 @@ export const ItemModal = observer(() => {
                   </button>
                 </div>
               </div>
+
+              {isAdmin && (
+                <>
+                  <div className={styles.property}>
+                    <span className={styles.label}>Цена</span>
+                    <input
+                      type="text"
+                      className={styles.inputField}
+                      value={price}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                          setPrice(Number(value));
+                        }
+                      }}
+                    />
+                  </div>
+
+                  <div className={styles.property}>
+                    <span className={styles.label}>Цена со скидкой</span>
+                    <input
+                      type="text"
+                      className={styles.inputField}
+                      value={sale}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                          setSale(Number(value));
+                        }
+                      }}
+                      placeholder="0 — без скидки"
+                    />
+                  </div>
+                  <button
+                    className={styles.saveButton}
+                    onClick={() => savePrice({ id: item.id, price, sale })}
+                    disabled={isSaving}
+                  >
+                    Сохранить
+                  </button>
+                </>
+              )}
             </div>
 
             <div className={styles.price}>{priceToUse * quantity} ₽</div>

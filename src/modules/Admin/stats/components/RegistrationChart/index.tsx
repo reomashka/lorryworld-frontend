@@ -62,7 +62,14 @@ export const RegistrationChart: React.FC<Props> = ({ from, to }) => {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis
+            dataKey="date"
+            tickFormatter={(dateStr) => {
+              const [, month, day] = dateStr.split("-");
+              return `${month}.${day}`;
+            }}
+          />
+
           <YAxis allowDecimals={false} />
           <Tooltip />
           <Line

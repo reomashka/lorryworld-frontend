@@ -3,16 +3,16 @@
  * Импорт через `@/modules/Admin`.
  */
 
-import styles from "./AdminModule.module.scss";
+import styles from "./StatsModule.module.scss";
 
 import { getAdminStats, StatsData } from "src/api/getAdminStats";
 import { useQuery } from "@tanstack/react-query";
-import { RegistrationChart } from "../RegistrationChart";
-import { DatePicker } from "../DatePicker";
+import { RegistrationChart } from "./components/RegistrationChart";
+import { DatePicker } from "./components/DatePicker";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 
-export const AdminModule = () => {
+export const StatsModule = () => {
   const [range, setRange] = useState<DateRange | undefined>(undefined);
 
   const { data, isLoading } = useQuery<StatsData>({
@@ -314,6 +314,157 @@ export const AdminModule = () => {
               ) : (
                 <span className={styles.amount}>
                   {formatNumber(data?.items.week ?? 0)}
+                </span>
+              )}
+            </div>
+            <div className={styles.cardChange}>
+              {/* <span className={styles.positive}>+8.2%</span> */}
+              <span className={styles.changeText}>За неделю</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.statCard} ${styles.itemsCard}`}>
+          <div className={styles.cardIcon}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 6H21"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className={styles.cardContent}>
+            <h3 className={styles.cardTitle}>Пользователи</h3>
+
+            <div className={styles.cardValue}>
+              {isLoading ? (
+                <div className={styles.skeleton}></div>
+              ) : (
+                <span className={styles.amount}>
+                  {formatNumber(data?.registrations.today ?? 0)}
+                </span>
+              )}
+            </div>
+            <div className={styles.cardChange}>
+              {/* <span className={styles.positive}>+8.2%</span> */}
+              <span className={styles.changeText}>За сегодня</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.statCard} ${styles.itemsCard}`}>
+          <div className={styles.cardIcon}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 6H21"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className={styles.cardContent}>
+            <h3 className={styles.cardTitle}>Пользователи</h3>
+            <div className={styles.cardValue}>
+              {isLoading ? (
+                <div className={styles.skeleton}></div>
+              ) : (
+                <span className={styles.amount}>
+                  {formatNumber(data?.registrations.yesterday ?? 0)}
+                </span>
+              )}
+            </div>
+            <div className={styles.cardChange}>
+              {/* <span className={styles.positive}>+8.2%</span> */}
+              <span className={styles.changeText}>За вчера</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.statCard} ${styles.itemsCard}`}>
+          <div className={styles.cardIcon}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 6H21"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className={styles.cardContent}>
+            <h3 className={styles.cardTitle}>Пользователи</h3>
+            <div className={styles.cardValue}>
+              {isLoading ? (
+                <div className={styles.skeleton}></div>
+              ) : (
+                <span className={styles.amount}>
+                  {formatNumber(data?.registrations.week ?? 0)}
                 </span>
               )}
             </div>

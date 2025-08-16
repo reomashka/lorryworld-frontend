@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./OrderPage.module.scss";
-import { Header } from "@components/Header";
+import styles from "./OrdersModule.module.scss";
 import { toast } from "react-toastify";
 import { Order } from "./types/order.interface";
 import { OrderCard } from "./components/orderCard";
@@ -60,7 +59,6 @@ export const OrdersModule = () => {
 
   return (
     <>
-      <Header />
       <div className={styles.pageWrapper}>
         <div className={styles.container}>
           {orders.length === 0 && (

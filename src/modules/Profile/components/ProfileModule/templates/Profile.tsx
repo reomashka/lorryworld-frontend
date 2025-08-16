@@ -91,14 +91,14 @@ export const ProfileTemplate = observer(
                   ID: {user?.id}
                 </div>
               </div>
-              <div className={styles.profileStats}>
+              {/* <div className={styles.profileStats}>
                 <div>
                   <span className={styles.profileStatLabel}>
                     Купленных предметов:
                   </span>
                   <span className={styles.profileStatValue}>23</span>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* <div className={styles.emailSection}>
