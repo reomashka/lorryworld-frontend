@@ -1,6 +1,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-right: 10px;
 }
 
 .toggleButton {
@@ -108,13 +109,20 @@
 // Responsive adjustments
 @media (max-width: 768px) {
   .toggleButton {
-    padding: 10px 14px;
     font-size: 13px;
-    min-width: 100px;
+    min-width: 70px;
   }
 
   .dropdownItem {
     padding: 10px 14px;
     font-size: 13px;
+  }
+}
+
+@media (max-width: 680px) {
+  .toggleButton {
+    span {
+      display: none;
+    }
   }
 }

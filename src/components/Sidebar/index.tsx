@@ -1,11 +1,10 @@
-// import character from "../../assets/charachter.svg";
 import { observer } from "mobx-react-lite";
 import { FilterRarity } from "../FilterRarity";
 
 import styles from "./Sidebar.module.scss";
 
-import { useSidebar } from "src/hooks/contexts/SidebarContext";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+import { sidebarStore } from "@store/sidebarStore";
 
 const typeLabels: Record<string, Record<string, string>> = {
   MM: {
@@ -52,8 +51,7 @@ export const Sidebar = observer(
       }
     };
 
-    const { isOpenSidebar, toggleSidebar } = useSidebar();
-
+    const { isOpenSidebar, toggleSidebar } = sidebarStore;
     const selectedGame = dropdownHeaderStore.game;
 
     return (

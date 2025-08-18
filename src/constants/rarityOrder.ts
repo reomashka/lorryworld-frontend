@@ -11,7 +11,11 @@ const rarityOrder: Record<string, number> = {
   Common: 9,
 
   // GAG
-  Blue: 1,
+  Blue: 10,
+  Green: 11,
+  Yellow: 12,
+  Red: 13,
+  Purple: 14,
 };
 
 export default rarityOrder;

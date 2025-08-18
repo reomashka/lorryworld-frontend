@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -19,7 +19,7 @@ type RegistrationData = {
   count: number;
 };
 
-export const RegistrationChart: React.FC<Props> = ({ from, to }) => {
+export const RegistrationChart = ({ from, to }: Props) => {
   const [data, setData] = useState<RegistrationData[]>([]);
 
   useEffect(() => {

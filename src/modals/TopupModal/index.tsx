@@ -52,7 +52,7 @@ export const TopupModal = observer(() => {
   //   console.log("Applying promo code:", promoCode);
   // };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
     if (value === "" || /^[1-9][0-9]*$/.test(value)) {
       setAmount(value);

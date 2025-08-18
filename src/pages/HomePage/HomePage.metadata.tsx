@@ -2,20 +2,48 @@ import { Helmet } from "react-helmet-async";
 
 export const HomePageMetadata = () => {
   return (
-    <>
-      <Helmet>
-        <title>LorryWorld | Главная</title>
-        <meta
-          name="description"
-          content="Откройте для себя широкий выбор эксклюзивных товаров! Улучшите свой игровой опыт с нашей премиальной коллекцией товаров по непревзойденным ценам. Приготовьтесь выделиться в виртуальном мире и выведите свой игровой процесс на новый уровень с помощью самых крутых товаров на рынке. Безопасно, быстро и удобно."
-        />
-        <link rel="canonical" href="https://example.com/" />
-        <meta property="og:title" content="LorryWorld" />
-        <meta
-          property="og:description"
-          content="Магазин цифорвых товаров LorryWorld"
-        />
-      </Helmet>
-    </>
+    <Helmet>
+      <title>LorryWorld | Главная</title>
+      <meta
+        name="description"
+        content="Добро пожаловать в LorryWorld - магазин цифровых товаров для игр. Эксклюзивные предметы, безопасные покупки и удобный интерфейс."
+      />
+      <link rel="canonical" href="https://lorryworld.space/" />
+
+      {/* Open Graph */}
+      <meta property="og:title" content="LorryWorld | Главная" />
+      <meta
+        property="og:description"
+        content="Добро пожаловать в LorryWorld — магазин цифровых товаров для игр."
+      />
+      <meta property="og:url" content="https://lorryworld.space/" />
+      <meta property="og:type" content="website" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="LorryWorld | Главная" />
+      <meta
+        name="twitter:description"
+        content="Добро пожаловать в LorryWorld — магазин цифровых товаров для игр."
+      />
+
+      {/* JSON-LD: Breadcrumb */}
+      <script type="application/ld+json">
+        {`
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://lorryworld.space/"
+            }
+          ]
+        }
+        `}
+      </script>
+    </Helmet>
   );
 };

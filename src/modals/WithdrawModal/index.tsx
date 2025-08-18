@@ -81,7 +81,9 @@ export const WithdrawModal = observer(() => {
     }
   };
 
-  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContactChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
     let value = e.target.value;
 
     if (mediaContact === "TELEGRAM") {

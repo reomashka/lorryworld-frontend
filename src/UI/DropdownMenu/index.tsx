@@ -22,7 +22,7 @@ export const DropdownMenu = observer(() => {
     <div className={styles.dropdown}>
       <button className={styles.toggleButton} onClick={() => store.toggle()}>
         <img className={styles.iconBadge} src={gameIcons[store.game]} alt="" />{" "}
-        {games[store.game]}
+        <span>{games[store.game]}</span>
         <svg
           width="12"
           height="12"

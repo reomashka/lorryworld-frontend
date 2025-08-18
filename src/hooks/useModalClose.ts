@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const useModalClose = () => {
@@ -7,13 +7,13 @@ export const useModalClose = () => {
 
   const background = location.state?.backgroundLocation;
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     if (background) {
       navigate(background, { replace: true });
     } else {
       navigate("/", { replace: true });
     }
-  };
+  }, [background, navigate]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -23,7 +23,7 @@ export const useModalClose = () => {
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [location]);
+  }, [closeModal]);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {

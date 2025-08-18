@@ -8,14 +8,15 @@ import UserItem from "@sharedTypes/userItem.interface";
 export const useInventoryItems = () => {
   const { user } = useProfile();
   const queryClient = useQueryClient();
+  const userId = user?.id;
 
   const { data: items = [], isLoading } = useQuery<UserItem[]>({
-    queryKey: ["purchasedItems", user?.id],
+    queryKey: ["purchasedItems", userId],
     queryFn: () => {
-      if (!user?.id) throw new Error("User ID is missing");
-      return fetchPurchasedItems(user?.id);
+      if (!userId) throw new Error("User ID is missing");
+      return fetchPurchasedItems(userId);
     },
-    enabled: !!user?.id,
+    enabled: !!userId,
   });
 
   const { mutateAsync: withDrawAllItems, isPending } = useMutation({
@@ -25,13 +26,14 @@ export const useInventoryItems = () => {
       robloxUsername: string;
       game: "MM" | "GAG";
     }) => {
-      if (!user?.id) throw new Error("User ID is missing");
+      if (!userId) throw new Error("User ID is missing");
 
-      await withDrawAllItemsAPI(user?.id, params.game);
+      const res = await withDrawAllItemsAPI(userId, params.game);
       toast.success("Все предметы успешно выведены!");
+      return res;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["purchasedItems", user?.id] });
+      queryClient.invalidateQueries({ queryKey: ["purchasedItems", userId] });
     },
     onError: () => {
       toast.error("Ошибка при выводе предметов.");
@@ -40,13 +42,11 @@ export const useInventoryItems = () => {
 
   // Фильтрация предметов
   const purchasedItems = items.filter((item) => item.status === "PURCHASED");
-
   const waitingItems = items.filter(
     (item) => item.status === "WITHDRAWN" && item.isIssued === false
   );
 
   const hasNotIssued = waitingItems.some((item) => item.isIssued === false);
-
   const isDisabled = purchasedItems.length === 0;
 
   return {

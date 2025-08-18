@@ -40,7 +40,7 @@ const navigationItems: NavigationItem[] = [
   },
 ];
 
-export const NavigationGrid: React.FC = () => {
+export const NavigationGrid = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

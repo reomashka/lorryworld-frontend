@@ -26,37 +26,4 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Для динамического legal/:page добавим пару примеров -->
-  <url>
-    <loc>https://lorryworld.space/legal/purchase-terms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://lorryworld.space/legal/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://lorryworld.space/legal/agreement</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://lorryworld.space/legal/contacts</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Обычно админка закрыта от индексации, но если нужно, раскомментируй -->
-  <!--
-  <url>
-    <loc>https://lorryworld.space/admin</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  -->
 </urlset>

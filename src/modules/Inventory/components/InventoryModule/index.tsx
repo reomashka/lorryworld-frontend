@@ -18,15 +18,19 @@ export const Inventory = observer(() => {
   const location = useLocation();
 
   // Фильтрация товаров с status PURCHASED
-  const purchasedItems = items.filter((item) => item.status === "PURCHASED");
+  const purchasedItemsByGame = items.filter(
+    (item) =>
+      item.status === "PURCHASED" && item.item.game == dropdownHeaderStore.game
+  );
+  const hasPurchasedItemsByGame = purchasedItemsByGame.length > 0;
 
   // Фильтрация товаров, которые либо PURCHASED, либо не выданы (isIssued === false)
   const waitingItems = items.filter(
-    (item) => item.status == "WITHDRAWN" && item.isIssued === false
+    (item) => item.status === "WITHDRAWN" && item.isIssued === false
   );
+  const hasNotIssued = waitingItems.length > 0;
 
-  // Проверка, есть ли невыданные товары
-  const hasNotIssued = waitingItems.some((item) => item.isIssued === false);
+  console.log(hasPurchasedItemsByGame);
 
   return (
     <div className={styles.profilePage}>
@@ -40,12 +44,12 @@ export const Inventory = observer(() => {
                   location.state?.backgroundLocation || location,
               }}
               onClick={(e) => {
-                if (isDisabled) {
+                if (isDisabled || !hasPurchasedItemsByGame) {
                   e.preventDefault();
                 }
               }}
               className={`${styles.sidebarTab} ${
-                isDisabled ? styles.disabled : ""
+                isDisabled || !hasPurchasedItemsByGame ? styles.disabled : ""
               }`}
             >
               <Boxes />
@@ -73,8 +77,8 @@ export const Inventory = observer(() => {
             ))
           ) : (
             <div className={styles.purchaseGrid}>
-              {purchasedItems.length > 0 ? (
-                purchasedItems
+              {purchasedItemsByGame.length > 0 ? (
+                purchasedItemsByGame
                   .filter((item) => item.item.game == dropdownHeaderStore.game)
                   .map((item, index) => (
                     <PurchaseItemCard item={item} key={index} />

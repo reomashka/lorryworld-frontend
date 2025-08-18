@@ -9,7 +9,7 @@ type Props = {
   onRangeChange: (range: DateRange | undefined) => void;
 };
 
-export const DatePicker: React.FC<Props> = ({ range, onRangeChange }) => {
+export const DatePicker = ({ range, onRangeChange }: Props) => {
   return (
     <div className={styles.wrapper}>
       <DayPicker
