@@ -1,0 +1,254 @@
+.container {
+  min-height: 100vh;
+  color: white;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.helpGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.helpCard {
+  background: linear-gradient(
+    135deg,
+    #a60f0f 0%,
+    #a60f0f 50%,
+    rgba(255, 255, 255, 0.8) 240%
+  );
+  border-radius: 10px;
+  padding: 24px 24px 70px 24px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.2s;
+  height: 55%;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.cardNumber {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 22px;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 60px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/src/assets/rec.svg") no-repeat center/cover;
+    z-index: -1;
+  }
+}
+
+.cardIcon {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+
+  img {
+    width: 40%;
+
+    @media (max-width: 900px) {
+      width: 25%;
+    }
+  }
+
+  @media (min-width: 901px) {
+    margin-top: 10%;
+  }
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.cardDescription {
+  color: #ffffff;
+  line-height: 1.5;
+  margin-top: 8px;
+  text-align: left;
+
+  h1 {
+    font-size: 16px;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+
+.contactSection {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contactTitle {
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.contactButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.contactButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 28px;
+  background: none;
+  border: 2px solid #df382d;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #df382d;
+    color: white;
+  }
+}
+
+.contactIcon {
+  font-size: 16px;
+
+  img {
+    width: 25px;
+  }
+}
+
+.socialSection {
+  text-align: center;
+}
+
+.socialTitle {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.socialButton {
+  width: 40px;
+  height: 40px;
+  background-color: #a60f0f;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+
+  img {
+    width: 25px;
+  }
+
+  &:hover {
+    background-color: #d31629;
+    transform: translateY(-1px);
+  }
+}
+@media (max-width: 900px) {
+  .helpGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .contactButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 568px) {
+  .helpGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 20px 20px;
+  color: #4c4c4c;
+  font-size: 14px;
+}
+
+.footerLinks {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+
+  a {
+    color: #4c4c4c;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+}
+
+.footerCopyright {
+  color: #666;
+  font-size: 13px;
+}

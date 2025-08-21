@@ -8,14 +8,19 @@ import { Boxes, ShieldUser } from "lucide-react";
 
 import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 import { observer } from "mobx-react-lite";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+import { useEffect } from "react";
+import { checkAndRedirectToGame } from "@modules/Inventory/utils/gameRedirectHelper";
+import { useProfile } from "src/hooks/useProfile";
 
 export const Inventory = observer(() => {
   const { items, isDisabled, isLoading } = useInventoryItems();
+  const { user } = useProfile();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Фильтрация товаров с status PURCHASED
   const purchasedItemsByGame = items.filter(
@@ -31,6 +36,12 @@ export const Inventory = observer(() => {
   const hasNotIssued = waitingItems.length > 0;
 
   console.log(hasPurchasedItemsByGame);
+
+  // useEffect(() => {
+  //   if (user?.id) {
+  //     checkAndRedirectToGame(user.id, navigate, location);
+  //   }
+  // }, [user, navigate, location]);
 
   return (
     <div className={styles.profilePage}>

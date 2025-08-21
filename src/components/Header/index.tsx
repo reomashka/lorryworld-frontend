@@ -140,7 +140,7 @@ export const Header = observer(() => {
                 <span className={styles.balanceAmount}>{user?.balance} ₽</span>
                 <Link
                   className={styles.addFunds}
-                  to="/topup"
+                  to="/game-selection"
                   state={{
                     backgroundLocation:
                       location.state?.backgroundLocation || location,

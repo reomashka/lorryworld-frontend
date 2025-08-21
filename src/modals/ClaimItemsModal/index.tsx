@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef } from "react";
 import styles from "./ClaimItemsModal.module.scss";
 import { useNavigate } from "react-router-dom";
