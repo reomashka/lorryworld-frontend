@@ -5,7 +5,6 @@ import { ClaimItemsModal } from "../modals/ClaimItemsModal";
 import { RegistrationModal } from "../modals/RegistrationModal";
 import { ItemModal } from "../modals/ItemModal";
 import { TopupModal } from "../modals/TopupModal";
-import { GameSelection } from "@modals/GameSelection";
 
 export const ModalRoutes = () => (
   <Routes>
@@ -15,6 +14,5 @@ export const ModalRoutes = () => (
     <Route path="/register" element={<RegistrationModal />} />
     <Route path="/item" element={<ItemModal />} />
     <Route path="/topup" element={<TopupModal />} />
-    <Route path="/game-selection" element={<GameSelection />} />
   </Routes>
 );
