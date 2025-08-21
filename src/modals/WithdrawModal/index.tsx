@@ -18,15 +18,20 @@ export const WithdrawModal = observer(() => {
   const [mediaContact, setMediaContact] = useState("TELEGRAM");
   const [contact, setContact] = useState("");
   const [robloxUsername, setRobloxUsername] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (isSubmitting) return; // блокируем повторный вызов
+
+    if (!mediaContact || !contact || !robloxUsername) {
+      toast.warn("Заполните все поля");
+      return;
+    }
+
     try {
-      if (!mediaContact || !contact) {
-        toast.warn("Заполните все поля");
-        return;
-      }
+      setIsSubmitting(true);
 
       // 1. Отправляем PATCH запрос
       const response = await fetch("/api/users/profile", {
@@ -67,6 +72,8 @@ export const WithdrawModal = observer(() => {
     } catch (err) {
       console.error("Ошибка при обновлении:", err);
       toast.error("Непредвиденная ошибка");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -158,8 +165,12 @@ export const WithdrawModal = observer(() => {
             </div>
           </div>
 
-          <button type="submit" className={styles.submitBtn}>
-            ВЫВЕСТИ
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "ВЫВОД..." : "ВЫВЕСТИ"}
           </button>
         </form>
       </div>

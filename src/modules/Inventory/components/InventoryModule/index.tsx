@@ -8,19 +8,21 @@ import { Boxes, ShieldUser } from "lucide-react";
 
 import { useInventoryItems } from "src/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 import { observer } from "mobx-react-lite";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
-import { useEffect } from "react";
-import { checkAndRedirectToGame } from "@modules/Inventory/utils/gameRedirectHelper";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useProfile } from "src/hooks/useProfile";
+import { GameSelection } from "@modals/GameSelection";
 
 export const Inventory = observer(() => {
-  const { items, isDisabled, isLoading } = useInventoryItems();
-  const { user } = useProfile();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalShownOnce, setModalShownOnce] = useState(false);
+  const { items, isDisabled } = useInventoryItems();
   const location = useLocation();
-  const navigate = useNavigate();
+  const { user } = useProfile();
 
   // Фильтрация товаров с status PURCHASED
   const purchasedItemsByGame = items.filter(
@@ -35,16 +37,37 @@ export const Inventory = observer(() => {
   );
   const hasNotIssued = waitingItems.length > 0;
 
-  console.log(hasPurchasedItemsByGame);
+  const { data: activeGames, isLoading } = useQuery({
+    queryKey: ["activeGames"],
+    queryFn: async () => {
+      const res = await fetch(`/api/item/active-games?userId=${user?.id}`);
+      return res.json();
+    },
+  });
 
-  // useEffect(() => {
-  //   if (user?.id) {
-  //     checkAndRedirectToGame(user.id, navigate, location);
-  //   }
-  // }, [user, navigate, location]);
+  useEffect(() => {
+    if (!isLoading && activeGames?.games?.length && !modalShownOnce) {
+      if (activeGames.games.length === 1) {
+        dropdownHeaderStore.select(activeGames.games[0]);
+        setModalShownOnce(true);
+      } else if (activeGames.games.length > 1) {
+        setIsModalOpen(true);
+        setModalShownOnce(true);
+      }
+    }
+  }, [activeGames, isLoading, modalShownOnce]);
 
   return (
     <div className={styles.profilePage}>
+      {isModalOpen && (
+        <GameSelection
+          onSelect={(game) => {
+            dropdownHeaderStore.select(game);
+          }}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
+
       <main className={styles.main}>
         <div className={styles.sidebar}>
           <div className={styles.sidebarTabs}>

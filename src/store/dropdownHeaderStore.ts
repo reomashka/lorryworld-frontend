@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 class DropdownHeaderStore {
   isOpen = false;
   game: "MM" | "GAG" = "MM";
+  hasSeenGameSelectionModal = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,6 +16,10 @@ class DropdownHeaderStore {
   select(value: "MM" | "GAG") {
     this.game = value;
     this.isOpen = false;
+  }
+
+  markModalShown() {
+    this.hasSeenGameSelectionModal = true;
   }
 }
 
