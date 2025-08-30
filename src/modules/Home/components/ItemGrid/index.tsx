@@ -25,15 +25,11 @@ const ItemCard = React.memo(
         key={item.id}
       >
         <div className={styles.itemImage}>
-          <picture>
-            <source srcSet={`/uploads/${item.icon}.webp`} type="image/webp" />
-            <img
-              src={`/uploads/${item.icon}.jpg`}
-              alt={item.name}
-              loading="lazy"
-            />
-          </picture>
-
+          <img
+            src={`/uploads/${item.icon}.webp`}
+            alt={item.name}
+            loading="lazy"
+          />
           <img src={rarityItemMap[item.rarity as RarityKey]} alt={item.name} />
         </div>
 
