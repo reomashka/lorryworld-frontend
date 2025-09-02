@@ -49,9 +49,8 @@ export const NavigationGrid = () => {
 
       <div className={styles.grid}>
         {navigationItems.map((item) => (
-          <Link to={item.href}>
+          <Link to={item.href} key={item.id}>
             <div
-              key={item.id}
               className={styles.card}
               style={{ "--accent-color": item.color } as React.CSSProperties}
             >

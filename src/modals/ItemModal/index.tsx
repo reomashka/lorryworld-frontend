@@ -14,7 +14,7 @@ import { useBuyItem } from "./hooks/useBuyItem";
 import { observer } from "mobx-react-lite";
 
 import rarityItemMap from "src/constants/rarityItemMap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 import { updateItemPrice as updateItemPriceApi } from "src/api/updateItemPrice";
@@ -31,6 +31,14 @@ export const ItemModal = observer(() => {
   const item: Item = location.state?.item;
   const [price, setPrice] = useState(item.price || 0);
   const [sale, setSale] = useState(item.sale || 0);
+
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden"; // блокируем скролл
+    return () => {
+      document.body.style.overflow = originalStyle; // возвращаем обратно
+    };
+  }, []);
 
   if (!item) return null;
 

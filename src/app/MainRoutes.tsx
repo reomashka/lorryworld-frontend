@@ -7,7 +7,6 @@ import { InventoryPage } from "../pages/InventoryPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { lazy, Suspense } from "react";
 import StatsItemsPage from "@pages/AdminPages/StatsItemsPage";
-import { ScrollToTop } from "@components/ScrollToTop";
 
 const StatsPage = lazy(() => import("../pages/AdminPages/StatsPage"));
 const OrdersPage = lazy(() => import("../pages/AdminPages/OrdersPage"));
@@ -21,7 +20,6 @@ export const MainRoutes = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ScrollToTop />
       <Routes
         location={state?.backgroundLocation || location}
         key={state?.backgroundLocation ? "main-routes-with-bg" : "main-routes"}
