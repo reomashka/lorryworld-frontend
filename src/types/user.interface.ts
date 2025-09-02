@@ -11,4 +11,5 @@ export interface User {
   displayName: string;
   contact: string;
   mediaContact: string;
+  robloxUsername: string;
 }

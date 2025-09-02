@@ -16,16 +16,26 @@ type Period = "day" | "week" | "all";
 
 export const StatsItemsModule = observer(() => {
   const [period, setPeriod] = useState<Period>("day");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["stats-items", period],
     queryFn: () => fetchStatsOfItemsApi(period),
   });
 
+  // Фильтрация по игре и по названию предмета
+  const filteredData = data
+    ?.filter((item: Item) => item.game === dropdownHeaderStore.game)
+    .filter((item: Item) =>
+      item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a: Item, b: Item) => b.totalQuantity - a.totalQuantity);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Статистика продаж товаров</h2>
+
         <div className={styles.periodButtons}>
           <button
             className={`${styles.periodButton} ${
@@ -52,12 +62,20 @@ export const StatsItemsModule = observer(() => {
             Всё время
           </button>
         </div>
+
+        {/* Поиск по названию */}
+        <input
+          type="text"
+          placeholder="Поиск по названию..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.search}
+        />
       </div>
 
       {isLoading && (
         <div className={styles.loading}>Загрузка статистики...</div>
       )}
-
       {error && <div className={styles.error}>Ошибка загрузки данных</div>}
 
       {!isLoading && !error && (
@@ -73,28 +91,23 @@ export const StatsItemsModule = observer(() => {
                 </tr>
               </thead>
               <tbody className={styles.tableBody}>
-                {data
-                  ?.filter(
-                    (item: Item) => item.game === dropdownHeaderStore.game
-                  )
-                  .sort((a: Item, b: Item) => b.totalQuantity - a.totalQuantity)
-                  .map((item: Item) => (
-                    <tr key={item.itemId} className={styles.tableRow}>
-                      <td className={styles.tableCell}>{item.itemId}</td>
-                      <td className={styles.tableCell}>{item.itemName}</td>
-                      <td className={styles.tableCell}>{item.game}</td>
-                      <td className={styles.tableCell}>
-                        <span className={styles.quantity}>
-                          {item.totalQuantity} шт.
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                {filteredData?.map((item: Item) => (
+                  <tr key={item.itemId} className={styles.tableRow}>
+                    <td className={styles.tableCell}>{item.itemId}</td>
+                    <td className={styles.tableCell}>{item.itemName}</td>
+                    <td className={styles.tableCell}>{item.game}</td>
+                    <td className={styles.tableCell}>
+                      <span className={styles.quantity}>
+                        {item.totalQuantity} шт.
+                      </span>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
 
-          {data && data.length === 0 && (
+          {filteredData && filteredData.length === 0 && (
             <div className={styles.emptyState}>Нет данных для отображения</div>
           )}
         </>

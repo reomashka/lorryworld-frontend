@@ -2,13 +2,25 @@ import { useEffect, useState } from "react";
 import styles from "./OrdersModule.module.scss";
 import { toast } from "react-toastify";
 import { Order } from "./types/order.interface";
-import { OrderCard } from "./components/orderCard";
+import { OrderCard } from "./components/OrderCard";
 
 export const OrdersModule = () => {
   const [orders, setOrders] = useState([]);
   const [modifiedOrders, setModifiedOrders] = useState<Record<string, boolean>>(
     {}
   );
+  const [searchValue, setSearchValue] = useState("");
+
+  const filteredOrders = orders.filter((order: Order) => {
+    const value = searchValue.toLowerCase();
+    if (!value) return true;
+
+    return (
+      order.user.robloxUsername.toLowerCase().includes(value) ||
+      order.user.displayName.toLowerCase().includes(value) ||
+      order.orderNumber.toString().includes(value)
+    );
+  });
 
   useEffect(() => {
     fetch("/api/order/not-issued")
@@ -60,6 +72,15 @@ export const OrdersModule = () => {
   return (
     <>
       <div className={styles.pageWrapper}>
+        <div className={styles.search}>
+          <input
+            type="text"
+            placeholder="Поиск"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
         <div className={styles.container}>
           {orders.length === 0 && (
             <div className={styles.emptyState}>
@@ -69,7 +90,7 @@ export const OrdersModule = () => {
             </div>
           )}
 
-          {orders.map((order: Order) => {
+          {filteredOrders.map((order: Order) => {
             const isIssued = Object.prototype.hasOwnProperty.call(
               modifiedOrders,
               order.id
@@ -97,7 +118,6 @@ export const OrdersModule = () => {
               onClick={saveChanges}
               disabled={isSaveDisabled}
             >
-              <span className={styles.buttonIcon}>💾</span>
               СОХРАНИТЬ
             </button>
           </div>

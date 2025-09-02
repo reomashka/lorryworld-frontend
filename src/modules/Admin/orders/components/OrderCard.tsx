@@ -25,6 +25,17 @@ export const OrderCard = ({ order, isIssued, onToggle }: Props) => {
               #{String(order.orderNumber).padStart(3, "0")}
             </span>
           </div>
+          <div className={styles.showId}>
+            <span className={styles.label}>Created:</span>
+            <span className={styles.value}>
+              {" "}
+              {new Intl.DateTimeFormat("ru-RU", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              }).format(new Date(order.createdAt))}
+            </span>
+          </div>
         </div>
         <div className={styles.statusIndicator}>
           <div
@@ -44,6 +55,10 @@ export const OrderCard = ({ order, isIssued, onToggle }: Props) => {
           <div className={styles.userDetail}>
             <span className={styles.label}>User ID:</span>
             <span className={styles.userId}>{order.user.id}</span>
+          </div>
+          <div className={styles.userDetail}>
+            <span className={styles.label}>RB Name:</span>
+            <span className={styles.userId}>{order.user.robloxUsername}</span>
           </div>
         </div>
 
