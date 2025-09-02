@@ -9,6 +9,7 @@ interface Item {
   itemId: number;
   itemName: string;
   totalQuantity: number;
+  totalEarning: number;
   game: string;
 }
 
@@ -99,6 +100,9 @@ export const StatsItemsModule = observer(() => {
                     <td className={styles.tableCell}>
                       <span className={styles.quantity}>
                         {item.totalQuantity} шт.
+                      </span>
+                      <span className={styles.quantity}>
+                        {item.totalEarning}₽
                       </span>
                     </td>
                   </tr>
