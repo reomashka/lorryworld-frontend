@@ -60,6 +60,18 @@ export const OrderCard = ({ order, isIssued, onToggle }: Props) => {
             <span className={styles.label}>RB Name:</span>
             <span className={styles.userId}>{order.user.robloxUsername}</span>
           </div>
+          <div className={styles.userDetail}>
+            <span className={styles.label}>TG username:</span>
+            <span className={styles.userId}>
+              <a
+                href={`https://t.me/${order.user.contact.slice(1)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {order.user.contact}
+              </a>
+            </span>
+          </div>
         </div>
 
         <div className={styles.itemsSection}>

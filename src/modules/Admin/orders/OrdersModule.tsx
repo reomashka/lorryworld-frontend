@@ -18,7 +18,8 @@ export const OrdersModule = () => {
     return (
       order.user.robloxUsername.toLowerCase().includes(value) ||
       order.user.displayName.toLowerCase().includes(value) ||
-      order.orderNumber.toString().includes(value)
+      order.orderNumber.toString().includes(value) ||
+      order.user.contact.toLowerCase().includes(value)
     );
   });
 
