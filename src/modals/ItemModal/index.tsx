@@ -4,7 +4,6 @@ import styles from "./ItemModal.module.scss";
 import credit from "@assets/svg/credit.svg";
 import cart from "@assets/svg/cart_two.svg";
 
-import { useModalClose } from "src/hooks/useModalClose";
 import { Item } from "@sharedTypes/item.interface";
 import { useProfile } from "src/hooks/useProfile";
 import { userStore } from "src/store/userStore";
@@ -29,7 +28,6 @@ type Props = {
 
 export const ItemModal = observer(({ item, onClose }: Props) => {
   const location = useLocation();
-  const { handleOverlayClick } = useModalClose();
   const { quantity, increase, decrease } = useQuantity(1);
   const { user, isAuthenticated, isAdmin } = useProfile();
   const { mutate: buyItem, isPending } = useBuyItem();
@@ -44,6 +42,22 @@ export const ItemModal = observer(({ item, onClose }: Props) => {
       document.body.style.overflow = originalStyle;
     };
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
   if (!item) return null;
 
@@ -82,7 +96,13 @@ export const ItemModal = observer(({ item, onClose }: Props) => {
   });
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
+    <div
+      className={styles.overlay}
+      onClick={(e) => {
+        handleOverlayClick?.(e);
+        onClose?.();
+      }}
+    >
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={onClose}>
           ×
