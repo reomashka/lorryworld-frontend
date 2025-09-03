@@ -8,7 +8,7 @@ export const typeLabels: Record<string, Record<string, string>> = {
   GAG: {
     FRUITS: "Fruits",
     GIANTPETS: "Giant Pets",
-    PET: "Pets",
+    PETS: "Pets",
     BUNDLES: "Bundles",
   },
 };

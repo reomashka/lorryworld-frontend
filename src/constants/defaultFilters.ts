@@ -20,7 +20,7 @@ export const defaultFilters: Record<string, FilterState> = {
     selectedSort: "expensive",
   },
   GAG: {
-    selectedTypes: ["FRUITS", "GIANTPETS", "PET", "BUNDLES"],
+    selectedTypes: ["FRUITS", "GIANTPETS", "PETS", "BUNDLES"],
     selectedRarities: ["blue", "yellow", "purple", "red", "green"],
     minPrice: 0,
     maxPrice: 0,
