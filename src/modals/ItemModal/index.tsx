@@ -100,7 +100,6 @@ export const ItemModal = observer(({ item, onClose }: Props) => {
       className={styles.overlay}
       onClick={(e) => {
         handleOverlayClick?.(e);
-        onClose?.();
       }}
     >
       <div className={styles.modal}>

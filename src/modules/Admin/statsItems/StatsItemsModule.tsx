@@ -32,6 +32,38 @@ export const StatsItemsModule = observer(() => {
     )
     .sort((a: Item, b: Item) => b.totalQuantity - a.totalQuantity);
 
+  // Функция экспорта в CSV
+  const exportToCSV = () => {
+    if (!filteredData || filteredData.length === 0) return;
+
+    const headers = [
+      "ID",
+      "Наименование товара",
+      "Игра",
+      "Количество",
+      "Прибыль",
+    ];
+    const rows = filteredData.map((item: Item) => [
+      item.itemId,
+      item.itemName,
+      item.game,
+      item.totalQuantity,
+      item.totalEarning,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows].map((row) => row.join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `stats_${period}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -72,6 +104,15 @@ export const StatsItemsModule = observer(() => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className={styles.search}
         />
+
+        {/* Кнопка экспорта */}
+        <button
+          onClick={exportToCSV}
+          className={styles.exportButton}
+          disabled={!filteredData || filteredData.length === 0}
+        >
+          Экспорт в CSV
+        </button>
       </div>
 
       {isLoading && (
