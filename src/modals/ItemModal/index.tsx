@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import styles from "./ItemModal.module.scss";
 
 import credit from "@assets/svg/credit.svg";
@@ -19,16 +19,21 @@ import { useMutation } from "@tanstack/react-query";
 
 import { updateItemPrice as updateItemPriceApi } from "src/api/updateItemPrice";
 import { toast } from "react-toastify";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+import { typeLabels } from "src/constants/typeLabels";
 
-export const ItemModal = observer(() => {
+type Props = {
+  item: Item;
+  onClose: () => void;
+};
+
+export const ItemModal = observer(({ item, onClose }: Props) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { handleOverlayClick } = useModalClose();
   const { quantity, increase, decrease } = useQuantity(1);
   const { user, isAuthenticated, isAdmin } = useProfile();
   const { mutate: buyItem, isPending } = useBuyItem();
 
-  const item: Item = location.state?.item;
   const [price, setPrice] = useState(item.price || 0);
   const [sale, setSale] = useState(item.sale || 0);
 
@@ -57,17 +62,6 @@ export const ItemModal = observer(() => {
 
   type RarityKey = keyof typeof rarityItemMap;
 
-  const typeNames: Record<string, string> = {
-    PISTOL: "Пистолет",
-    KNIFE: "Нож",
-    PET: "Пет",
-    SET: "Сет",
-    FRUITS: "Fruits",
-    GIANTPETS: "Giant Pets",
-    PETS: "Pets",
-    BUNDLES: "Bundles",
-  };
-
   const priceToUse = sale && sale > 0 ? sale : price || 0;
 
   const { mutate: savePrice, isPending: isSaving } = useMutation({
@@ -90,7 +84,7 @@ export const ItemModal = observer(() => {
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={() => navigate(-1)}>
+        <button className={styles.closeButton} onClick={onClose}>
           ×
         </button>
 
@@ -120,7 +114,8 @@ export const ItemModal = observer(() => {
                 <div className={styles.property}>
                   <span className={styles.label}>Тип</span>
                   <span className={styles.value}>
-                    {typeNames[item.type] || item.type}
+                    {typeLabels[dropdownHeaderStore.game][item.type] ||
+                      item.type}
                   </span>
                 </div>
               )}

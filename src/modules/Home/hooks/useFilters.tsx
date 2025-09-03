@@ -1,43 +1,18 @@
 import { useState } from "react";
-import { FilterState } from "@modules/Home/interfaces/FilterState.interface";
+import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
+import { FilterState } from "../interfaces/FilterState.interface";
+import { defaultFilters } from "src/constants/defaultFilters";
 
 export const useFilters = () => {
-  const [filters, setFilters] = useState<FilterState>({
-    selectedTypes: [
-      "KNIFE",
-      "PISTOL",
-      "SET",
-      "PET",
-      "FRUITS",
-      "GIANTPETS",
-      "PETS",
-      "BUNDLES",
-    ],
-    selectedRarities: [
-      "chroma",
-      "ancients",
-      "godly",
-      "vintages",
-      "corrupt",
-      "rare",
-      "common",
-      "uncommon",
-      "legendary",
-      "blue",
-      "yellow",
-      "purple",
-      "red",
-      "green",
-    ],
-    minPrice: 0,
-    maxPrice: 0,
-    searchTerm: "",
-    selectedSort: "expensive",
-  });
+  const [filters, setFilters] = useState(defaultFilters);
+  const currentGame = dropdownHeaderStore.game;
 
   const updateFilters = (newFilters: Partial<FilterState>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
+    setFilters((prev) => ({
+      ...prev,
+      [currentGame]: { ...prev[currentGame], ...newFilters },
+    }));
   };
 
-  return { filters, updateFilters };
+  return { filters: filters[currentGame], updateFilters };
 };

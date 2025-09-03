@@ -5,21 +5,7 @@ import styles from "./Sidebar.module.scss";
 
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { sidebarStore } from "@store/sidebarStore";
-
-const typeLabels: Record<string, Record<string, string>> = {
-  MM: {
-    KNIFE: "Ножи",
-    PISTOL: "Пистолеты",
-    SET: "Сеты",
-    PET: "Петы",
-  },
-  GAG: {
-    FRUITS: "Fruits",
-    GIANTPETS: "Giant Pets",
-    PET: "Pets",
-    BUNDLES: "Bundles",
-  },
-};
+import { typeLabels } from "src/constants/typeLabels";
 
 interface SidebarProps {
   selectedTypes: string[];
@@ -74,7 +60,6 @@ export const Sidebar = observer(
                 value={minPrice ?? ""}
                 onChange={(e) => {
                   const value = e.target.value;
-                  // Разрешаем только цифры и точку
                   if (/^\d*\.?\d*$/.test(value)) {
                     setMinPrice(Number(value));
                   }
@@ -87,8 +72,13 @@ export const Sidebar = observer(
               <input
                 type="text"
                 placeholder="0.00"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                value={maxPrice ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*\.?\d*$/.test(value)) {
+                    setMaxPrice(Number(value));
+                  }
+                }}
               />
             </div>
           </div>
@@ -97,19 +87,17 @@ export const Sidebar = observer(
         <div className={styles.filterSection}>
           <h3>Тип</h3>
           <div className={styles.typeCheckboxes}>
-            {Object.entries(typeLabels[selectedGame] || {}).map(
-              ([type, label]) => (
-                <label className={styles.checkboxLabel} key={type}>
-                  <input
-                    type="checkbox"
-                    checked={selectedTypes.includes(type)}
-                    onChange={() => toggleType(type)}
-                  />
-                  <span className={styles.customCheckbox}></span>
-                  {label}
-                </label>
-              )
-            )}
+            {Object.entries(typeLabels[selectedGame]).map(([type, label]) => (
+              <label className={styles.checkboxLabel} key={type}>
+                <input
+                  type="checkbox"
+                  checked={selectedTypes.includes(type)}
+                  onChange={() => toggleType(type)}
+                />
+                <span className={styles.customCheckbox}></span>
+                {label}
+              </label>
+            ))}
           </div>
         </div>
 
@@ -119,10 +107,6 @@ export const Sidebar = observer(
             setSelectedRarities={setSelectedRarities}
           />
         </div>
-
-        {/* <div className="character-display">
-        <img src={character} alt="Game character" className="character-image" />
-      </div> */}
       </aside>
     );
   }

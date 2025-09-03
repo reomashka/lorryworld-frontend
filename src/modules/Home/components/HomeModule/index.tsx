@@ -3,8 +3,6 @@
  * Импорт через `@/modules/Home`.
  */
 
-import { useNavigate, useLocation } from "react-router-dom";
-
 import { Sidebar } from "@components/Sidebar";
 
 import { SearchBar } from "../SearchBar";
@@ -16,13 +14,15 @@ import styles from "./Home.module.scss";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
 import { useFilters } from "../../hooks/useFilters";
+import { observer } from "mobx-react-lite";
+import { ItemModal } from "@modals/ItemModal";
+import { useState } from "react";
+import { Item } from "@sharedTypes/item.interface";
 
-export const Home = () => {
+export const Home = observer(() => {
   const { filters, updateFilters } = useFilters();
   const { items, isLoading } = useFilteredItems(filters);
-
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   return (
     <div className={styles.storeContent}>
@@ -49,21 +49,21 @@ export const Home = () => {
         {!isLoading ? (
           <ItemGrid
             items={items}
-            onItemClick={(item) => {
-              navigate(`/item`, {
-                state: {
-                  backgroundLocation: location,
-                  item,
-                },
-              });
-            }}
+            onItemClick={(item) => setSelectedItem(item)}
           />
         ) : (
           Array.from({ length: 12 }).map((_, idx) => (
             <ItemGridSkeleton key={idx} />
           ))
         )}
+
+        {selectedItem && (
+          <ItemModal
+            item={selectedItem}
+            onClose={() => setSelectedItem(null)}
+          />
+        )}
       </main>
     </div>
   );
-};
+});

@@ -3,7 +3,7 @@ import { LoginModal } from "../modals/LoginModal";
 import { WithdrawModal } from "../modals/WithdrawModal";
 import { ClaimItemsModal } from "../modals/ClaimItemsModal";
 import { RegistrationModal } from "../modals/RegistrationModal";
-import { ItemModal } from "../modals/ItemModal";
+// import { ItemModal } from "../modals/ItemModal";
 import { TopupModal } from "../modals/TopupModal";
 
 export const ModalRoutes = () => (
@@ -12,7 +12,8 @@ export const ModalRoutes = () => (
     <Route path="/withdraw" element={<WithdrawModal />} />
     <Route path="/claim-items" element={<ClaimItemsModal />} />
     <Route path="/register" element={<RegistrationModal />} />
-    <Route path="/item" element={<ItemModal />} />
+    {/* <Route path="/item" element={<ItemModal />} />  */}
+    {/* ItemModal рендерится через компонент HomeModule */}
     <Route path="/topup" element={<TopupModal />} />
   </Routes>
 );

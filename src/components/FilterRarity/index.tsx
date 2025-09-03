@@ -2,32 +2,20 @@ import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import styles from "./FilterRarity.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
-
-type RarityOption = {
-  id: string;
-  name: string;
-  colorClass: string;
-};
+import { rarityOptions } from "src/constants/rarityOptions";
 
 type Props = {
   selectedRarities: string[];
   setSelectedRarities: (rarities: string[]) => void;
 };
 
-export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
-  const rarityOptions: RarityOption[] = [
-    { id: "chroma", name: "Chroma", colorClass: "color-chroma" },
-    { id: "ancients", name: "Ancients", colorClass: "color-ancients" },
-    { id: "godly", name: "Godly", colorClass: "color-godly" },
-    { id: "vintages", name: "Vintages", colorClass: "color-vintages" },
-    { id: "corrupt", name: "Corrupt", colorClass: "color-corrupt" },
-    { id: "legendary", name: "Legendary", colorClass: "color-legendary" },
-    { id: "uncommon", name: "Uncommon", colorClass: "color-uncommon" },
-    { id: "rare", name: "Rare", colorClass: "color-rare" },
-    { id: "common", name: "Common", colorClass: "color-common" },
-  ];
-
+export const FilterRarity = ({
+  selectedRarities,
+  setSelectedRarities,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const selectedGame = dropdownHeaderStore.game;
+
   const toggleOption = (id: string) => {
     if (selectedRarities.includes(id)) {
       setSelectedRarities(selectedRarities.filter((r) => r !== id));
@@ -37,12 +25,11 @@ export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
   };
 
   const getButtonText = () => {
-    if (selectedRarities.length === 0) return "Показать все";
-    if (selectedRarities.length === rarityOptions.length) return "Выбраны все";
-    return `Выбрано: ${selectedRarities.length}`;
+    const count = selectedRarities.length;
+    if (count === 0) return "Показать все";
+    if (count === rarityOptions[selectedGame].length) return "Выбраны все";
+    return `Выбрано: ${count}`;
   };
-
-  const selectedGame = dropdownHeaderStore.game;
 
   return (
     <div
@@ -65,7 +52,7 @@ export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
 
         {isOpen && (
           <div className={styles.rarityFilter_dropdown}>
-            {rarityOptions.map((option) => {
+            {rarityOptions[selectedGame].map((option) => {
               const isSelected = selectedRarities.includes(option.id);
               return (
                 <div
@@ -91,4 +78,4 @@ export function FilterRarity({ selectedRarities, setSelectedRarities }: Props) {
       </div>
     </div>
   );
-}
+};
