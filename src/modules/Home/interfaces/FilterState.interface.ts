@@ -1,8 +1,9 @@
 export interface FilterState {
   selectedTypes: string[];
   selectedRarities: string[];
-  minPrice: number | 0;
-  maxPrice: number | 0;
+  selectedProperties?: string[];
+  minPrice: number;
+  maxPrice: number;
   searchTerm: string;
   selectedSort: "standard" | "cheaper" | "expensive";
 }

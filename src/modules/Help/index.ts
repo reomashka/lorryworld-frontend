@@ -1,1 +1,1 @@
-export { HelpModule } from "./components/HelpModule";
+export { HelpModule } from "./HelpModule";

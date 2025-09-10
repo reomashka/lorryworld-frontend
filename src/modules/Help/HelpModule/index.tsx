@@ -1,59 +1,13 @@
-import styles from "./HelpModule.module.scss";
-import auth from "@assets/svg/helpPage/auth.svg";
-import roblox from "@assets/svg/helpPage/roblox.svg";
-import topup from "@assets/svg/helpPage/topup.svg";
-import talk from "@assets/svg/helpPage/talk.svg";
-import deposit from "@assets/svg/helpPage/deposit.svg";
-import buy from "@assets/svg/helpPage/buy.svg";
-import vk from "@assets/svg/vk.svg";
-import tg from "@assets/svg/tg.svg";
 import { Link } from "react-router-dom";
 
-export const HelpModule = () => {
-  const helpItems = [
-    {
-      number: "01",
-      icon: <img src={auth} alt="" />,
-      title: "Авторизация",
-      description:
-        "Зарегистрировать  аккаунт на сайте или войти в существующий",
-    },
-    {
-      number: "02",
-      icon: <img src={topup} alt="" />,
-      title: "Пополнение",
-      description: "Пополнить и дождаться появления средств на балансе",
-    },
-    {
-      number: "03",
-      icon: <img src={buy} alt="" />,
-      title: "Покупка",
-      description:
-        'Выбрать и купить предметы, они отобразятся в разделе Инвентарь"',
-    },
-    {
-      number: "04",
-      icon: <img src={deposit} alt="" />,
-      title: "Вывод",
-      description:
-        "Зайти в раздел Инвентарь, нажать кнопку Вывести все предметы, следовать предложенным действиям",
-    },
-    {
-      number: "05",
-      icon: <img src={talk} alt="" />,
-      title: "Связь с админом",
-      description:
-        "Написать админу в  Telegram, сообщить ему номер вашего заказа и дождаться его ответа",
-    },
-    {
-      number: "06",
-      icon: <img src={roblox} alt="" />,
-      title: "Получение",
-      description:
-        "Админ скинет вам ссылку на вип сервер, вам нужно будет на него зайти и дождаться трейда от админа в игре",
-    },
-  ];
+import styles from "./HelpModule.module.scss";
 
+import vk from "@assets/svg/vk.svg";
+import tg from "@assets/svg/tg.svg";
+import { helpItems } from "../constants/helpItems";
+import { HelpCard } from "../components/HelpCard";
+
+export const HelpModule = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -66,14 +20,12 @@ export const HelpModule = () => {
           <div className={styles.helpGrid}>
             {helpItems.map((item) => (
               <div key={item.number}>
-                <div className={styles.helpCard}>
-                  <div className={styles.cardNumber}>{item.number}</div>
-                  <div className={styles.cardIcon}>{item.icon}</div>
-                </div>
-                <div className={styles.cardDescription}>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
+                <HelpCard
+                  number={item.number}
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
               </div>
             ))}
           </div>

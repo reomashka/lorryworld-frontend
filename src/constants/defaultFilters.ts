@@ -27,4 +27,13 @@ export const defaultFilters: Record<string, FilterState> = {
     searchTerm: "",
     selectedSort: "expensive",
   },
+  AM: {
+    selectedTypes: ["PET", "EGG", "POTION", "TRANSPORT"],
+    selectedRarities: ["legendary", "ultraRare", "rare", "uncommon", "common"],
+    selectedProperties: ["FR", "NFR", "MFR", "noPotion"],
+    minPrice: 0,
+    maxPrice: 0,
+    searchTerm: "",
+    selectedSort: "expensive",
+  },
 };

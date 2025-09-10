@@ -7,6 +7,7 @@ export interface Item {
   icon?: string;
   description?: string;
   availability: boolean;
-  game: string;
+  game: "MM" | "GAG" | "AM";
   rarity: string;
+  property?: string;
 }

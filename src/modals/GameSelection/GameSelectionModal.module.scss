@@ -112,9 +112,17 @@ a {
   }
 
   img {
-    width: 90%;
+    width: 12rem;
     border-radius: 10px;
     transition: filter 0.3s, opacity 0.3s;
+
+    @media (max-width: 730px) {
+      width: 10rem;
+    }
+
+    @media (max-width: 560px) {
+      width: 6rem;
+    }
   }
 
   span {

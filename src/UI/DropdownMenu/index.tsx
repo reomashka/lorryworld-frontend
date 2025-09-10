@@ -3,6 +3,7 @@ import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 import GAG from "@assets/svg/GAG.svg";
 import MM from "@assets/MM.webp";
+import AM from "@assets/AM.svg";
 import styles from "./DropdownMenu.module.scss";
 
 export const DropdownMenu = observer(() => {
@@ -11,11 +12,13 @@ export const DropdownMenu = observer(() => {
   const games = {
     MM: "MM2",
     GAG: "GROW A GARDEN",
+    AM: "ADOPT ME",
   };
 
   const gameIcons = {
     MM,
     GAG,
+    AM,
   };
 
   return (
@@ -52,6 +55,12 @@ export const DropdownMenu = observer(() => {
             onClick={() => store.select("GAG")}
           >
             <img className={styles.icon} src={GAG} alt="" /> GROW A GARDEN
+          </li>{" "}
+          <li
+            className={styles.dropdownItem}
+            onClick={() => store.select("AM")}
+          >
+            <img className={styles.icon} src={AM} alt="" /> ADOPT ME
           </li>
         </ul>
       )}

@@ -23,4 +23,11 @@ export const rarityOptions: Record<string, RarityOption[]> = {
     { id: "red", name: "Red", colorClass: "color-red" },
     { id: "green", name: "Green", colorClass: "color-green" },
   ],
+  AM: [
+    { id: "legendary", name: "Legendary", colorClass: "color-legendary" },
+    { id: "ultraRare", name: "Ultra Rare", colorClass: "color-ultra-rare" },
+    { id: "rare", name: "Rare", colorClass: "color-rare" },
+    { id: "uncommon", name: "Uncommon", colorClass: "color-uncommon" },
+    { id: "common", name: "Common", colorClass: "color-common" },
+  ],
 };

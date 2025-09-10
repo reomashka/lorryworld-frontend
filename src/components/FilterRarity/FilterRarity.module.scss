@@ -101,38 +101,58 @@
 }
 
 /* Color classes */
-.color-chroma {
+.color-chroma_MM {
   background-color: #2dd4bf;
 }
 
-.color-ancients {
+.color-ancients_MM {
   background-color: #9333ea;
 }
 
-.color-godly {
+.color-godly_MM {
   background-color: #a855f7;
 }
 
-.color-vintages {
+.color-vintages_MM {
   background-color: #fb923c;
 }
 
-.color-corrupt {
+.color-corrupt_MM {
   background-color: #f97316;
 }
 
-.color-legendary {
+.color-legendary_MM {
   background-color: #ff3232;
 }
 
-.color-uncommon {
+.color-uncommon_MM {
   background-color: #168bf9;
 }
 
-.color-rare {
+.color-rare_MM {
   background-color: #089b45;
 }
 
-.color-common {
+.color-common_MM {
   background-color: #ffffff;
+}
+
+.color-legendary_AM {
+  background-color: #ff00dd;
+}
+
+.color-ultra-rare_AM {
+  background-color: #a60f0f;
+}
+
+.color-rare_AM {
+  background-color: #0f880f;
+}
+
+.color-uncommon_AM {
+  background-color: #760fa6;
+}
+
+.color-common_AM {
+  background-color: #0f50a6;
 }

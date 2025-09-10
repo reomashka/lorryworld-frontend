@@ -9,4 +9,5 @@ export interface Item {
   description: string | null;
   game: string;
   rarity: string;
+  property?: string;
 }

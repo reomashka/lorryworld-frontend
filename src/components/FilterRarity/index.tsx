@@ -64,7 +64,7 @@ export const FilterRarity = ({
                 >
                   <div
                     className={`${styles.rarityFilter_colorIndicator} ${
-                      styles[option.colorClass]
+                      styles[`${option.colorClass}_${selectedGame}`]
                     }`}
                   ></div>
                   <span className={styles.rarityFilter_option__name}>

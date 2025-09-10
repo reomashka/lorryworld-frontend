@@ -11,4 +11,10 @@ export const typeLabels: Record<string, Record<string, string>> = {
     PETS: "Pets",
     BUNDLES: "Bundles",
   },
+  AM: {
+    PET: "Пет",
+    EGG: "Яйцо",
+    POTION: "Зелье",
+    TRANSPORT: "Транспорт",
+  },
 };

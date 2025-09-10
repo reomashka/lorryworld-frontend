@@ -16,6 +16,13 @@ const rarityOrder: Record<string, number> = {
   Yellow: 12,
   Red: 13,
   Purple: 14,
+
+  // AM
+  Legendary_AM: 15,
+  UltraRare_AM: 16,
+  Rare_AM: 17,
+  Uncommon_AM: 18,
+  Common_AM: 19,
 };
 
 export default rarityOrder;

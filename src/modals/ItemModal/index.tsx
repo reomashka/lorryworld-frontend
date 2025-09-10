@@ -74,7 +74,8 @@ export const ItemModal = observer(({ item, onClose }: Props) => {
     );
   };
 
-  type RarityKey = keyof typeof rarityItemMap;
+  const gameKey = item.game;
+  const rarityKey = item.rarity as keyof (typeof rarityItemMap)[typeof gameKey];
 
   const priceToUse = sale && sale > 0 ? sale : price || 0;
 
@@ -112,9 +113,7 @@ export const ItemModal = observer(({ item, onClose }: Props) => {
             <div
               className={styles.imageBackground}
               style={{
-                backgroundImage: `url(${
-                  rarityItemMap[item.rarity as RarityKey]
-                })`,
+                backgroundImage: `url(${rarityItemMap[gameKey][rarityKey]})`,
               }}
             >
               <img

@@ -29,13 +29,27 @@ export const useFilteredItems = (filters: FilterState) => {
       const matchesRarity =
         filters.selectedRarities.length === 0 ||
         filters.selectedRarities.includes(item.rarity.toLowerCase());
+      const matchesProperty =
+        !filters.selectedProperties ||
+        filters.selectedProperties.length === 0 ||
+        (item.property !== undefined &&
+          filters.selectedProperties.includes(item.property));
 
+      console.log(item.name, {
+        matchesType,
+        matchesMinPrice,
+        matchesMaxPrice,
+        matchesSearchTerm,
+        matchesRarity,
+        matchesProperty,
+      });
       return (
         matchesType &&
         matchesMinPrice &&
         matchesMaxPrice &&
         matchesSearchTerm &&
-        matchesRarity
+        matchesRarity &&
+        matchesProperty
       );
     });
 
@@ -45,6 +59,7 @@ export const useFilteredItems = (filters: FilterState) => {
       return 0;
     });
   }, [items, filters]);
+  console.log("all items:", filteredAndSortedItems);
 
   return {
     items: filteredAndSortedItems,

@@ -6,6 +6,7 @@ import styles from "./Sidebar.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { sidebarStore } from "@store/sidebarStore";
 import { typeLabels } from "src/constants/typeLabels";
+import { propertyLabels } from "src/constants/propertyLabels";
 
 interface SidebarProps {
   selectedTypes: string[];
@@ -16,6 +17,8 @@ interface SidebarProps {
   setMaxPrice: (value: number) => void;
   selectedRarities: string[];
   setSelectedRarities: (types: string[]) => void;
+  selectedProperties?: string[];
+  setSelectedProperties?: (types: string[]) => void;
 }
 
 export const Sidebar = observer(
@@ -28,6 +31,8 @@ export const Sidebar = observer(
     setMaxPrice,
     selectedRarities,
     setSelectedRarities,
+    selectedProperties,
+    setSelectedProperties,
   }: SidebarProps) => {
     const toggleType = (type: string) => {
       if (selectedTypes.includes(type)) {
@@ -37,8 +42,19 @@ export const Sidebar = observer(
       }
     };
 
+    const toggleProperty = (property: string) => {
+      if (!selectedProperties || !setSelectedProperties) return;
+      if (selectedProperties.includes(property)) {
+        setSelectedProperties(selectedProperties.filter((t) => t !== property));
+      } else {
+        setSelectedProperties([...selectedProperties, property]);
+      }
+    };
+
     const { isOpenSidebar, toggleSidebar } = sidebarStore;
     const selectedGame = dropdownHeaderStore.game;
+    const showProperties =
+      selectedGame === "AM" && selectedProperties && setSelectedProperties;
 
     return (
       <aside
@@ -83,6 +99,28 @@ export const Sidebar = observer(
             </div>
           </div>
         </div>
+
+        {showProperties && (
+          <div className={styles.filterSection}>
+            <h3>Свойства</h3>
+            <div className={styles.typeCheckboxes}>
+              {propertyLabels[selectedGame] &&
+                Object.entries(propertyLabels[selectedGame]).map(
+                  ([type, label]) => (
+                    <label className={styles.checkboxLabel} key={type}>
+                      <input
+                        type="checkbox"
+                        checked={selectedProperties.includes(type)}
+                        onChange={() => toggleProperty(type)}
+                      />
+                      <span className={styles.customCheckbox}></span>
+                      {label}
+                    </label>
+                  )
+                )}
+            </div>
+          </div>
+        )}
 
         <div className={styles.filterSection}>
           <h3>Тип</h3>

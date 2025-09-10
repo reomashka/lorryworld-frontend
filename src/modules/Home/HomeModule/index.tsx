@@ -5,15 +5,15 @@
 
 import { Sidebar } from "@components/Sidebar";
 
-import { SearchBar } from "../SearchBar";
-import { ItemGrid } from "../ItemGrid";
+import { SearchBar } from "../components/SearchBar";
+import { ItemGrid } from "../components/ItemGrid";
 
 import { useFilteredItems } from "@modules/Home/hooks/useFilteredItems";
 
 import styles from "./Home.module.scss";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
 
-import { useFilters } from "../../hooks/useFilters";
+import { useFilters } from "../hooks/useFilters";
 import { observer } from "mobx-react-lite";
 import { ItemModal } from "@modals/ItemModal";
 import { useState } from "react";
@@ -37,6 +37,10 @@ export const Home = observer(() => {
         setSelectedRarities={(rarities) =>
           updateFilters({ selectedRarities: rarities })
         }
+        selectedProperties={filters.selectedProperties ?? []}
+        setSelectedProperties={(props) =>
+          updateFilters({ selectedProperties: props })
+        }
       />
 
       <main className={styles.itemsDisplay}>
@@ -46,6 +50,7 @@ export const Home = observer(() => {
           selectedSort={filters.selectedSort}
           setSelectedSort={(selectedSort) => updateFilters({ selectedSort })}
         />
+
         {!isLoading ? (
           <ItemGrid
             items={items}

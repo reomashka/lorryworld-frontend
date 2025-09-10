@@ -24,7 +24,7 @@ export const useInventoryItems = () => {
       mediaContact: string;
       contact: string;
       robloxUsername: string;
-      game: "MM" | "GAG";
+      game: "MM" | "GAG" | "AM";
     }) => {
       if (!userId) throw new Error("User ID is missing");
 
