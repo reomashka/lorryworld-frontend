@@ -5,21 +5,21 @@ import credit from "@assets/svg/credit.svg";
 import cart from "@assets/svg/cart_two.svg";
 
 import { Item } from "@sharedTypes/item.interface";
-import { useProfile } from "src/hooks/useProfile";
-import { userStore } from "src/store/userStore";
+import { useProfile } from "@/hooks/useProfile";
+import { userStore } from "@/store/userStore";
 import { useQuantity } from "./hooks/useQuantity";
 import { useBuyItem } from "./hooks/useBuyItem";
 
 import { observer } from "mobx-react-lite";
 
-import rarityItemMap from "src/constants/rarityItemMap";
+import rarityItemMap from "@/constants/rarityItemMap";
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { updateItemPrice as updateItemPriceApi } from "src/api/updateItemPrice";
+import { updateItemPrice as updateItemPriceApi } from "@api/updateItemPrice";
 import { toast } from "react-toastify";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
-import { typeLabels } from "src/constants/typeLabels";
+import { typeLabels } from "@/constants/typeLabels";
 
 type Props = {
   item: Item;

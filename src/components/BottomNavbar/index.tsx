@@ -6,12 +6,12 @@ import inventory from "@assets/svg/inventory.svg";
 import info from "@assets/svg/info.svg";
 import avatar from "@assets/avatar.png";
 import person from "@assets/svg/person.svg";
-import { PopupProfile } from "src/UI/PopupProfile";
+import { PopupProfile } from "@/UI/PopupProfile";
 
 import styles from "./BottomNavbar.module.scss";
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 
-import { useInventoryItems } from "src/hooks/useInventoryItems";
+import { useInventoryItems } from "@/hooks/useInventoryItems";
 import { observer } from "mobx-react-lite";
 
 export const BottomNavbar = observer(() => {

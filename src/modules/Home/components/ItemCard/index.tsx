@@ -1,5 +1,5 @@
 import { Item } from "@sharedTypes/item.interface";
-import rarityItemMap from "src/constants/rarityItemMap";
+import rarityItemMap from "@/constants/rarityItemMap";
 import styles from "./ItemCard.module.scss";
 
 import MFR from "@assets/propertiesAM/MFR.svg";

@@ -4,8 +4,8 @@ import styles from "./HelpModule.module.scss";
 
 import vk from "@assets/svg/vk.svg";
 import tg from "@assets/svg/tg.svg";
-import { helpItems } from "../constants/helpItems";
-import { HelpCard } from "../components/HelpCard";
+import { helpItems } from "./constants/helpItems";
+import { HelpCard } from "./components/HelpCard";
 
 export const HelpModule = () => {
   return (

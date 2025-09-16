@@ -6,7 +6,7 @@
 import styles from "./Inventory.module.scss";
 import { Boxes, ShieldUser } from "lucide-react";
 
-import { useInventoryItems } from "src/hooks/useInventoryItems";
+import { useInventoryItems } from "@/hooks/useInventoryItems";
 import { PurchaseItemCard } from "../PurchaseItemCard";
 import { Link, useLocation } from "react-router-dom";
 import { ItemGridSkeleton } from "@components/ItemGridSkeleton";
@@ -14,7 +14,7 @@ import { observer } from "mobx-react-lite";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { GameSelection } from "@modals/GameSelection";
 
 export const Inventory = observer(() => {

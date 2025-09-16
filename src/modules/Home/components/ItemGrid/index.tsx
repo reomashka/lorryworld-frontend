@@ -4,7 +4,7 @@ import styles from "./ItemGrid.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { observer } from "mobx-react-lite";
 
-import rarityOrder from "src/constants/rarityOrder";
+import rarityOrder from "@/constants/rarityOrder";
 import { ItemCard } from "@modules/Home/components/ItemCard";
 
 type Props = {

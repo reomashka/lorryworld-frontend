@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MainRoutes } from "./MainRoutes";
 import { ModalRoutes } from "./ModalRoutes";
 import { useEffect, useRef } from "react";
-import { userStore } from "src/store/userStore";
+import { userStore } from "@/store/userStore";
 
 const ScrollHandler = () => {
   const location = useLocation();

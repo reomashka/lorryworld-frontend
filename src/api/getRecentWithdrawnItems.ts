@@ -1,7 +1,5 @@
-export const getRecentWithdrawnItems = async (userId: string) => {
-  const res = await fetch(`/api/item/get-all-recent-withdrawn/${userId}`);
+import { http } from "@/lib/http";
 
-  if (!res.ok) throw new Error("Ошибка получения выведенных предметов");
-
-  return await res.json();
-};
+export async function getRecentWithdrawnItems(userId: string) {
+  return await http(`/api/item/get-all-recent-withdrawn/${userId}`);
+}

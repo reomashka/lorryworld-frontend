@@ -1,9 +1,9 @@
+import { http } from "@/lib/http";
 import { TypeRegisterSchema } from "@components/schemes";
 
-export const registerUser = async (data: TypeRegisterSchema) => {
-  const response = await fetch("/api/auth/register", {
+export async function fetchRegister(data: TypeRegisterSchema) {
+  return await http("/api/auth/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: JSON.stringify({
       name: data.name,
@@ -12,13 +12,4 @@ export const registerUser = async (data: TypeRegisterSchema) => {
       passwordRepeat: data.passwordReapeat,
     }),
   });
-
-  const resData = await response.json();
-
-  if (!response.ok) {
-    // Можно выбросить ошибку с сообщением от сервера
-    throw new Error(resData.message || "Ошибка регистрации");
-  }
-
-  return resData;
-};
+}

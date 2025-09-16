@@ -5,8 +5,8 @@ import styles from "./Sidebar.module.scss";
 
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { sidebarStore } from "@store/sidebarStore";
-import { typeLabels } from "src/constants/typeLabels";
-import { propertyLabels } from "src/constants/propertyLabels";
+import { typeLabels } from "@/constants/typeLabels";
+import { propertyLabels } from "@/constants/propertyLabels";
 
 interface SidebarProps {
   selectedTypes: string[];

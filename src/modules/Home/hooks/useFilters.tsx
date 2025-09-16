@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { FilterState } from "../interfaces/FilterState.interface";
-import { defaultFilters } from "src/constants/defaultFilters";
+import { defaultFilters } from "@/constants/defaultFilters";
 
 export const useFilters = () => {
   const [filters, setFilters] = useState(defaultFilters);

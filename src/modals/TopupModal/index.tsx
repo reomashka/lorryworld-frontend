@@ -3,8 +3,8 @@ import { useState } from "react";
 import { X, CreditCard, Smartphone, Coins } from "lucide-react";
 import styles from "./TopupModal.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useModalClose } from "src/hooks/useModalClose";
-import { useProfile } from "src/hooks/useProfile";
+import { useModalClose } from "@/hooks/useModalClose";
+import { useProfile } from "@/hooks/useProfile";
 import { toast } from "react-toastify";
 import { observer } from "mobx-react-lite";
 

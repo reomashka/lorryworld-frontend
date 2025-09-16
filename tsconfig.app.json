@@ -31,7 +31,10 @@
       "@assets/*": ["src/assets/*"],
       "@modals/*": ["src/modals/*"],
       "@store/*": ["src/store/*"],
-      "@const/*": ["src/const/*"]
+      "@const/*": ["src/const/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@api/*": ["src/api/*"],
+      "@/*": ["src/*"]
     }
   },
   "include": ["src"]

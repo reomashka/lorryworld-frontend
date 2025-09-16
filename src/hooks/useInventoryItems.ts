@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { toast } from "react-toastify";
-import { fetchPurchasedItems } from "src/api/fetchPurchasedItems";
-import { withDrawAllItems as withDrawAllItemsAPI } from "src/api/withDrawAllItems";
+import { fetchPurchasedItems } from "@api/fetchPurchasedItems";
+import { withDrawAllItems as withDrawAllItemsAPI } from "@api/withDrawAllItems";
 import UserItem from "@sharedTypes/userItem.interface";
 
 export const useInventoryItems = () => {

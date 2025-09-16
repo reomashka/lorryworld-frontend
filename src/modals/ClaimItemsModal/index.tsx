@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import styles from "./ClaimItemsModal.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useModalClose } from "src/hooks/useModalClose";
+import { useModalClose } from "@/hooks/useModalClose";
 import vk from "@assets/svg/vk.svg";
 import tg from "@assets/svg/tg.svg";
 import { useQuery } from "@tanstack/react-query";
-import { fetchActiveOrders } from "src/api/fetchActiveOrdersOfUser";
-import { useProfile } from "src/hooks/useProfile";
+import { fetchActiveOrders } from "@api/fetchActiveOrdersOfUser";
+import { useProfile } from "@/hooks/useProfile";
 
 interface Order {
   id: number;

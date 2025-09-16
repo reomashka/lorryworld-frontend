@@ -4,7 +4,7 @@ import styles from "./LoginModal.module.scss";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useModalClose } from "src/hooks/useModalClose";
+import { useModalClose } from "@/hooks/useModalClose";
 import { LoginSchema, TypeLoginSchema } from "@components/schemes";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useLoginMutation } from "./useLoginMutation";

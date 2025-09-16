@@ -1,11 +1,8 @@
-export const fetchProfile = async () => {
-  const res = await fetch("/api/users/profile", {
+import { http } from "@/lib/http";
+import { User } from "@sharedTypes/user.interface";
+
+export async function fetchProfile() {
+  return await http<User>("/api/users/pofile", {
     credentials: "include",
   });
-
-  if (!res.ok) {
-    throw new Error("Not authenticated");
-  }
-
-  return res.json();
-};
+}

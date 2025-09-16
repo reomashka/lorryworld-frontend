@@ -1,4 +1,4 @@
-export { OrdersModule } from "./orders/OrdersModule";
-export { StatsModule } from "./stats/StatsModule";
-export { StatsItemsModule } from "./statsItems/StatsItemsModule";
-export { NavigationGrid } from "./navigationGrid/NavigationGrid";
+export { OrdersModule } from "./Orders/OrdersModule";
+export { StatsModule } from "./Stats/StatsModule";
+export { StatsItemsModule } from "./StatsItems/StatsItemsModule";
+export { NavigationGrid } from "./NavigationGrid/NavigationGrid";

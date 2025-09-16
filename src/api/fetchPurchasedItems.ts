@@ -1,16 +1,5 @@
-export const fetchPurchasedItems = async (userId: string) => {
-  const response = await fetch(`/api/item/get-all-purchased/${userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+import { http } from "@/lib/http";
 
-  const resData = await response.json();
-
-  if (!response.ok) {
-    throw new Error(resData.message || "Ошибка получения купленных айтемов");
-  }
-
-  return resData;
-};
+export async function fetchPurchasedItems(userId: string) {
+  return await http(`/api/item/get-all-purchased/${userId}`);
+}

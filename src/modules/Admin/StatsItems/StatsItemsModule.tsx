@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStatsOfItems as fetchStatsOfItemsApi } from "src/api/fetchStatsOfItems";
+import { fetchStatsOfItems as fetchStatsOfItemsApi } from "@api/fetchStatsOfItems";
 import styles from "./StatsItemsModule.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 import { observer } from "mobx-react-lite";
 
-interface Item {
+export interface ItemStats {
   itemId: number;
   itemName: string;
   totalQuantity: number;
@@ -19,18 +19,18 @@ export const StatsItemsModule = observer(() => {
   const [period, setPeriod] = useState<Period>("day");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<ItemStats[]>({
     queryKey: ["stats-items", period],
     queryFn: () => fetchStatsOfItemsApi(period),
   });
 
   // Фильтрация по игре и по названию предмета
   const filteredData = data
-    ?.filter((item: Item) => item.game === dropdownHeaderStore.game)
-    .filter((item: Item) =>
+    ?.filter((item: ItemStats) => item.game === dropdownHeaderStore.game)
+    .filter((item: ItemStats) =>
       item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .sort((a: Item, b: Item) => b.totalQuantity - a.totalQuantity);
+    .sort((a: ItemStats, b: ItemStats) => b.totalQuantity - a.totalQuantity);
 
   // Функция экспорта в CSV
   const exportToCSV = () => {
@@ -43,7 +43,7 @@ export const StatsItemsModule = observer(() => {
       "Количество",
       "Прибыль",
     ];
-    const rows = filteredData.map((item: Item) => [
+    const rows = filteredData.map((item: ItemStats) => [
       item.itemId,
       item.itemName,
       item.game,
@@ -97,22 +97,24 @@ export const StatsItemsModule = observer(() => {
         </div>
 
         {/* Поиск по названию */}
-        <input
-          type="text"
-          placeholder="Поиск по названию..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={styles.search}
-        />
+        <div className={styles.utilsButtons}>
+          <input
+            type="text"
+            placeholder="Поиск по названию..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.search}
+          />
 
-        {/* Кнопка экспорта */}
-        <button
-          onClick={exportToCSV}
-          className={styles.exportButton}
-          disabled={!filteredData || filteredData.length === 0}
-        >
-          Экспорт в CSV
-        </button>
+          {/* Кнопка экспорта */}
+          <button
+            onClick={exportToCSV}
+            className={styles.exportButton}
+            disabled={!filteredData || filteredData.length === 0}
+          >
+            Экспорт в CSV
+          </button>
+        </div>
       </div>
 
       {isLoading && (
@@ -133,7 +135,7 @@ export const StatsItemsModule = observer(() => {
                 </tr>
               </thead>
               <tbody className={styles.tableBody}>
-                {filteredData?.map((item: Item) => (
+                {filteredData?.map((item: ItemStats) => (
                   <tr key={item.itemId} className={styles.tableRow}>
                     <td className={styles.tableCell}>{item.itemId}</td>
                     <td className={styles.tableCell}>{item.itemName}</td>

@@ -5,7 +5,7 @@
 
 import styles from "./StatsModule.module.scss";
 
-import { getAdminStats, StatsData } from "src/api/getAdminStats";
+import { getAdminStats, StatsData } from "@api/getAdminStats";
 import { useQuery } from "@tanstack/react-query";
 import { RegistrationChart } from "./components/RegistrationChart";
 import { DatePicker } from "./components/DatePicker";

@@ -8,16 +8,16 @@ import cart from "@assets/svg/cart.svg";
 import info from "@assets/svg/info.svg";
 import inventory from "@assets/svg/inventory.svg";
 
-import { PopupProfile } from "src/UI/PopupProfile";
+import { PopupProfile } from "@/UI/PopupProfile";
 
-import { useInventoryItems } from "src/hooks/useInventoryItems";
+import { useInventoryItems } from "@/hooks/useInventoryItems";
 
 import styles from "./Header.module.scss";
 import { ShieldUser, User } from "lucide-react";
 
 import { observer } from "mobx-react-lite";
-import { useProfile } from "src/hooks/useProfile";
-import { DropdownMenu } from "src/UI/DropdownMenu";
+import { useProfile } from "@/hooks/useProfile";
+import { DropdownMenu } from "@/UI/DropdownMenu";
 
 export const Header = observer(() => {
   const { isAuthenticated, user, isAdmin, isLoading, isResolved } =

@@ -1,14 +1,6 @@
-export const fetchItems = async () => {
-  const response = await fetch("/api/item/get-all", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
+import { http } from "@/lib/http";
+import { Item } from "@sharedTypes/item.interface";
 
-  const resData = await response.json();
-
-  if (!response.ok) {
-    throw new Error(resData.message || "Ошибка получения айтемов");
-  }
-
-  return resData;
-};
+export async function fetchItems() {
+  return await http<Item[]>("/api/item/get-all");
+}

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./GameSelectionModal.module.scss";
-import { useModalClose } from "src/hooks/useModalClose";
+import { useModalClose } from "@/hooks/useModalClose";
 import GAG from "@assets/gag.png";
 import MM from "@assets/mm.png";
 import AM from "@assets/AM.jpg";

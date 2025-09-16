@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { sendMsgTelegram } from "src/api/sendMsgTelegram";
+import { sendMsgTelegram } from "@api/sendMsgTelegram";
 import { Item } from "@sharedTypes/item.interface";
 
 export const buyItem = async (

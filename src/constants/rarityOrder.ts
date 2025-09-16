@@ -1,5 +1,5 @@
 const rarityOrder: Record<string, number> = {
-  // MM2
+  // MM
   Ancients: 1,
   Corrupt: 2,
   Godly: 3,

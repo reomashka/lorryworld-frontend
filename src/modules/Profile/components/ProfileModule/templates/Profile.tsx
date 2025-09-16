@@ -2,11 +2,11 @@ import { User, CreditCard } from "lucide-react";
 import avatar from "@assets/svg/avatar.svg";
 import styles from "./templates.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { toast } from "react-toastify";
 import UserItem from "@sharedTypes/userItem.interface";
 import { observer } from "mobx-react-lite";
-import rarityItemMap from "src/constants/rarityItemMap";
+import rarityItemMap from "@/constants/rarityItemMap";
 
 type Props = {
   activeTab: "profile" | "payments";

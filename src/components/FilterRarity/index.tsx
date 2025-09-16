@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import styles from "./FilterRarity.module.scss";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
-import { rarityOptions } from "src/constants/rarityOptions";
+import { rarityOptions } from "@/constants/rarityOptions";
 
 type Props = {
   selectedRarities: string[];

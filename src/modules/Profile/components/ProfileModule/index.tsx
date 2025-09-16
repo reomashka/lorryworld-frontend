@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import styles from "./Profile.module.scss";
 
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { ProfileTemplate } from "./templates/Profile";
 import { PaymentTemplate } from "./templates/Payment";
 import { observer } from "mobx-react-lite";

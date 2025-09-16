@@ -1,7 +1,7 @@
 import { User, CreditCard } from "lucide-react";
 import styles from "./templates.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useProfile } from "src/hooks/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 
 import clock from "@assets/svg/clock.svg";
 import calendar from "@assets/svg/calendar.svg";

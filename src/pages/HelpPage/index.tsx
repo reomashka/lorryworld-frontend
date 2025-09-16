@@ -1,7 +1,7 @@
 import { Header } from "@components/Header";
-import { HelpModule } from "@modules/Help";
 import { BottomNavbar } from "@components/BottomNavbar";
 import { HelpPageMetadata } from "./HelpPage.metadata";
+import { HelpModule } from "@modules/Help";
 
 export const HelpPage = () => {
   return (

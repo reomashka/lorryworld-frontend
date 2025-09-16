@@ -3,13 +3,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, User, X, Lock, Mail } from "lucide-react";
 import styles from "./RegistrationModal.module.scss";
-import { useModalClose } from "src/hooks/useModalClose";
+import { useModalClose } from "@/hooks/useModalClose";
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterSchema, TypeRegisterSchema } from "@components/schemes";
 
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-import { registerUser } from "src/api/fetchRegister";
+import { fetchRegister } from "@api/fetchRegister";
 import { userStore } from "@store/userStore";
 
 export const RegistrationModal = () => {
@@ -29,7 +29,7 @@ export const RegistrationModal = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: registerUser,
+    mutationFn: fetchRegister,
     onSuccess: () => {
       navigate("/", { replace: true });
       userStore.fetchProfile();
