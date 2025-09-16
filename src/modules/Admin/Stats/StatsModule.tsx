@@ -14,10 +14,20 @@ import { DateRange } from "react-day-picker";
 
 export const StatsModule = () => {
   const [range, setRange] = useState<DateRange | undefined>(undefined);
+  const [game, setGame] = useState<"MM" | "GAG" | "AM" | "All">("All");
+
+  const gameLabels: Record<string, string> = {
+    All: "Все игры",
+    MM: "Murder Mystery",
+    GAG: "Grow A Garden",
+    AM: "Adopt Me",
+  };
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { data, isLoading } = useQuery<StatsData>({
-    queryKey: ["admin-stats"],
-    queryFn: getAdminStats,
+    queryKey: ["admin-stats", game],
+    queryFn: () => getAdminStats(game),
   });
 
   const formatCurrency = (amount: number) =>
@@ -33,6 +43,70 @@ export const StatsModule = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.dropdown}>
+        <button
+          className={styles.toggleButton}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span>{gameLabels[game]}</span>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 4.5L6 7.5L9 4.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        {isOpen && (
+          <ul className={styles.dropdownList}>
+            <li
+              className={styles.dropdownItem}
+              onClick={() => {
+                setGame("All");
+                setIsOpen(false);
+              }}
+            >
+              Все игры
+            </li>
+            <li
+              className={styles.dropdownItem}
+              onClick={() => {
+                setGame("MM");
+                setIsOpen(false);
+              }}
+            >
+              Murder Mystery
+            </li>
+            <li
+              className={styles.dropdownItem}
+              onClick={() => {
+                setGame("GAG");
+                setIsOpen(false);
+              }}
+            >
+              Grow A Garden
+            </li>
+            <li
+              className={styles.dropdownItem}
+              onClick={() => {
+                setGame("AM");
+                setIsOpen(false);
+              }}
+            >
+              Adopt Me
+            </li>
+          </ul>
+        )}
+      </div>
+
       <div className={styles.header}>
         <h1 className={styles.title}>Статистика продаж</h1>
         <p className={styles.subtitle}>Заработано/продано</p>
@@ -70,10 +144,6 @@ export const StatsModule = () => {
                 </span>
               )}
             </div>
-            {/* <div className={styles.cardChange}>
-              <span className={styles.positive}>+12.5%</span>
-              <span className={styles.changeText}>от вчера</span>
-            </div> */}
           </div>
         </div>
 

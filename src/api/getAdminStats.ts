@@ -16,8 +16,8 @@ export interface StatsData {
   };
 }
 
-export const getAdminStats = async () => {
-  const res = await fetch("/api/admin/stats", {
+export const getAdminStats = async (game: string): Promise<StatsData> => {
+  const res = await fetch(`/api/admin/stats/${game}`, {
     method: "GET",
   });
 
