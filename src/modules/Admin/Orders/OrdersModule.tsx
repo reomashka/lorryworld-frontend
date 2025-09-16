@@ -1,33 +1,57 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./OrdersModule.module.scss";
 import { toast } from "react-toastify";
 import { Order } from "./types/order.interface";
 import { OrderCard } from "./components/OrderCard";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { fetchNotIssuedOrders, updateIssuedOrders } from "./api/orders";
 
 export const OrdersModule = () => {
-  const [orders, setOrders] = useState([]);
   const [modifiedOrders, setModifiedOrders] = useState<Record<string, boolean>>(
     {}
   );
   const [searchValue, setSearchValue] = useState("");
 
-  const filteredOrders = orders.filter((order: Order) => {
-    const value = searchValue.toLowerCase();
-    if (!value) return true;
-
-    return (
-      order.user.robloxUsername.toLowerCase().includes(value) ||
-      order.user.displayName.toLowerCase().includes(value) ||
-      order.orderNumber.toString().includes(value) ||
-      order.user.contact.toLowerCase().includes(value)
-    );
+  const {
+    data: orders,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["not-issued-orders"],
+    queryFn: fetchNotIssuedOrders,
+    refetchInterval: 60_000,
   });
 
-  useEffect(() => {
-    fetch("/api/order/not-issued")
-      .then((res) => res.json())
-      .then((data) => setOrders(data));
-  }, []);
+  const mutation = useMutation({
+    mutationFn: updateIssuedOrders,
+    onSuccess: async () => {
+      toast.success("Данные сохранены");
+      setModifiedOrders({});
+      await refetch();
+    },
+    onError: () => {
+      toast.error("Ошибка при сохранении");
+    },
+  });
+
+  const filteredOrders = orders?.filter((order: Order) => {
+    const value = searchValue.trim().toLowerCase();
+    if (!value) return true;
+
+    const fields = [
+      order.orderNumber.toString(),
+      order.user.robloxUsername,
+      order.user.displayName,
+      order.user.contact,
+    ];
+
+    // orderNumber важнее остальных
+    if (fields[0]?.toLowerCase().includes(value)) return true;
+
+    return fields
+      .slice(1)
+      .some((field) => field?.toLowerCase().includes(value));
+  });
 
   function toggleIssued(orderId: number) {
     setModifiedOrders((prev) => ({
@@ -47,28 +71,14 @@ export const OrdersModule = () => {
       return;
     }
 
-    try {
-      const res = await fetch("/api/order/update-issued", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updates),
-      });
-
-      if (res.ok) {
-        toast.success("Данные сохранены");
-        setModifiedOrders({});
-        const fresh = await fetch("/api/order/not-issued");
-        const data = await fresh.json();
-        setOrders(data);
-      } else {
-        toast.error("Ошибка при сохранении");
-      }
-    } catch {
-      toast.error("Ошибка сети");
-    }
+    mutation.mutate(updates);
   }
 
   const isSaveDisabled = Object.keys(modifiedOrders).length === 0;
+
+  if (isLoading) {
+    return <div>Загрузка...</div>;
+  }
 
   return (
     <>
