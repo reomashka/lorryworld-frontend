@@ -23,7 +23,7 @@ export const ClaimItemsModal = () => {
   const { user } = useProfile();
   const userId = user?.id;
 
-  const { data: orders } = useQuery({
+  const { data: orders } = useQuery<Order[]>({
     queryKey: ["orders", userId],
     queryFn: () => fetchActiveOrders(userId!),
     enabled: !!userId,
