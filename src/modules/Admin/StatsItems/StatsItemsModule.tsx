@@ -25,14 +25,12 @@ export const StatsItemsModule = observer(() => {
   });
 
   // Фильтрация по игре и по названию предмета
-  const filteredData = Array.isArray(data)
-    ? data
-        .filter((item: ItemStats) => item.game === dropdownHeaderStore.game)
-        .filter((item: ItemStats) =>
-          item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        .sort((a: ItemStats, b: ItemStats) => b.totalQuantity - a.totalQuantity)
-    : [];
+  const filteredData = data
+    ?.filter((item: ItemStats) => item.game === dropdownHeaderStore.game)
+    .filter((item: ItemStats) =>
+      item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a: ItemStats, b: ItemStats) => b.totalQuantity - a.totalQuantity);
 
   // Функция экспорта в CSV
   const exportToCSV = () => {
