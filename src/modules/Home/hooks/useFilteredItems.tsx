@@ -35,14 +35,6 @@ export const useFilteredItems = (filters: FilterState) => {
         (item.property !== undefined &&
           filters.selectedProperties.includes(item.property));
 
-      console.log(item.name, {
-        matchesType,
-        matchesMinPrice,
-        matchesMaxPrice,
-        matchesSearchTerm,
-        matchesRarity,
-        matchesProperty,
-      });
       return (
         matchesType &&
         matchesMinPrice &&
@@ -59,7 +51,6 @@ export const useFilteredItems = (filters: FilterState) => {
       return 0;
     });
   }, [items, filters]);
-  console.log("all items:", filteredAndSortedItems);
 
   return {
     items: filteredAndSortedItems,

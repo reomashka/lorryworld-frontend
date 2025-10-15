@@ -21,9 +21,6 @@ export const ItemCard = ({
 }) => {
   const gameKey = item.game;
   const rarityKey = item.rarity as keyof (typeof rarityItemMap)[typeof gameKey];
-  {
-    console.log(item.property);
-  }
 
   return (
     <div className={styles.itemCard} onClick={() => onClick(item)}>

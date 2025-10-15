@@ -18,129 +18,150 @@ import { useProfile } from "@/hooks/useProfile";
 import { GameSelection } from "@modals/GameSelection";
 
 export const Inventory = observer(() => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalShownOnce, setModalShownOnce] = useState(false);
-  const { items, isDisabled } = useInventoryItems();
-  const location = useLocation();
-  const { user } = useProfile();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalShownOnce, setModalShownOnce] = useState(false);
+    const { items, isDisabled } = useInventoryItems();
+    const location = useLocation();
+    const { user } = useProfile();
 
-  // Фильтрация товаров с status PURCHASED
-  const purchasedItemsByGame = items.filter(
-    (item) =>
-      item.status === "PURCHASED" && item.item.game == dropdownHeaderStore.game
-  );
-  const hasPurchasedItemsByGame = purchasedItemsByGame.length > 0;
+    // Фильтрация товаров с status PURCHASED
+    const purchasedItemsByGame = items.filter(
+        (item) =>
+            item.status === "PURCHASED" &&
+            item.item.game == dropdownHeaderStore.game
+    );
+    const hasPurchasedItemsByGame = purchasedItemsByGame.length > 0;
 
-  // Фильтрация товаров, которые либо PURCHASED, либо не выданы (isIssued === false)
-  const waitingItems = items.filter(
-    (item) => item.status === "WITHDRAWN" && item.isIssued === false
-  );
-  const hasNotIssued = waitingItems.length > 0;
+    // Фильтрация товаров, которые либо PURCHASED, либо не выданы (isIssued === false)
+    const waitingItems = items.filter(
+        (item) => item.status === "WITHDRAWN" && item.isIssued === false
+    );
+    const hasNotIssued = waitingItems.length > 0;
 
-  const { data: activeGames, isLoading } = useQuery({
-    queryKey: ["activeGames"],
-    queryFn: async () => {
-      const res = await fetch(`/api/item/active-games?userId=${user?.id}`);
-      return res.json();
-    },
-  });
+    const { data: activeGames, isLoading } = useQuery({
+        queryKey: ["activeGames"],
+        queryFn: async () => {
+            const res = await fetch(
+                `/api/item/active-games?userId=${user?.id}`
+            );
+            return res.json();
+        },
+    });
 
-  useEffect(() => {
-    if (!isLoading && activeGames?.games?.length && !modalShownOnce) {
-      if (activeGames.games.length === 1) {
-        dropdownHeaderStore.select(activeGames.games[0]);
-        setModalShownOnce(true);
-      } else if (activeGames.games.length > 1) {
-        setIsModalOpen(true);
-        setModalShownOnce(true);
-      }
-    }
-  }, [activeGames, isLoading, modalShownOnce]);
+    useEffect(() => {
+        if (!isLoading && activeGames?.games?.length && !modalShownOnce) {
+            if (activeGames.games.length === 1) {
+                dropdownHeaderStore.select(activeGames.games[0]);
+                setModalShownOnce(true);
+            } else if (activeGames.games.length > 1) {
+                setIsModalOpen(true);
+                setModalShownOnce(true);
+            }
+        }
+    }, [activeGames, isLoading, modalShownOnce]);
 
-  return (
-    <div className={styles.profilePage}>
-      {isModalOpen && (
-        <GameSelection
-          onSelect={(game) => {
-            dropdownHeaderStore.select(game);
-          }}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
-
-      <main className={styles.main}>
-        <div className={styles.sidebar}>
-          <div className={styles.sidebarTabs}>
-            <Link
-              to="/withdraw"
-              state={{
-                backgroundLocation:
-                  location.state?.backgroundLocation || location,
-              }}
-              onClick={(e) => {
-                if (isDisabled || !hasPurchasedItemsByGame) {
-                  e.preventDefault();
-                }
-              }}
-              className={`${styles.sidebarTab} ${
-                isDisabled || !hasPurchasedItemsByGame ? styles.disabled : ""
-              }`}
-            >
-              <Boxes />
-              Вывести все предметы
-            </Link>
-            {hasNotIssued && (
-              <Link
-                to="/claim-items"
-                state={{
-                  backgroundLocation:
-                    location.state?.backgroundLocation || location,
-                }}
-                className={`${styles.sidebarTab}`}
-              >
-                <ShieldUser />
-                Связь с админом
-              </Link>
+    return (
+        <div className={styles.profilePage}>
+            {isModalOpen && (
+                <GameSelection
+                    onSelect={(game) => {
+                        dropdownHeaderStore.select(game);
+                    }}
+                    onClose={() => setIsModalOpen(false)}
+                />
             )}
-          </div>
 
-          {/* ВЕРХ: только PURCHASED без надписи */}
-          {isLoading ? (
-            Array.from({ length: 4 }).map((_, index) => (
-              <ItemGridSkeleton key={index} />
-            ))
-          ) : (
-            <div className={styles.purchaseGrid}>
-              {purchasedItemsByGame.length > 0 ? (
-                purchasedItemsByGame
-                  .filter((item) => item.item.game == dropdownHeaderStore.game)
-                  .map((item, index) => (
-                    <PurchaseItemCard item={item} key={index} />
-                  ))
-              ) : (
-                <p className={styles.noData}>Ваш инвентарь пуст</p>
-              )}
-            </div>
-          )}
+            <main className={styles.main}>
+                <div className={styles.sidebar}>
+                    <div className={styles.sidebarTabs}>
+                        <Link
+                            to="/withdraw"
+                            state={{
+                                backgroundLocation:
+                                    location.state?.backgroundLocation ||
+                                    location,
+                            }}
+                            onClick={(e) => {
+                                if (isDisabled || !hasPurchasedItemsByGame) {
+                                    e.preventDefault();
+                                }
+                            }}
+                            className={`${styles.sidebarTab} ${
+                                isDisabled || !hasPurchasedItemsByGame
+                                    ? styles.disabled
+                                    : ""
+                            }`}
+                        >
+                            <Boxes />
+                            Вывести все предметы
+                        </Link>
+                        {hasNotIssued && (
+                            <Link
+                                to="/claim-items"
+                                state={{
+                                    backgroundLocation:
+                                        location.state?.backgroundLocation ||
+                                        location,
+                                }}
+                                className={`${styles.sidebarTab}`}
+                            >
+                                <ShieldUser />
+                                Связь с админом
+                            </Link>
+                        )}
+                    </div>
 
-          {/* НИЗ: товары, которые ждут выдачи + надпись */}
-          {hasNotIssued && <p className={styles.notIssuedItems}>Ждут выдачи</p>}
+                    {/* ВЕРХ: только PURCHASED без надписи */}
+                    {isLoading ? (
+                        Array.from({ length: 4 }).map((_, index) => (
+                            <ItemGridSkeleton key={index} />
+                        ))
+                    ) : (
+                        <div className={styles.purchaseGrid}>
+                            {purchasedItemsByGame.length > 0 ? (
+                                purchasedItemsByGame
+                                    .filter(
+                                        (item) =>
+                                            item.item.game ==
+                                            dropdownHeaderStore.game
+                                    )
+                                    .map((item, index) => (
+                                        <PurchaseItemCard
+                                            item={item}
+                                            key={index}
+                                        />
+                                    ))
+                            ) : (
+                                <p className={styles.noData}>
+                                    Ваш инвентарь пуст
+                                </p>
+                            )}
+                        </div>
+                    )}
 
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, index) => (
-                <ItemGridSkeleton key={index} />
-              ))
-            : hasNotIssued && (
-                <>
-                  <div className={styles.purchaseGrid}>
-                    {waitingItems.map((item, index) => (
-                      <PurchaseItemCard item={item} key={"waiting-" + index} />
-                    ))}
-                  </div>
-                </>
-              )}
+                    {/* НИЗ: товары, которые ждут выдачи + надпись */}
+                    {hasNotIssued && (
+                        <p className={styles.notIssuedItems}>Ждут выдачи</p>
+                    )}
+
+                    {isLoading
+                        ? Array.from({ length: 4 }).map((_, index) => (
+                              <ItemGridSkeleton key={index} />
+                          ))
+                        : hasNotIssued && (
+                              <>
+                                  <div className={styles.purchaseGrid}>
+                                      {waitingItems.map((item, index) => (
+                                          <PurchaseItemCard
+                                              item={item}
+                                              key={"waiting-" + index}
+                                          />
+                                      ))}
+                                  </div>
+                              </>
+                          )}
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 });
