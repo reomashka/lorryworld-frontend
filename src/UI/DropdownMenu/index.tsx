@@ -62,7 +62,7 @@ export const DropdownMenu = observer(() => {
                         onClick={() => store.select("GAG")}
                     >
                         <img className={styles.icon} src={GAG} alt="" /> GROW A
-                        GARDEN
+                        GARDEN 2
                     </li>{" "}
                     <li
                         className={styles.dropdownItem}
