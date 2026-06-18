@@ -13,15 +13,14 @@ import { PopupProfile } from "@/UI/PopupProfile";
 import { useInventoryItems } from "@/hooks/useInventoryItems";
 
 import styles from "./Header.module.scss";
-import { ShieldUser, User } from "lucide-react";
+import { User } from "lucide-react";
 
 import { observer } from "mobx-react-lite";
 import { useProfile } from "@/hooks/useProfile";
 import { DropdownMenu } from "@/UI/DropdownMenu";
 
 export const Header = observer(() => {
-    const { isAuthenticated, user, isAdmin, isLoading, isResolved } =
-        useProfile();
+    const { isAuthenticated, user, isLoading, isResolved } = useProfile();
 
     const { purchasedItems } = useInventoryItems();
 
