@@ -108,19 +108,19 @@ export const Header = observer(() => {
                             <img src={info} alt="" />
                             ПОМОЩЬ
                         </NavLink>
-                        {isAdmin && (
-                            <NavLink
-                                className={({ isActive }) =>
-                                    `${styles.navButton} ${
-                                        isActive ? styles.navButtonActive : ""
-                                    }`
-                                }
-                                to="/admin"
-                            >
-                                <ShieldUser />
-                                {/* АДМИНКА */}
-                            </NavLink>
-                        )}
+                        {/* {isAdmin && (
+              <NavLink
+                className={({ isActive }) =>
+                  `${styles.navButton} ${
+                    isActive ? styles.navButtonActive : ""
+                  }`
+                }
+                to="/admin"
+              >
+                <ShieldUser />
+                АДМИНКА
+              </NavLink>
+            )} */}
                         <DropdownMenu />
                     </nav>
                 </div>
