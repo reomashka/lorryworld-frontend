@@ -14,7 +14,7 @@ export const TopupModal = observer(() => {
 
   const [amount, setAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<"sbp" | "card" | null>(
-    null
+    null,
   );
   const { user } = useProfile();
 
@@ -34,6 +34,7 @@ export const TopupModal = observer(() => {
         body: JSON.stringify({
           userId: user.id,
           amount: Number(amount),
+          paymentMethod: selectedMethod,
         }),
       });
 
