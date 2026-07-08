@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import styles from "./GameSelectionModal.module.scss";
 import { useModalClose } from "@/hooks/useModalClose";
-import GAG from "@assets/gag.png";
+
 import MM from "@assets/mm.png";
 // import AM from "@assets/AM.jpg";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 interface GameSelectionProps {
-  onSelect: (game: "MM" | "GAG" | "AM") => void;
+  onSelect: (game: "MM" | "AM") => void;
   onClose: () => void;
 }
 
@@ -15,7 +15,7 @@ export const GameSelection = ({ onSelect, onClose }: GameSelectionProps) => {
   const { handleOverlayClick } = useModalClose();
   const modalRef = useRef<HTMLDivElement>(null);
 
-  function setGame(game: "MM" | "GAG" | "AM") {
+  function setGame(game: "MM" | "AM") {
     dropdownHeaderStore.select(game);
     onSelect(game);
     onClose();
@@ -39,10 +39,10 @@ export const GameSelection = ({ onSelect, onClose }: GameSelectionProps) => {
               <span>Murder Mystery 2</span>
             </button>
 
-            <button onClick={() => setGame("GAG")}>
+            {/* <button onClick={() => setGame("GAG")}>
               <img src={GAG} alt="GAG" />
               <span>Grow a Garden 2</span>
-            </button>
+            </button> */}
             {/* 
                         <button onClick={() => setGame("AM")}>
                             <img src={AM} alt="AM" />

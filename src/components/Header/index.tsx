@@ -118,7 +118,7 @@ export const Header = observer(() => {
                 АДМИНКА
               </NavLink>
             )}
-            {/* <DropdownMenu /> */}
+            <DropdownMenu />
           </nav>
         </div>
 
