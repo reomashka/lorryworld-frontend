@@ -83,7 +83,7 @@ export const TopupModal = observer(() => {
                 />
               </div>
             </div>
-            <span className={styles.commission}>Комиссия 3.5%</span>
+            <span className={styles.commission}>Комиссия 3%</span>
           </div>
 
           {/* <div className={styles.formGroup}>
