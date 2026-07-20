@@ -11,98 +11,83 @@ import { getAllSellers } from "@api/getAllSellers";
 import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
 
 interface Order {
-    id: number;
-    userId: string;
-    orderNumber: number;
-    isIssued: boolean;
-    createdAt: string;
+  id: number;
+  userId: string;
+  orderNumber: number;
+  isIssued: boolean;
+  createdAt: string;
 }
 
 export interface Seller {
-    id: number;
-    username: string;
-    game: string;
+  id: number;
+  username: string;
+  game: string;
 }
 
 export const ClaimItemsModal = () => {
-    const { handleOverlayClick } = useModalClose();
-    const modalRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
-    const { user } = useProfile();
-    const userId = user?.id;
-    const selectedGame = dropdownHeaderStore.game;
+  const { handleOverlayClick } = useModalClose();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const { user } = useProfile();
+  const userId = user?.id;
+  const selectedGame = dropdownHeaderStore.game;
 
-    const { data: orders } = useQuery<Order[]>({
-        queryKey: ["orders", userId],
-        queryFn: () => fetchActiveOrders(userId!),
-        enabled: !!userId,
-    });
+  const { data: orders } = useQuery<Order[]>({
+    queryKey: ["orders", userId],
+    queryFn: () => fetchActiveOrders(userId!),
+    enabled: !!userId,
+  });
 
-    const { data: sellers } = useQuery<Seller[]>({
-        queryKey: ["sellers"],
-        queryFn: getAllSellers,
-    });
+  const { data: sellers } = useQuery<Seller[]>({
+    queryKey: ["sellers"],
+    queryFn: getAllSellers,
+  });
 
-    const sellerUsername =
-        sellers?.find((seller) => seller.game === selectedGame)?.username ||
-        "gingermoor";
+  return (
+    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      <div className={styles.modal} ref={modalRef}>
+        <button
+          className={styles.closeButton}
+          onClick={() => navigate("/")}
+          aria-label="Close modal"
+        >
+          ×
+        </button>
+        <div className={styles.modalContent}>
+          <h1>ПОЛУЧЕНИЕ ТОВАРА</h1>
+          <p>Пожалуйста, свяжитесь с админом, чтобы получить предметы</p>
 
-    return (
-        <div className={styles.modalOverlay} onClick={handleOverlayClick}>
-            <div className={styles.modal} ref={modalRef}>
-                <button
-                    className={styles.closeButton}
-                    onClick={() => navigate("/")}
-                    aria-label="Close modal"
-                >
-                    ×
-                </button>
-                <div className={styles.modalContent}>
-                    <h1>ПОЛУЧЕНИЕ ТОВАРА</h1>
-                    <p>
-                        Пожалуйста, свяжитесь с админом, чтобы получить предметы
-                    </p>
-
-                    <>
-                        <p>Ваши заказы</p>
-                        <div className={styles.ordersContainer}>
-                            {orders?.map((order: Order) => (
-                                <div
-                                    className={styles.orderCard}
-                                    key={order.id}
-                                >
-                                    <div className={styles.orderNumber}>
-                                        {String(order.orderNumber).padStart(
-                                            3,
-                                            "0"
-                                        )}
-                                    </div>
-                                    <div className={styles.orderStatus}>
-                                        {order.isIssued ? "Выдан" : "Ожидает"}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </>
-
-                    <a
-                        href={`https://t.me/${sellerUsername}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${styles.socialButton} ${styles["socialButton--tg"]}`}
-                    >
-                        <img src={tg || "/placeholder.svg"} alt="Telegram" />
-                        НАПИСАТЬ В TELEGRAM
-                    </a>
-                    <a
-                        href="https://vk.com/lorryworldgg"
-                        className={styles.socialButton}
-                    >
-                        <img src={vk || "/placeholder.svg"} alt="VK" />
-                        НАПИСАТЬ В VK
-                    </a>
+          <>
+            <p>Ваши заказы</p>
+            <div className={styles.ordersContainer}>
+              {orders?.map((order: Order) => (
+                <div className={styles.orderCard} key={order.id}>
+                  <div className={styles.orderNumber}>
+                    {String(order.orderNumber).padStart(3, "0")}
+                  </div>
+                  <div className={styles.orderStatus}>
+                    {order.isIssued ? "Выдан" : "Ожидает"}
+                  </div>
                 </div>
+              ))}
             </div>
+          </>
+
+          <a
+            href={`https://t.me/mayesers`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${styles.socialButton} ${styles["socialButton--tg"]}`}
+          >
+            <img src={tg || "/placeholder.svg"} alt="Telegram" />
+            НАПИСАТЬ В TELEGRAM
+          </a>
+          <a href="https://vk.com/lorryworldgg" className={styles.socialButton}>
+            <img src={vk || "/placeholder.svg"} alt="VK" />
+            НАПИСАТЬ В VK
+          </a>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
