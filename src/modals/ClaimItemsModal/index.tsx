@@ -7,9 +7,6 @@ import tg from "@assets/svg/tg.svg";
 import { useQuery } from "@tanstack/react-query";
 import { fetchActiveOrders } from "@api/fetchActiveOrdersOfUser";
 import { useProfile } from "@/hooks/useProfile";
-import { getAllSellers } from "@api/getAllSellers";
-import { dropdownHeaderStore } from "@store/dropdownHeaderStore";
-
 interface Order {
   id: number;
   userId: string;
@@ -30,17 +27,11 @@ export const ClaimItemsModal = () => {
   const navigate = useNavigate();
   const { user } = useProfile();
   const userId = user?.id;
-  const selectedGame = dropdownHeaderStore.game;
 
   const { data: orders } = useQuery<Order[]>({
     queryKey: ["orders", userId],
     queryFn: () => fetchActiveOrders(userId!),
     enabled: !!userId,
-  });
-
-  const { data: sellers } = useQuery<Seller[]>({
-    queryKey: ["sellers"],
-    queryFn: getAllSellers,
   });
 
   return (
