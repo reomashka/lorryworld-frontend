@@ -65,7 +65,7 @@ export const ClaimItemsModal = () => {
           </>
 
           <a
-            href={`https://t.me/mayesers`}
+            href={`https://t.me/gingermoor`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.socialButton} ${styles["socialButton--tg"]}`}
